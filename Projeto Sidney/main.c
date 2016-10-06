@@ -70,20 +70,32 @@ void mAviaoDir(AVIOES *aviao, int tela_x) {                      //movimenta nav
 		}
 	}
 }
+int sorteiaDestino(void) {
+	int dificuldadade = 1 + (rand() % 3), destino;
+	
+	if (dificuldadade == 1)
+		destino = rand() % 61;
+	else if (dificuldadade == 2)
+		destino = 61 + (rand() % 59);
+	else if (dificuldadade == 3)
+		destino = 120 + (rand() % 58);
+
+	return destino;
+}
 
 int main(void) {
 
 	bool done = false, redraw = false, gameOver = false;
 	const int FPS = 60;
-	int xOff = 0, yOff = 0;
+	int xOff = 0, yOff = 0, destino;
 
 	AVIOES aviao;
+	DESTINOS paises[178];
 
 	ALLEGRO_DISPLAY *janela = NULL;
 	ALLEGRO_EVENT_QUEUE *fila_de_eventos = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_FONT *fonte = NULL;
-
 
 	if (!al_init()) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar Allegro!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
@@ -137,7 +149,10 @@ int main(void) {
 		return -1;
 	}
 
+	srand(time(NULL));
 	iniciaAviao(&aviao);
+	iniciaDestinos(paises);
+	destino = sorteiaDestino();
 
 	fonte = al_load_font("fonte.ttf", 27, 0);
 	if (!fonte) {
@@ -253,7 +268,8 @@ int main(void) {
 			if (!gameOver) {
 				MapDrawBG(xOff, yOff, 0, 0, WIDTH, HEIGHT);
 				desenhaAviao(aviao);
-				al_draw_text(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "Brasil");
+				al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, 
+					ALLEGRO_ALIGN_CENTRE, "%c", paises[destino].nome);
 			}
 
 			al_flip_display();
