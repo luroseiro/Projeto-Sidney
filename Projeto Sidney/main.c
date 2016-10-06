@@ -7,40 +7,67 @@
 #include "objetos.h"
 #include "mappy_A5.h"
 
-const int WIDTH = 640;
-const int HEIGHT = 480;
+const int WIDTH = 720;
+const int HEIGHT = 560;
 enum KEYS{UP, DOWN, LEFT, RIGHT, SPACE};
 bool keys[5] = {false, false, false, false, false};
 
 void iniciaAviao(AVIOES *aviao) {
 	aviao->x = WIDTH / 2;
 	aviao->y = HEIGHT / 2;
-	aviao->velocidade = 3.5;
+	aviao->velocidade = 1.85;
 	aviao->combustivel = 100;
 	aviao->placar = 0;
 }
-void mAviaoCima(AVIOES *aviao) {                      //movimenta nave pra cima
+void desenhaAviao(AVIOES aviao) {                      //desenha nave
+	al_draw_filled_rectangle(aviao.x, aviao.y - 9, aviao.x + 10, aviao.y - 7, al_map_rgb(255, 0, 0));
+	al_draw_filled_rectangle(aviao.x, aviao.y + 9, aviao.x + 10, aviao.y + 7, al_map_rgb(255, 0, 0));
+
+	al_draw_filled_triangle(aviao.x - 12, aviao.y - 17, aviao.x + 12, aviao.y, aviao.x - 12, aviao.y + 17, al_map_rgb(0, 255, 0));
+	al_draw_filled_rectangle(aviao.x - 12, aviao.y - 2, aviao.x + 15, aviao.y + 2, al_map_rgb(0, 0, 255));
+}
+void mAviaoCima(AVIOES *aviao, int tela_y) {                      //movimenta nave pra cima
 	aviao->y -= aviao->velocidade;
-	if (aviao->y < 0) {
-		aviao->y = HEIGHT;
+	if (aviao->y < 199) {
+		if (tela_y == 0) {
+			aviao->y -= aviao->velocidade;
+		}
+		else {
+			aviao->y = 199;
+		}
 	}
 }
-void mAviaoBaixo(AVIOES *aviao) {                      //movimenta nave pra baixo
+void mAviaoBaixo(AVIOES *aviao, int tela_y) {                      //movimenta nave pra baixo
 	aviao->y += aviao->velocidade;
-	if (aviao->y > HEIGHT) {
-		aviao->y = 0;
+	if (aviao->y > HEIGHT - 199) {
+		if (tela_y == mapheight * mapblockheight - HEIGHT) {
+			aviao->y += aviao->velocidade;
+		}
+		else {
+			aviao->y = HEIGHT - 199;
+		}
 	}
 }
-void mAviaoEsq(AVIOES *aviao) {                      //movimenta nave pra esquerda
+void mAviaoEsq(AVIOES *aviao, int tela_x) {                      //movimenta nave pra esquerda
 	aviao->x -= aviao->velocidade;
-	if (aviao->x < 0) {
-		aviao->x = WIDTH;
+	if (aviao->x < 199) {
+		if (tela_x == 0) {
+			aviao->x -= aviao->velocidade;
+		}
+		else {
+			aviao->x = 199;
+		}
 	}
 }
-void mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direita
+void mAviaoDir(AVIOES *aviao, int tela_x) {                      //movimenta nave pra direita
 	aviao->x += aviao->velocidade;
-	if (aviao->x > WIDTH) {
-		aviao->x = 0;
+	if (aviao->x > WIDTH - 199) {
+		if (tela_x == mapwidth * mapblockwidth - WIDTH) {
+			aviao->x += aviao->velocidade;
+		}
+		else {
+			aviao->x = WIDTH - 199;
+		}
 	}
 }
 
@@ -56,7 +83,6 @@ int main(void) {
 	ALLEGRO_EVENT_QUEUE *fila_de_eventos = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_FONT *fonte = NULL;
-	ALLEGRO_BITMAP *aviao2 = NULL;
 
 
 	if (!al_init()) {
@@ -96,10 +122,9 @@ int main(void) {
 		return -1;
 	}
 
-	if (MapLoad("mapa.FMP", 1)) {
+	if (MapLoad("mapa.FMP", 1)) {                        //testa mapa
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar mapa!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 	}
-	aviao2 = al_load_bitmap("aviao2.png");
 
 	fila_de_eventos = al_create_event_queue();
 	if (!fila_de_eventos) {
@@ -137,10 +162,31 @@ int main(void) {
 			done = true;
 		}
 		else if (evento.type == ALLEGRO_EVENT_TIMER) {
-			xOff += keys[RIGHT] * 10;
-			xOff -= keys[LEFT] * 10;
-			yOff += keys[DOWN] * 10;
-			yOff -= keys[UP] * 10;
+			if (keys[UP]) {
+				mAviaoCima(&aviao, yOff);
+			}
+			if (keys[DOWN]) {
+				mAviaoBaixo(&aviao, yOff);
+			}
+			if (keys[LEFT]) {
+				mAviaoEsq(&aviao, xOff);
+			}
+			if (keys[RIGHT]) {
+				mAviaoDir(&aviao, xOff);
+			}
+		
+			if (aviao.x > WIDTH - 200) {                       // arrumar
+				xOff += keys[RIGHT] * 1.75;
+			}
+			if (aviao.x < 200) {
+				xOff -= keys[LEFT] * 1.75;
+			}
+			if (aviao.y > HEIGHT - 200) {
+				yOff += keys[DOWN] * 1.75;
+			}
+			if (aviao.y < 200) {
+				yOff -= keys[UP] * 1.75;
+			}
 
 			if (xOff < 0) {
 				xOff = 0;
@@ -148,23 +194,11 @@ int main(void) {
 			if (yOff < 0) {
 				yOff = 0;
 			}
-			if (xOff >(mapwidth * mapblockwidth - WIDTH)) {
+			if (xOff > (mapwidth * mapblockwidth - WIDTH)) {
 				xOff = mapwidth * mapblockwidth - WIDTH;
 			}
-			if (yOff >(mapheight * mapblockheight - HEIGHT)) {
+			if (yOff > (mapheight * mapblockheight - HEIGHT)) {
 				yOff = mapheight * mapblockheight - HEIGHT;
-			}
-			if (keys[UP]) {
-				mAviaoCima(&aviao);
-			}
-			if (keys[DOWN]) {
-				mAviaoBaixo(&aviao);
-			}
-			if (keys[LEFT]) {
-				mAviaoEsq(&aviao);
-			}
-			if (keys[RIGHT]) {
-				mAviaoDir(&aviao);
 			}
 
 			redraw = true;
@@ -218,7 +252,7 @@ int main(void) {
 
 			if (!gameOver) {
 				MapDrawBG(xOff, yOff, 0, 0, WIDTH, HEIGHT);
-				al_draw_bitmap(aviao2, WIDTH / 2, HEIGHT / 2, 0);
+				desenhaAviao(aviao);
 				al_draw_text(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "Brasil");
 			}
 
@@ -227,7 +261,6 @@ int main(void) {
 		}
 	}
 
-	al_destroy_bitmap(aviao2);
 	MapFreeMem();
 	al_destroy_event_queue(fila_de_eventos);
 	al_destroy_display(janela);
