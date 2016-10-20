@@ -317,242 +317,320 @@ void iniciaDestinos(int destino) {
 		pais.localizacao_x = 939;
 		pais.localizacao_y = 267;
 		break;
-
 	//Dificuldade 2
+	case 61:
 	DESTINOS bahamas;
 		bahamas.nome = "Bahamas";
 		bahamas.localizacao_x = 452;
 		bahamas.localizacao_y = 495;
 		bahamas.dificuldade = 2;
 		bahamas.sorteio = 1;
+		break;
+	case 62:
 	DESTINOS elSalvador;
 		elSalvador.nome = "El Salvador";
 		elSalvador.localizacao_x = 387;
 		elSalvador.localizacao_y = 558;
 		elSalvador.dificuldade = 2;
 		elSalvador.sorteio = 2;
+		break;
+	case 63:
 	DESTINOS guatemala;
 		guatemala.nome = "Guatemala";
 		guatemala.localizacao_x = 380;
 		guatemala.localizacao_y = 549;
 		guatemala.dificuldade = 2;
 		guatemala.sorteio = 3;
+		break;
+	case 64:
 	DESTINOS nicaragua;
 		nicaragua.nome = "Nicarágua";
 		nicaragua.localizacao_x = 400;
 		nicaragua.localizacao_y = 567;
 		nicaragua.dificuldade = 2;
 		nicaragua.sorteio = 4;
+		break;
+	case 65:
 	DESTINOS panama;
 		panama.nome = "Panamá";
 		panama.localizacao_x = 419;
 		panama.localizacao_y = 591;
 		panama.dificuldade = 2;
 		panama.sorteio = 5;
+		break;
+	case 66:
 	DESTINOS guiana;
 		guiana.nome = "Guiana";
 		guiana.localizacao_x = 544;
 		guiana.localizacao_y = 605;
 		guiana.dificuldade = 2;
 		guiana.sorteio = 6;
+		break;
+	case 67:
 	DESTINOS suriname;
 		suriname.nome = "Suriname";
 		suriname.localizacao_x = 561;
 		suriname.localizacao_y = 612;
 		suriname.dificuldade = 2;
 		suriname.sorteio = 7;
+		break;
+	case 68:
 	DESTINOS angola;
 		angola.nome = "Angola";
 		angola.localizacao_x = 932;
 		angola.localizacao_y = 692;
 		angola.dificuldade = 2;
 		angola.sorteio = 8;
+		break;
+	case 69:
 	DESTINOS caboVerde;
 		caboVerde.nome = "Cabo Verde";
 		caboVerde.localizacao_x = 738;
 		caboVerde.localizacao_y = 563;
 		caboVerde.dificuldade = 2;
 		caboVerde.sorteio = 9;
+		break;
+	case 70:
 	DESTINOS etiopia;
 		etiopia.nome = "Etiópia";
 		etiopia.localizacao_x = 1059; 
 		etiopia.localizacao_y = 590;
 		etiopia.dificuldade = 2;
 		etiopia.sorteio = 10;
+		break;
+	case 71:
 	DESTINOS guine;
 		guine.nome = "Guiné";
 		guine.localizacao_x = 782;
 		guine.localizacao_y = 588;
 		guine.dificuldade = 2;
 		guine.sorteio = 11;
+		break;
+	case 72:
 	DESTINOS guineBissau;
 		guineBissau.nome = "Guiné-Bissau";
 		guineBissau.localizacao_x = 776;
 		guineBissau.localizacao_y = 575;
 		guineBissau.dificuldade = 2;
 		guineBissau.sorteio = 12;
+		break;
+	case 73:
 	DESTINOS guineEquatorial;
 		guineEquatorial.nome = "Guiné Equatorial";
 		guineEquatorial.localizacao_x = 905;
 		guineEquatorial.localizacao_y = 623;
 		guineEquatorial.dificuldade = 2;
 		guineEquatorial.sorteio = 13;
+		break;
+	case 74:
 	DESTINOS lesoto;
 		lesoto.nome = "Lesoto";
 		lesoto.localizacao_x = 1004;
 		lesoto.localizacao_y = 807;
 		lesoto.dificuldade = 2;
 		lesoto.sorteio = 14;
+		break;
+	case 75:
 	DESTINOS mauritania;
 		mauritania.nome = "Mauritânia";
 		mauritania.localizacao_x = 772;
 		mauritania.localizacao_y = 539;
 		mauritania.dificuldade = 2;
 		mauritania.sorteio = 15;
+		break;
+	case 76:
 	DESTINOS niger;
 		niger.nome = "Níger";
 		niger.localizacao_x = 876;
 		niger.localizacao_y = 562;
 		niger.dificuldade = 2;
 		niger.sorteio = 16;
+		break;
+	case 77:
 	DESTINOS quenia;
 		quenia.nome = "Quênia";
 		quenia.localizacao_x = 1060;
 		quenia.localizacao_y = 644;
 		quenia.dificuldade = 2;
 		quenia.sorteio = 17;
+		break;
+	case 78:
 	DESTINOS republicaCongo;
 		republicaCongo.nome = "República do Congo";
 		republicaCongo.localizacao_x = 939;
 		republicaCongo.localizacao_y = 660;
 		republicaCongo.dificuldade = 2;
 		republicaCongo.sorteio = 18;
+		break;
+	case 79:
 	DESTINOS saoTomePrincipe;
 		saoTomePrincipe.nome = "São Tomé e Príncipe";
 		saoTomePrincipe.localizacao_x = 898;
 		saoTomePrincipe.localizacao_y = 634;
 		saoTomePrincipe.dificuldade = 2;
 		saoTomePrincipe.sorteio = 20;
+		break;
+	case 80:
 	DESTINOS sudao;
 		sudao.nome = "Sudão";
 		sudao.localizacao_x = 1032;
 		sudao.localizacao_y = 547;
 		sudao.dificuldade = 2;
 		sudao.sorteio = 21;
+		break;
+	case 81:
 	DESTINOS sudaoSul;
 		sudaoSul.nome = "Sudão do Sul";
 		sudaoSul.localizacao_x = 1027;
 		sudaoSul.localizacao_y = 604;
 		sudaoSul.dificuldade = 2;
 		sudaoSul.sorteio = 22;
+		break;
+	case 82:
 	DESTINOS tanzania;
 		tanzania.nome = "Tanzânia";
 		tanzania.localizacao_x = 1069;
 		tanzania.localizacao_y = 684;
 		tanzania.dificuldade = 2;
 		tanzania.sorteio = 23;
+		break;
+	case 83:
 	DESTINOS togo;
 		togo.nome = "Togo";
 		togo.localizacao_x = 865;
 		togo.localizacao_y = 605;
 		togo.dificuldade = 2;
 		togo.sorteio = 24;
+		break;
+	case 84:
 	DESTINOS zambia;
 		zambia.nome = "Zâmbia";
 		zambia.localizacao_x = 1002;
 		zambia.localizacao_y = 725;
 		zambia.dificuldade = 2;
 		zambia.sorteio = 25;
+		break;
+	case 85:
 	DESTINOS zimbabwe;
 		zimbabwe.nome = "Zimbabwe";
 		zimbabwe.localizacao_x = 1017;
 		zimbabwe.localizacao_y = 742;
 		zimbabwe.dificuldade = 2;
 		zimbabwe.sorteio = 26;
+		break;
+	case 86:
 	DESTINOS papuaNovaGuine;
 		papuaNovaGuine.nome = "Papua-Nova Guiné";
 		papuaNovaGuine.localizacao_x = 1648;
 		papuaNovaGuine.localizacao_y = 714;
 		papuaNovaGuine.dificuldade = 2;
 		papuaNovaGuine.sorteio = 27;
+		break;
+	case 87:
 	DESTINOS oma;
 		oma.nome = "Omã";
 		oma.localizacao_x = 1167;
 		oma.localizacao_y = 508;
 		oma.dificuldade = 2;
 		oma.sorteio = 28;
+		break;
+	case 88:
 	DESTINOS afeganistao;
 		afeganistao.nome = "Afeganistão";
 		afeganistao.localizacao_x = 1206;
 		afeganistao.localizacao_y = 440;
 		afeganistao.dificuldade = 2;
 		afeganistao.sorteio = 29;
+		break;
+	case 89:
 	DESTINOS azerbaijao;
 		azerbaijao.nome = "Azerbaijão";
 		azerbaijao.localizacao_x = 1101;
 		azerbaijao.localizacao_y = 401;
 		azerbaijao.dificuldade = 2;
 		azerbaijao.sorteio = 30;
+		break;
+	case 90:
 	DESTINOS camboja;
 		camboja.nome = "Camboja";
 		camboja.localizacao_x = 1416;
 		camboja.localizacao_y = 564;
 		camboja.dificuldade = 2;
 		camboja.sorteio = 31;
+		break;
+	case 91:
 	DESTINOS filipinas;
 		filipinas.nome = "Filipinas";
 		filipinas.localizacao_x = 1505;
 		filipinas.localizacao_y = 545;
 		filipinas.dificuldade = 2;
 		filipinas.sorteio = 32;
+		break;
+	case 92:
 	DESTINOS georgia;
 		georgia.nome = "Geórgia";
 		georgia.localizacao_x = 1061;
 		georgia.localizacao_y = 391;
 		georgia.dificuldade = 2;
 		georgia.sorteio = 33;
+		break;
+	case 93:
 	DESTINOS maldivas;
 		maldivas.nome = "Maldivas";
 		maldivas.localizacao_x = 1251;
 		maldivas.localizacao_y = 621;
 		maldivas.dificuldade = 2;
 		maldivas.sorteio = 34;
+		break;
+	case 94:
 	DESTINOS mongolia;
 		mongolia.nome = "Mongólia";
 		mongolia.localizacao_x = 1374;
 		mongolia.localizacao_y = 325;
 		mongolia.dificuldade = 2;
 		mongolia.sorteio = 35;
+		break;
+	case 95:
 	DESTINOS nepal;
 		nepal.nome = "Nepal";
 		nepal.localizacao_x = 1297;
 		nepal.localizacao_y = 468;
 		nepal.dificuldade = 2;
 		nepal.sorteio = 36;
+		break;
+	case 96:
 	DESTINOS quirguistao;
 		quirguistao.nome = "Quirguistão";
 		quirguistao.localizacao_x = 1224;
 		quirguistao.localizacao_y = 379;
 		quirguistao.dificuldade = 2;
 		quirguistao.sorteio = 37;
+		break;
+	case 97:
 	DESTINOS sriLanka;
 		sriLanka.nome = "Sri Lanka";
 		sriLanka.localizacao_x = 1290;
 		sriLanka.localizacao_y = 594;
 		sriLanka.dificuldade = 2;
 		sriLanka.sorteio = 38;
+		break;
+	case 98:
 	DESTINOS albania;
 		albania.nome = "Albânia";
 		albania.localizacao_x = 958;
 		albania.localizacao_y = 403;
 		albania.dificuldade = 2;
 		albania.sorteio = 39;
+		break;
+	case 99:
 	DESTINOS armenia;
 		armenia.nome = "Armênia";
 		armenia.localizacao_x = 1078;
 		armenia.localizacao_y = 405;
 		armenia.dificuldade = 2;
 		armenia.sorteio = 40;
+		break;
+	case 100:
 	DESTINOS belgica;
 		belgica.nome = "Bélgica";
 		belgica.localizacao_x = 880;
