@@ -76,9 +76,9 @@ int sorteiaDestino(void) {
 	if (dificuldadade == 1)
 		destino = rand() % 60;
 	else if (dificuldadade == 2)
-		destino = 60 + (rand() % 58);
+		destino = 60 + (rand() % 57);
 	else if (dificuldadade == 3)
-		destino = 118 + (rand() % 48);
+		destino = 117 + (rand() % 48);
 
 	return destino;
 }
@@ -87,10 +87,11 @@ int main(void) {
 
 	bool done = false, redraw = false, gameOver = false;
 	const int FPS = 60;
-	int xOff = 0, yOff = 0, aux;
+	int xOff = 0, yOff = 0, destinos;
 
 	AVIOES aviao;
-	iniciaDestinos();
+	destinos = sorteiaDestino();
+	iniciaDestinos(destinos);
 
 	ALLEGRO_DISPLAY *janela = NULL;
 	ALLEGRO_EVENT_QUEUE *fila_de_eventos = NULL;
