@@ -88,10 +88,9 @@ int main(void) {
 	bool done = false, redraw = false, gameOver = false;
 	const int FPS = 60;
 	int xOff = 0, yOff = 0, aux;
-	char *destino;
 
 	AVIOES aviao;
-	DESTINOS paises[166];
+	iniciaDestinos();
 
 	ALLEGRO_DISPLAY *janela = NULL;
 	ALLEGRO_EVENT_QUEUE *fila_de_eventos = NULL;
@@ -152,8 +151,6 @@ int main(void) {
 
 	srand(time(NULL));
 	iniciaAviao(&aviao);
-	iniciaDestinos(paises);
-	destino = paises[sorteiaDestino()].nome;
 
 	fonte = al_load_font("fonte.ttf", 27, 0);
 	if (!fonte) {
@@ -270,7 +267,7 @@ int main(void) {
 				MapDrawBG(xOff, yOff, 0, 0, WIDTH, HEIGHT);
 				desenhaAviao(aviao);
 				al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, 
-					ALLEGRO_ALIGN_CENTRE, "%s", destino);
+					ALLEGRO_ALIGN_CENTRE, "%c", );
 			}
 
 			al_flip_display();

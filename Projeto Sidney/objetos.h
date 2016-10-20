@@ -13,368 +13,310 @@ typedef struct destinos {
 	int sorteio;
 } DESTINOS;
 
-void iniciaDestinos(DESTINOS paises[]) {
+void iniciaDestinos(int destino) {
 	//Dificuldade 1
-	DESTINOS canada;
-		canada.nome = "Canadá";
-		canada.localizacao_x = 513;	
-		canada.localizacao_y = 341;
-		canada.dificuldade = 1;
-		canada.sorteio = 1;
-	DESTINOS eua;
-		eua.nome = "Estados Unidos da Améica";
-		eua.localizacao_x = 474;
-		eua.localizacao_y = 406;
-		eua.dificuldade = 1;
-		eua.sorteio = 2;
-	DESTINOS mexico;
-		mexico.nome = "México";
-		mexico.localizacao_x = 336;
-		mexico.localizacao_y = 519;
-		mexico.dificuldade = 1;
-		mexico.sorteio = 3;
-	DESTINOS caribe;
-		caribe.nome = "Caribe";
-		caribe.localizacao_x = 439;
-		caribe.localizacao_y = 505;
-		caribe.dificuldade = 1;
-		caribe.sorteio = 4;
-	DESTINOS portoRico;
-		portoRico.nome = "Porto Rico";
-		portoRico.localizacao_x = 508;
-		portoRico.localizacao_y = 533;
-		portoRico.dificuldade = 1;
-		portoRico.sorteio = 5;
-	DESTINOS costaRica;
-		costaRica.nome = "Costa Rica";
-		costaRica.localizacao_x = 407;
-		costaRica.localizacao_y = 585;
-		costaRica.dificuldade = 1;
-		costaRica.sorteio = 6;
-	DESTINOS honduras;
-		honduras.nome = "Honduras";
-		honduras.localizacao_x = 395;
-		honduras.localizacao_y = 554;
-		honduras.dificuldade = 1;
-		honduras.sorteio = 7;
-	DESTINOS argentina;
-		argentina.nome = "Argentina";
-		argentina.localizacao_x = 566;
-		argentina.localizacao_y = 854;
-		argentina.dificuldade = 1;    
-		argentina.sorteio = 8;
-	DESTINOS bolivia;
-		bolivia.nome = "Bolívia";
-		bolivia.localizacao_x = 500;
-		bolivia.localizacao_y = 741;
-		bolivia.dificuldade = 1;
-		bolivia.sorteio = 9;
-	DESTINOS brasil;
-		brasil.nome = "Brasil";
-		brasil.localizacao_x = 609;
-		brasil.localizacao_y = 750;
-		brasil.dificuldade = 1;
-		brasil.sorteio = 10;
-	DESTINOS chile;
-		chile.nome = "Chile";
-		chile.localizacao_x = 497;
-		chile.localizacao_y = 833;
-		chile.dificuldade = 1;
-		chile.sorteio = 11;
-	DESTINOS colombia;
-		colombia.nome = "Colômbia";
-		colombia.localizacao_x = 463;
-		colombia.localizacao_y = 610;
-		colombia.dificuldade = 1;
-		colombia.sorteio = 12;
-	DESTINOS equador;
-		equador.nome = "Equador";
-		equador.localizacao_x = 437;
-		equador.localizacao_y = 649;
-		equador.dificuldade = 1;
-		equador.sorteio = 13;
-	DESTINOS paraguai;
-		paraguai.nome = "Paraguai";
-		paraguai.localizacao_x = 563;
-		paraguai.localizacao_y = 786;
-		paraguai.dificuldade = 1;
-		paraguai.sorteio = 14;
-	DESTINOS peru;
-		peru.nome = "Peru";
-		peru.localizacao_x = 451;
-		peru.localizacao_y = 716;
-		peru.dificuldade = 1;
-		peru.dificuldade = 15;
-	DESTINOS uruguai;
-		uruguai.nome = "Uruguai";
-		uruguai.localizacao_x = 576;
-		uruguai.localizacao_y = 840;
-		uruguai.dificuldade = 1;
-		uruguai.sorteio = 16;
-	DESTINOS venezuela;
-		venezuela.nome = "Venezuela";
-		venezuela.localizacao_x = 496;
-		venezuela.localizacao_y = 580;
-		venezuela.dificuldade = 1;
-		venezuela.sorteio = 17;
-	DESTINOS africaSul;
-		africaSul.nome = "África do Sul";
-		africaSul.localizacao_x = 1003;
-		africaSul.localizacao_y = 786;
-		africaSul.dificuldade = 1;
-		africaSul.sorteio = 18;
-	DESTINOS camaroes;
-		camaroes.nome = "Camarões";
-		camaroes.localizacao_x = 920;
-		camaroes.localizacao_y = 620;
-		camaroes.dificuldade = 1;
-		camaroes.sorteio = 19;
-	DESTINOS costaMarfim;
-		costaMarfim.nome = "Costa do Marfim";
-		costaMarfim.localizacao_x = 830;
-		costaMarfim.localizacao_y = 605;
-		costaMarfim.dificuldade = 1;
-		costaMarfim.sorteio = 20;
-	DESTINOS egito;
-		egito.nome = "Egito";
-		egito.localizacao_x = 1034;
-		egito.localizacao_y = 546;
-		egito.dificuldade = 1;
-		egito.sorteio = 21;
-	DESTINOS gana;
-		gana.nome = "Gana";
-		gana.localizacao_x = 856;
-		gana.localizacao_y = 609;
-		gana.dificuldade = 1;
-		gana.sorteio = 22;
-	DESTINOS libia;
-		libia.nome = "Líbia";
-		libia.localizacao_x = 925;
-		libia.localizacao_y = 454;
-		libia.dificuldade = 1;
-		libia.sorteio = 23;
-	DESTINOS madagascar;
-		madagascar.nome = "Madagascar";
-		madagascar.localizacao_x = 1110;
-		madagascar.localizacao_y = 742;
-		madagascar.dificuldade = 1;
-		madagascar.sorteio = 24;
-	DESTINOS marrocos;
-		marrocos.nome = "Marrocos";
-		marrocos.localizacao_x = 825;
-		marrocos.localizacao_y = 450;
-		marrocos.dificuldade = 1;
-		marrocos.sorteio = 25;
-	DESTINOS mocambique;
-		mocambique.nome = "Moçambique";
-		mocambique.localizacao_x = 1035;
-		mocambique.localizacao_y = 782;
-		mocambique.dificuldade = 1;
-		mocambique.sorteio = 26;
-	DESTINOS nigeria;
-		nigeria.nome = "Nigéria";
-		nigeria.localizacao_x = 895;
-		nigeria.localizacao_y = 591;
-		nigeria.dificuldade = 1;
-		nigeria.sorteio = 27;
-	DESTINOS senegal;
-		senegal.nome = "Senegal";
-		senegal.localizacao_x = 768;
-		senegal.localizacao_y = 558;
-		senegal.dificuldade = 1;
-		senegal.sorteio = 28;
-	DESTINOS somalia;
-		somalia.nome = "Somália";
-		somalia.localizacao_x = 1095;
-		somalia.localizacao_y = 635;
-		somalia.dificuldade = 1;
-		somalia.sorteio = 29;
-	DESTINOS australia;
-		australia.nome = "Austrália";
-		australia.localizacao_x = 1606;
-		australia.localizacao_y = 899;
-		australia.dificuldade = 1;
-		australia.sorteio = 30;
-	DESTINOS novaZelandia;
-		novaZelandia.nome = "Nova Zelândia";
-		novaZelandia.localizacao_x = 1725;
-		novaZelandia.localizacao_y = 970;
-		novaZelandia.dificuldade = 1;
-		novaZelandia.sorteio = 31;
-	DESTINOS arabiaSaudita;
-		arabiaSaudita.nome = "Arábia Saudita";
-		arabiaSaudita.localizacao_x = 1104;
-		arabiaSaudita.localizacao_y = 510;
-		arabiaSaudita.dificuldade = 1;
-		arabiaSaudita.sorteio = 32;
-	DESTINOS bangladesh;
-		bangladesh.nome = "Bangladesh";
-		bangladesh.localizacao_x = 1331;
-		bangladesh.localizacao_y = 501;
-		bangladesh.dificuldade = 1;
-		bangladesh.sorteio = 33;
-	DESTINOS coreiaNorte;
-		coreiaNorte.nome = "Coréia do Norte";
-		coreiaNorte.localizacao_x = 1483;
-		coreiaNorte.localizacao_y = 370;
-		coreiaNorte.dificuldade = 1;
-		coreiaNorte.sorteio = 34;
-	DESTINOS coreiaSul;
-		coreiaSul.nome = "Coréia do Sul";
-		coreiaSul.localizacao_x = 1494;
-		coreiaSul.localizacao_y = 389;
-		coreiaSul.dificuldade = 1;
-		coreiaSul.sorteio = 35;
-	DESTINOS indonesia;
-		indonesia.nome = "Indonésia";
-		indonesia.localizacao_x = 1430;
-		indonesia.localizacao_y = 681;
-		indonesia.dificuldade = 1;
-		indonesia.sorteio = 36;
-	DESTINOS india;
-		india.nome = "Índia";
-		india.localizacao_x = 1249;
-		india.localizacao_y = 480;
-		india.dificuldade = 1;
-		india.sorteio = 37;
-	DESTINOS ira;
-		ira.nome = "Irã";
-		ira.localizacao_x = 1120;
-		ira.localizacao_y = 434;
-		ira.dificuldade = 1;
-		ira.sorteio = 38;
-	DESTINOS iraque;
-		iraque.nome = "Iraque";
-		iraque.localizacao_x = 1083;
-		iraque.localizacao_y = 454;
-		iraque.dificuldade = 1;
-		iraque.sorteio = 39;
-	DESTINOS japao;
-		japao.nome = "Japão";
-		japao.localizacao_x = 1558;
-		japao.localizacao_y = 393;
-		japao.dificuldade = 1;
-		japao.sorteio = 40;
-	DESTINOS paquistao;
-		paquistao.nome = "Paquistão";
-		paquistao.localizacao_x = 1229;
-		paquistao.localizacao_y = 441;
-		paquistao.dificuldade = 1;
-		paquistao.sorteio = 41;
-	DESTINOS russia;
-		russia.nome = "Rússia";
-		russia.localizacao_x = 1014;
-		russia.localizacao_y = 285;
-		russia.dificuldade = 1;
-		russia.sorteio = 42;
-	DESTINOS tailandia;
-		tailandia.nome = "Tailândia";
-		tailandia.localizacao_x = 1392;
-		tailandia.localizacao_y = 551;
-		tailandia.dificuldade = 1;
-		tailandia.sorteio = 43;
-	DESTINOS turquia;
-		turquia.nome = "Turquia";
-		turquia.localizacao_x = 1016;
-		turquia.localizacao_y = 405;
-		turquia.dificuldade = 1;
-		turquia.sorteio = 44;
-	DESTINOS uzbequistao;
-		uzbequistao.nome = "Uzbequistão";
-		uzbequistao.localizacao_x = 1181;
-		uzbequistao.localizacao_y = 395;
-		uzbequistao.dificuldade = 1;
-		uzbequistao.sorteio = 45;
-	DESTINOS vietna;
-		vietna.nome = "Vietnã";
-		vietna.localizacao_x = 1415;
-		vietna.localizacao_y = 505;
-		vietna.dificuldade = 1;
-		vietna.sorteio = 46;
-	DESTINOS alemanha;
-		alemanha.nome = "Alemanha";
-		alemanha.localizacao_x = 919;
-		alemanha.localizacao_y = 325;
-		alemanha.dificuldade = 1;
-		alemanha.sorteio = 47;
-	DESTINOS austria;
-		austria.nome = "Áustria";
-		austria.localizacao_x = 933;
-		austria.localizacao_y = 357;
-		austria.dificuldade = 1;
-		austria.sorteio = 48;
-	DESTINOS dinamarca;
-		dinamarca.nome = "Dinamarca";
-		dinamarca.localizacao_x = 911;
-		dinamarca.localizacao_y = 304;
-		dinamarca.dificuldade = 1;
-		dinamarca.sorteio = 49;
-	DESTINOS espanha;
-		espanha.nome = "Espanha";
-		espanha.localizacao_x = 842;
-		espanha.localizacao_y = 410;
-		espanha.dificuldade = 1;
-		espanha.sorteio = 50;
-	DESTINOS finlandia;
-		finlandia.nome = "Finlândia";
-		finlandia.localizacao_x = 966;
-		finlandia.localizacao_y = 259;
-		finlandia.dificuldade = 1;
-		finlandia.sorteio = 51;
-	DESTINOS franca;
-		franca.nome = "França";
-		franca.localizacao_x = 876;
-		franca.localizacao_y = 355;
-		franca.dificuldade = 1;
-		franca.sorteio = 52;
-	DESTINOS grecia;
-		grecia.nome = "Grécia";
-		grecia.localizacao_x = 974;
-		grecia.localizacao_y = 421;
-		grecia.dificuldade = 1;
-		grecia.sorteio = 53;
-	DESTINOS italia;
-		italia.nome = "Itália";
-		italia.localizacao_x = 924;
-		italia.localizacao_y = 401;
-		italia.dificuldade = 1;
-		italia.sorteio = 54;
-	DESTINOS noruega;
-		noruega.nome = "Noruega";
-		noruega.localizacao_x = 901;
-		noruega.localizacao_y = 272;
-		noruega.dificuldade = 1;
-		noruega.sorteio = 55;
-	DESTINOS holanda;
-		holanda.nome = "Holanda";
-		holanda.localizacao_x = 880;
-		holanda.localizacao_x = 326;
-		holanda.dificuldade = 1;
-		holanda.sorteio = 56;
-	DESTINOS polonia;
-		polonia.nome = "Polônia";
-		polonia.localizacao_x = 963;
-		polonia.localizacao_y = 327;
-		polonia.dificuldade = 1;
-		polonia.sorteio = 57;
-	DESTINOS portugal;
-		portugal.nome = "Portugal";
-		portugal.localizacao_x = 813;
-		portugal.localizacao_y = 422;
-		portugal.dificuldade = 1;
-		portugal.sorteio = 58;
-	DESTINOS inglaterra;
-		inglaterra.nome = "Inglaterra";
-		inglaterra.localizacao_x = 861;
-		inglaterra.localizacao_y = 331;
-		inglaterra.dificuldade = 1;
-		inglaterra.sorteio = 59;
-	DESTINOS suecia;
-		suecia.nome = "Suécia";
-		suecia.localizacao_x = 939;
-		suecia.localizacao_y = 267;
-		suecia.dificuldade = 1;
-		suecia.sorteio = 60;
+	DESTINOS pais;
+	switch (destino) {
+	case 1:
+		pais.nome = "Canadá";
+		pais.localizacao_x = 513;	
+		pais.localizacao_y = 341;
+		break;
+	case 2:
+		pais.nome = "Estados Unidos da América";
+		pais.localizacao_x = 474;
+		pais.localizacao_y = 406;
+		break;
+	case 3:
+		pais.nome = "México";
+		pais.localizacao_x = 336;
+		pais.localizacao_y = 519;
+		break;
+	case 4:
+		pais.nome = "Caribe";
+		pais.localizacao_x = 439;
+		pais.localizacao_y = 505;
+		break;
+	case 5:
+		pais.nome = "Porto Rico";
+		pais.localizacao_x = 508;
+		pais.localizacao_y = 533;
+		break;
+	case 6:
+		pais.nome = "Costa Rica";
+		pais.localizacao_x = 407;
+		pais.localizacao_y = 585;
+		break;
+	case 7:
+		pais.nome = "Honduras";
+		pais.localizacao_x = 395;
+		pais.localizacao_y = 554;
+		break;
+	case 8:
+		pais.nome = "Argentina";
+		pais.localizacao_x = 566;
+		pais.localizacao_y = 854;
+		break;
+	case 9:
+		pais.nome = "Bolívia";
+		pais.localizacao_x = 500;
+		pais.localizacao_y = 741;
+		break;
+	case 10:
+		pais.nome = "Brasil";
+		pais.localizacao_x = 609;
+		pais.localizacao_y = 750;
+		break;
+	case 11:
+		pais.nome = "Chile";
+		pais.localizacao_x = 497;
+		pais.localizacao_y = 833;
+		break;
+	case 12:
+		pais.nome = "Colômbia";
+		pais.localizacao_x = 463;
+		pais.localizacao_y = 610;
+		break;
+	case 13:
+		pais.nome = "Equador";
+		pais.localizacao_x = 437;
+		pais.localizacao_y = 649;
+		break;
+	case 14:
+		pais.nome = "Paraguai";
+		pais.localizacao_x = 563;
+		pais.localizacao_y = 786;
+		break;
+	case 15:
+		pais.nome = "Peru";
+		pais.localizacao_x = 451;
+		pais.localizacao_y = 716;
+		break;
+	case 16:
+		pais.nome = "Uruguai";
+		pais.localizacao_x = 576;
+		pais.localizacao_y = 840;
+		break;
+	case 17:
+		pais.nome = "Venezuela";
+		pais.localizacao_x = 496;
+		pais.localizacao_y = 580;
+		break;
+	case 18:
+		pais.nome = "África do Sul";
+		pais.localizacao_x = 1003;
+		pais.localizacao_y = 786;
+		break;
+	case 19:
+		pais.nome = "Camarões";
+		pais.localizacao_x = 920;
+		pais.localizacao_y = 620;
+		break;
+	case 20:
+		pais.nome = "Costa do Marfim";
+		pais.localizacao_x = 830;
+		pais.localizacao_y = 605;
+		break;
+	case 21:
+		pais.nome = "Egito";
+		pais.localizacao_x = 1034;
+		pais.localizacao_y = 546;
+		break;
+	case 22:
+		pais.nome = "Gana";
+		pais.localizacao_x = 856;
+		pais.localizacao_y = 609;
+		break;
+	case 23:
+		pais.nome = "Líbia";
+		pais.localizacao_x = 925;
+		pais.localizacao_y = 454;
+		break;
+	case 24:
+		pais.nome = "Madagascar";
+		pais.localizacao_x = 1110;
+		pais.localizacao_y = 742;
+		break;
+	case 25:
+		pais.nome = "Marrocos";
+		pais.localizacao_x = 825;
+		pais.localizacao_y = 450;
+		break;
+	case 26:
+		pais.nome = "Moçambique";
+		pais.localizacao_x = 1035;
+		pais.localizacao_y = 782;
+		break;
+	case 27:
+		pais.nome = "Nigéria";
+		pais.localizacao_x = 895;
+		pais.localizacao_y = 591;
+		break;
+	case 28:
+		pais.nome = "Senegal";
+		pais.localizacao_x = 768;
+		pais.localizacao_y = 558;
+		break;
+	case 29:
+		pais.nome = "Somália";
+		pais.localizacao_x = 1095;
+		pais.localizacao_y = 635;
+		break;
+	case 30:
+		pais.nome = "Austrália";
+		pais.localizacao_x = 1606;
+		pais.localizacao_y = 899;
+		break;
+	case 31:
+		pais.nome = "Nova Zelândia";
+		pais.localizacao_x = 1725;
+		pais.localizacao_y = 970;
+		break;
+	case 32:
+		pais.nome = "Arábia Saudita";
+		pais.localizacao_x = 1104;
+		pais.localizacao_y = 510;
+		break;
+	case 33:
+		pais.nome = "Bangladesh";
+		pais.localizacao_x = 1331;
+		pais.localizacao_y = 501;
+		break;
+	case 34:
+		pais.nome = "Coréia do Norte";
+		pais.localizacao_x = 1483;
+		pais.localizacao_y = 370;
+		break;
+	case 35:
+		pais.nome = "Coréia do Sul";
+		pais.localizacao_x = 1494;
+		pais.localizacao_y = 389;
+		break;
+	case 36:
+		pais.nome = "Indonésia";
+		pais.localizacao_x = 1430;
+		pais.localizacao_y = 681;
+		break;
+	case 37:
+		pais.nome = "Índia";
+		pais.localizacao_x = 1249;
+		pais.localizacao_y = 480;
+		break;
+	case 38:
+		pais.nome = "Irã";
+		pais.localizacao_x = 1120;
+		pais.localizacao_y = 434;
+		break;
+	case 39:
+		pais.nome = "Iraque";
+		pais.localizacao_x = 1083;
+		pais.localizacao_y = 454;
+		break;
+	case 40:
+		pais.nome = "Japão";
+		pais.localizacao_x = 1558;
+		pais.localizacao_y = 393;
+		break;
+	case 41:
+		pais.nome = "Paquistão";
+		pais.localizacao_x = 1229;
+		pais.localizacao_y = 441;
+		break;
+	case 42:
+		pais.nome = "Rússia";
+		pais.localizacao_x = 1014;
+		pais.localizacao_y = 285;
+		break;
+	case 43:
+		pais.nome = "Tailândia";
+		pais.localizacao_x = 1392;
+		pais.localizacao_y = 551;
+		break;
+	case 44:
+		pais.nome = "Turquia";
+		pais.localizacao_x = 1016;
+		pais.localizacao_y = 405;
+		break;
+	case 45:
+		pais.nome = "Uzbequistão";
+		pais.localizacao_x = 1181;
+		pais.localizacao_y = 395;
+		break;
+	case 46:
+		pais.nome = "Vietnã";
+		pais.localizacao_x = 1415;
+		pais.localizacao_y = 505;
+		break;
+	case 47:
+		pais.nome = "Alemanha";
+		pais.localizacao_x = 919;
+		pais.localizacao_y = 325;
+		break;
+	case 48:
+		pais.nome = "Áustria";
+		pais.localizacao_x = 933;
+		pais.localizacao_y = 357;
+		break;
+	case 49:
+		pais.nome = "Dinamarca";
+		pais.localizacao_x = 911;
+		pais.localizacao_y = 304;
+		break;
+	case 50:
+		pais.nome = "Espanha";
+		pais.localizacao_x = 842;
+		pais.localizacao_y = 410;
+		break;
+	case 51:
+		pais.nome = "Finlândia";
+		pais.localizacao_x = 966;
+		pais.localizacao_y = 259;
+		break;
+	case 52:
+		pais.nome = "França";
+		pais.localizacao_x = 876;
+		pais.localizacao_y = 355;
+		break;
+	case 53:
+		pais.nome = "Grécia";
+		pais.localizacao_x = 974;
+		pais.localizacao_y = 421;
+		break;
+	case 54:
+		pais.nome = "Itália";
+		pais.localizacao_x = 924;
+		pais.localizacao_y = 401;
+		break;
+	case 55:
+		pais.nome = "Noruega";
+		pais.localizacao_x = 901;
+		pais.localizacao_y = 272;
+		break;
+	case 56:
+		pais.nome = "Holanda";
+		pais.localizacao_x = 880;
+		pais.localizacao_x = 326;
+		break;
+	case 57:
+		pais.nome = "Polônia";
+		pais.localizacao_x = 963;
+		pais.localizacao_y = 327;
+		break;
+	case 58:
+		pais.nome = "Portugal";
+		pais.localizacao_x = 813;
+		pais.localizacao_y = 422;
+		break;
+	case 59:
+		pais.nome = "Inglaterra";
+		pais.localizacao_x = 861;
+		pais.localizacao_y = 331;
+		break;
+	case 60:
+		pais.nome = "Suécia";
+		pais.localizacao_x = 939;
+		pais.localizacao_y = 267;
+		break;
 
 	//Dificuldade 2
 	DESTINOS bahamas;
