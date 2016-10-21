@@ -9,14 +9,11 @@ typedef struct destinos {
 	char *nome;
 	int localizacao_x;
 	int localizacao_y;
-	int dificuldade;
-	int sorteio;
 } DESTINOS;
 
-DESTINOS *iniciaDestinos(int destino) {
-	//Dificuldade 1
-	DESTINOS *pais;
+DESTINOS *iniciaDestinos(DESTINOS *pais, int destino) {
 	switch (destino) {
+	//Dificuldade 1
 	case 1:
 		pais->nome = "Canadá";
 		pais->localizacao_x = 513;
@@ -317,7 +314,7 @@ DESTINOS *iniciaDestinos(int destino) {
 		pais->localizacao_x = 939;
 		pais->localizacao_y = 267;
 		break;
-		//Dificuldade 2
+	//Dificuldade 2
 	case 61:
 		pais->nome = "Bahamas";
 		pais->localizacao_x = 452;
@@ -603,7 +600,7 @@ DESTINOS *iniciaDestinos(int destino) {
 		pais->localizacao_x = 579;
 		pais->localizacao_y = 615;
 		break;
-		//Dificuldade 3
+	//Dificuldade 3
 	case 118:
 		pais->nome = "Belize";
 		pais->localizacao_x = 390;
