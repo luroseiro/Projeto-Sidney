@@ -25,7 +25,7 @@ void desenhaAviao(AVIOES aviao) {                      //desenha nave
 	al_draw_filled_triangle(aviao.x - 12, aviao.y - 17, aviao.x + 12, aviao.y, aviao.x - 12, aviao.y + 17, al_map_rgb(0, 255, 0));
 	al_draw_filled_rectangle(aviao.x - 12, aviao.y - 2, aviao.x + 15, aviao.y + 2, al_map_rgb(0, 0, 255));
 }
-void mAviaoCima(AVIOES *aviao, int tela_y) {                      //movimenta nave pra cima
+void mAviaoCima(AVIOES *aviao) {                      //movimenta nave pra cima
 	aviao->y -= aviao->velocidade;
 	if (aviao->y < 0) {
 		aviao->y = 0;
