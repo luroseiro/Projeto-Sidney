@@ -12,7 +12,7 @@ typedef struct destinos {
 } DESTINOS;
 
 DESTINOS *iniciaDestinos(DESTINOS *pais, int destino) {
-	switch (destino) {
+	/*switch (destino) {
 	//Dificuldade 1
 	case 1:
 		pais->nome = "Canadá";
@@ -842,5 +842,5 @@ DESTINOS *iniciaDestinos(DESTINOS *pais, int destino) {
 		pais->localizacao_y = 381;
 		break;
 	}
-	return pais;
+	return pais;*/
 }

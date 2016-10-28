@@ -5,10 +5,9 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
 #include "objetos.h"
-#include "mappy_A5.h"
 
-const int WIDTH = 720;
-const int HEIGHT = 560;
+const int WIDTH = 839;
+const int HEIGHT = 685;
 enum KEYS{UP, DOWN, LEFT, RIGHT, SPACE};
 bool keys[5] = {false, false, false, false, false};
 
@@ -26,48 +25,28 @@ void desenhaAviao(AVIOES aviao) {                      //desenha nave
 	al_draw_filled_triangle(aviao.x - 12, aviao.y - 17, aviao.x + 12, aviao.y, aviao.x - 12, aviao.y + 17, al_map_rgb(0, 255, 0));
 	al_draw_filled_rectangle(aviao.x - 12, aviao.y - 2, aviao.x + 15, aviao.y + 2, al_map_rgb(0, 0, 255));
 }
-void mAviaoCima(AVIOES *aviao, int tela_y) {                      //movimenta nave pra cima
+void mAviaoCima(AVIOES *aviao) {                      //movimenta nave pra cima
 	aviao->y -= aviao->velocidade;
-	if (aviao->y < 199) {
-		if (tela_y == 0) {
-			aviao->y -= aviao->velocidade;
-		}
-		else {
-			aviao->y = 199;
-		}
+	if (aviao->y < 0) {
+		aviao->y = 0;
 	}
 }
-void mAviaoBaixo(AVIOES *aviao, int tela_y) {                      //movimenta nave pra baixo
+void mAviaoBaixo(AVIOES *aviao) {                      //movimenta nave pra baixo
 	aviao->y += aviao->velocidade;
-	if (aviao->y > HEIGHT - 199) {
-		if (tela_y == mapheight * mapblockheight - HEIGHT) {
-			aviao->y += aviao->velocidade;
-		}
-		else {
-			aviao->y = HEIGHT - 199;
-		}
+	if (aviao->y > HEIGHT) {
+		aviao->y = HEIGHT;
 	}
 }
-void mAviaoEsq(AVIOES *aviao, int tela_x) {                      //movimenta nave pra esquerda
+void mAviaoEsq(AVIOES *aviao) {                      //movimenta nave pra esquerda
 	aviao->x -= aviao->velocidade;
-	if (aviao->x < 199) {
-		if (tela_x == 0) {
-			aviao->x -= aviao->velocidade;
-		}
-		else {
-			aviao->x = 199;
-		}
+	if (aviao->x < 0) {
+		aviao->x = 0;
 	}
 }
-void mAviaoDir(AVIOES *aviao, int tela_x) {                      //movimenta nave pra direita
+void mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direita
 	aviao->x += aviao->velocidade;
-	if (aviao->x > WIDTH - 199) {
-		if (tela_x == mapwidth * mapblockwidth - WIDTH) {
-			aviao->x += aviao->velocidade;
-		}
-		else {
-			aviao->x = WIDTH - 199;
-		}
+	if (aviao->x > WIDTH) {
+		aviao->x = WIDTH;
 	}
 }
 int sorteiaDestino(void) {
@@ -82,12 +61,13 @@ int sorteiaDestino(void) {
 
 	return destino;
 }
+DESTINOS *iniciaDestinos(DESTINOS *pais, int destino);
 
 int main(void) {
 
 	bool done = false, redraw = false, gameOver = false;
 	const int FPS = 60;
-	int xOff = 0, yOff = 0, destino;
+	int destino;
 
 	AVIOES aviao;
 	DESTINOS *pais;
@@ -136,10 +116,6 @@ int main(void) {
 		return -1;
 	}
 
-	if (MapLoad("mapa.FMP", 1)) {                        //testa mapa
-		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar mapa!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
-	}
-
 	fila_de_eventos = al_create_event_queue();
 	if (!fila_de_eventos) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar fila de eventos!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
@@ -178,44 +154,17 @@ int main(void) {
 		}
 		else if (evento.type == ALLEGRO_EVENT_TIMER) {
 			if (keys[UP]) {
-				mAviaoCima(&aviao, yOff);
+				mAviaoCima(&aviao);
 			}
 			if (keys[DOWN]) {
-				mAviaoBaixo(&aviao, yOff);
+				mAviaoBaixo(&aviao);
 			}
 			if (keys[LEFT]) {
-				mAviaoEsq(&aviao, xOff);
+				mAviaoEsq(&aviao);
 			}
 			if (keys[RIGHT]) {
-				mAviaoDir(&aviao, xOff);
+				mAviaoDir(&aviao);
 			}
-		
-			if (aviao.x > WIDTH - 200) {                       // arrumar
-				xOff += keys[RIGHT] * 1.75;
-			}
-			if (aviao.x < 200) {
-				xOff -= keys[LEFT] * 1.75;
-			}
-			if (aviao.y > HEIGHT - 200) {
-				yOff += keys[DOWN] * 1.75;
-			}
-			if (aviao.y < 200) {
-				yOff -= keys[UP] * 1.75;
-			}
-
-			if (xOff < 0) {
-				xOff = 0;
-			}
-			if (yOff < 0) {
-				yOff = 0;
-			}
-			if (xOff > (mapwidth * mapblockwidth - WIDTH)) {
-				xOff = mapwidth * mapblockwidth - WIDTH;
-			}
-			if (yOff > (mapheight * mapblockheight - HEIGHT)) {
-				yOff = mapheight * mapblockheight - HEIGHT;
-			}
-
 			redraw = true;
 		}
 		else if (evento.type == ALLEGRO_EVENT_KEY_DOWN) {
@@ -266,10 +215,9 @@ int main(void) {
 			redraw = false;
 
 			if (!gameOver) {
-				MapDrawBG(xOff, yOff, 0, 0, WIDTH, HEIGHT);
 				desenhaAviao(aviao);
-				al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, 
-					ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
+				/*al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, 
+					ALLEGRO_ALIGN_CENTRE, "%c", pais->nome);*/
 			}
 
 			al_flip_display();
@@ -277,7 +225,6 @@ int main(void) {
 		}
 	}
 
-	MapFreeMem();
 	al_destroy_event_queue(fila_de_eventos);
 	al_destroy_display(janela);
 
