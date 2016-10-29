@@ -5,11 +5,13 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
 #include "objetos.h"
+#include <iostream>
 
 const int WIDTH = 839;
 const int HEIGHT = 685;
 enum KEYS{UP, DOWN, LEFT, RIGHT, SPACE, ESC, P};
-enum STATE{MENUG, MENUC, JOGO, PAUSE};
+enum ESTADOS{MENUG, MENUC, JOGO, PAUSE, CONFIGURACOES, GAMEOVER};
+enum CONTINENTES{AMERICACN, AMERICAS, AFRICA, EUROPA, ASIA, OCEANIA};
 bool keys[7] = {false, false, false, false, false, false};
 
 void iniciaAviao(AVIOES *aviao) {
@@ -50,35 +52,76 @@ void mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direit
 		aviao->x = WIDTH;
 	}
 }
-int sorteiaDestino(void) {
-	int dificuldadade = 1 + (rand() % 3), destino;
+int sorteiaDestino(int continente) {
+	int  destino;
 	
-	if (dificuldadade == 1)
-		destino = rand() % 60;
-	else if (dificuldadade == 2)
-		destino = 60 + (rand() % 57);
-	else if (dificuldadade == 3)
-		destino = 117 + (rand() % 48);
+	if (destino == AMERICACN)
+		destino = 1 + (rand() % 13);
+	else if (destino == AMERICAS)
+		destino = 1 + (rand() % 13);
+	else if (destino == AFRICA)
+		destino = 1 + (rand() % 53);
+	else if (destino == EUROPA)
+		destino = 1 + (rand() % 53);
+	else if (destino == ASIA)
+		destino = 1 + (rand() % 35);
+	else if (destino == OCEANIA)
+		destino = 1 + (rand() % 5);
 
 	return destino;
 }
-DESTINOS *iniciaDestinos(DESTINOS *pais, int destino);
+DESTINOS *iniciaPais(DESTINOS *pais, int destino, int continente);
+
+void mudaEstado(int *estado, int novoEstado) {
+	if (estado == MENUG) {
+		printf("Deixando o estado MENUG\n");
+	}
+	else if (estado == MENUC) {
+		printf("Deixando o estado MENUC\n");
+	}
+	else if (estado == JOGO) {
+		printf("Deixando o estado JOGO\n");
+	}
+	else if (estado = PAUSE) {
+		printf("Deixando o estado PAUSE\n");
+	}
+	else if (estado == GAMEOVER) {
+		printf("Deixando o estado GAMEOVER\n");
+	}
+
+	estado = novoEstado;
+
+	if (estado == MENUG) {
+		printf("Entrand no estado MENUG\n");
+	}
+	else if (estado == MENUC) {
+		printf("Entrand no estado MENUC\n");
+	}
+	else if (estado == JOGO) {
+		printf("Entrand no estado JOGO\n");
+	}
+	else if (estado = PAUSE) {
+		printf("Entrand no estado PAUSE\n");
+	}
+	else if (estado == GAMEOVER) {
+		printf("Entrand no estado GAMEOVER\n");
+	}
+}
 
 int main(void) {
 
 	bool done = false, redraw = false, gameOver = false;
 	const int FPS = 60;
-	int destino, estado = MENUG;
+	int destino, *estado = -1, continente = -1;
 
 	AVIOES aviao;
 	DESTINOS *pais;
-	destino = sorteiaDestino();
-	iniciaDestinos(&pais, destino);
 
 	ALLEGRO_DISPLAY *janela = NULL;
 	ALLEGRO_EVENT_QUEUE *fila_de_eventos = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_FONT *fonte = NULL;
+	//bitmaps de menus
 	ALLEGRO_BITMAP *americacn = NULL;
 	ALLEGRO_BITMAP *americas = NULL;
 	ALLEGRO_BITMAP *africa = NULL;
@@ -88,6 +131,7 @@ int main(void) {
 	ALLEGRO_BITMAP *menug = NULL;
 	ALLEGRO_BITMAP *menuc = NULL;
 	ALLEGRO_BITMAP *pause = NULL;
+	ALLEGRO_BITMAP *configuracoes = NULL;
 
 	if (!al_init()) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar Allegro!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
@@ -114,7 +158,8 @@ int main(void) {
 	/*menug = al_load_bitmap("menug.jpg");
 	menuc = al_load_bitmap("menuc.jpg");
 	pause = al_load_bitmap("pause.jpg");
-	if (!menuc || !menug || !pause) {
+	configuracoes = al_load_bitmap("configuracoes.jpg");
+	if (!menuc || !menug || !pause || !configuracoes) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniar telas!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}*/
@@ -165,6 +210,8 @@ int main(void) {
 		return -1;
 	}
 
+	mudaEstado(&estado, MENUG);
+
 	//Registrando na fila de eventos
 	al_register_event_source(fila_de_eventos, al_get_keyboard_event_source());
 	al_register_event_source(fila_de_eventos, al_get_mouse_event_source());
@@ -196,21 +243,75 @@ int main(void) {
 			}
 
 			if (estado == MENUG) {
-
+				/*if (clicar em 'jogar') {
+					mudaEstado(&estado, MENUC);
+				}
+				else if (clicar em 'configurãcoes') {
+					mudaEstado(&estado, CONFIGURACOES);
+				}*/
 			}
 			else if (estado == MENUC) {
-
+				/*if (clicar em qualquer opcao) {
+					if(clicar em 'americacn') {
+						continente = AMERICACN;
+						destino = sorteiaDestino(AMERICACN);
+						pais = iniciaPais(&pais, destino, AMERICACN);
+					}
+					if(clicar em 'americas') {
+						continente = AMERICAS;
+						destino = sorteiaDestino(AMERICAS);
+						pais = iniciaPais(&pais, destino, AMERICAS);
+					}
+					if(clicar em 'africa') {
+						continente = AFRICA;
+						destino = sorteiaDestino(AFRICA);
+						pais = iniciaPais(&pais, destino, AFRICA);
+					}
+					if(clicar em 'europa') {
+						continente = EUROPA;
+						destino = sorteiaDestino(EUROPA);
+						pais = iniciaPais(&pais, destino, EUROPA);
+					}
+					if(clicar em 'asia') {
+						continente = ASIA;
+						destino = sorteiaDestino(ASIA);
+						pais = iniciaPais(&pais, destino, ASIA);
+					}
+					if(clicar em 'oceania') {
+						continente = OCEANIA;
+						destino = sorteiaDestino(OCEANIA);
+						pais = iniciaPais(&pais, destino, OCEANIA);
+					}
+					mudaEstado(&estado, JOGO);
+				}*/
 			}
 			else if (estado == JOGO) {
-				if (keys[ESC] || keys[P]) {
-					estado = PAUSE;
-				}
+				/*if (keys[ESC] || keys[P] || clicar em 'pause') {
+					mudaEstado(&estado, PAUSE);
+				}*/
 			}
 			else if (estado == PAUSE) {
-				if (keys[ESC])
-					done = true;
+				/*if (keys[ESC] || clicar em 'voltar') {
+					mudaEstado(&estado, JOGO);
+				}
+				else if (clicar em 'sair') {
+					mudaEstado(&estado, GAMEOVER);
+				}
+				else if (clicar em 'configuracoes') {
+					mudaEstado(&estado, CONFIGURACOES);
+				}*/
 			}
-
+			else if (estado == CONFIGURACOES) {
+				/*if (clicar em 'voltar') {
+					mudaEstado(&estado, JOGO);
+				}
+				else if(clicar em 'som') {
+					tira som;
+				}	*/
+			}
+			else if (estado == GAMEOVER) {
+				done = true;
+			}
 			redraw = true; 
 		}
 		else if (evento.type == ALLEGRO_EVENT_KEY_DOWN) {
@@ -270,27 +371,62 @@ int main(void) {
 			redraw = false;
 
 			if (estado == MENUG) {
-
+				//al_draw_bitmap(menug);
 			}
 			else if (estado == MENUC) {
-
+				//al_draw_bitmap(menuc);
 			}
 			else if (estado == JOGO) {
-				/*if (!gameOver) {
-				desenhaAviao(aviao);
-				al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90,
-				ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
-				}*/
+				if (!gameOver) {
+					if (continente == AMERICACN) {
+						al_draw_bitmap(americacn, 0, 0, 0);
+						al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90,
+							ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
+						desenhaAviao(aviao);
+					}
+					else if (continente == AMERICAS) {
+						al_draw_bitmap(americas, 0, 0, 0);
+						al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90,
+							ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
+						desenhaAviao(aviao);
+					}
+					else if (continente == AFRICA) {
+						al_draw_bitmap(africa, 0, 0, 0);
+						al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90,
+							ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
+						desenhaAviao(aviao);
+					}
+					else if (continente == EUROPA) {
+						al_draw_bitmap(europa, 0, 0, 0);
+						al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90,
+							ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
+						desenhaAviao(aviao);
+					}
+					else if (continente == ASIA) {
+						al_draw_bitmap(asia, 0, 0, 0);
+						al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90,
+							ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
+						desenhaAviao(aviao);
+					}
+					else if (continente == OCEANIA) {
+						al_draw_bitmap(oceania, 0, 0, 0);
+						al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90,
+							ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
+						desenhaAviao(aviao);
+					}
+				}
 			}
 			else if (estado == PAUSE) {
-				
+				//al_draw_bitmap(pause);
 			}
-
+			else if (estado == CONFIGURACOES) {
+				//al_draw_bitmap(configuracoes);
+			}
 			al_flip_display();
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 		}
 	}
-	
+
 	//destruindo
 	al_destroy_bitmap(americacn);
 	al_destroy_bitmap(americas);
@@ -301,6 +437,7 @@ int main(void) {
 	al_destroy_bitmap(menug);
 	al_destroy_bitmap(menuc);
 	al_destroy_bitmap(pause);
+	al_destroy_bitmap(configuracoes);
 	al_destroy_event_queue(fila_de_eventos);
 	al_destroy_display(janela);
 
