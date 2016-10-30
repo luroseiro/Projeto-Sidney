@@ -1,3 +1,5 @@
+enum CONTINENTES { AMERICACN, AMERICAS, AFRICA, EUROPA, ASIA, OCEANIA };
+
 typedef struct avioes {
 	int x;
 	int y;
@@ -649,10 +651,10 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino, int continente) {
 			pais->localizacao_x = 984;
 			pais->localizacao_y = 377;
 			break;
-		case 47:
+		/*case 47:
 			pais->nome = "Rússia";
 			pais->localizacao_x = x;
-			pais->localizacao_y = y;
+			pais->localizacao_y = y;*/
 		case 48:
 			pais->nome = "San Marino";
 			pais->localizacao_x = 917;

@@ -5,13 +5,13 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
 #include "objetos.h"
-#include <iostream>
+#include <stdio.h>
 
 const int WIDTH = 839;
 const int HEIGHT = 685;
 enum KEYS{UP, DOWN, LEFT, RIGHT, SPACE, ESC, P};
 enum ESTADOS{MENUG, MENUC, JOGO, PAUSE, CONFIGURACOES, GAMEOVER};
-enum CONTINENTES{AMERICACN, AMERICAS, AFRICA, EUROPA, ASIA, OCEANIA};
+//enum CONTINENTES{AMERICACN, AMERICAS, AFRICA, EUROPA, ASIA, OCEANIA};
 bool keys[7] = {false, false, false, false, false, false};
 
 void iniciaAviao(AVIOES *aviao) {
@@ -72,7 +72,7 @@ int sorteiaDestino(int continente) {
 }
 DESTINOS *iniciaPais(DESTINOS *pais, int destino, int continente);
 
-void mudaEstado(int *estado, int novoEstado) {
+void mudaEstado(int estado, int novoEstado) {
 	if (estado == MENUG) {
 		printf("Deixando o estado MENUG\n");
 	}
@@ -112,7 +112,7 @@ int main(void) {
 
 	bool done = false, redraw = false, gameOver = false;
 	const int FPS = 60;
-	int destino, *estado = -1, continente = -1;
+	int destino, estado = -1, continente = -1;
 
 	AVIOES aviao;
 	DESTINOS *pais;
@@ -155,14 +155,14 @@ int main(void) {
 		return -1;
 	}
 
-	/*menug = al_load_bitmap("menug.jpg");
+	menug = al_load_bitmap("menug.jpg");
 	menuc = al_load_bitmap("menuc.jpg");
 	pause = al_load_bitmap("pause.jpg");
 	configuracoes = al_load_bitmap("configuracoes.jpg");
 	if (!menuc || !menug || !pause || !configuracoes) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniar telas!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
-	}*/
+	}
 
 	//addons
 	if (!al_install_keyboard()) {
@@ -210,7 +210,7 @@ int main(void) {
 		return -1;
 	}
 
-	mudaEstado(&estado, MENUG);
+	mudaEstado(estado, MENUG);
 
 	//Registrando na fila de eventos
 	al_register_event_source(fila_de_eventos, al_get_keyboard_event_source());
@@ -244,10 +244,10 @@ int main(void) {
 
 			if (estado == MENUG) {
 				/*if (clicar em 'jogar') {
-					mudaEstado(&estado, MENUC);
+					mudaEstado(estado, MENUC);
 				}
 				else if (clicar em 'configurãcoes') {
-					mudaEstado(&estado, CONFIGURACOES);
+					mudaEstado(estado, CONFIGURACOES);
 				}*/
 			}
 			else if (estado == MENUC) {
@@ -282,28 +282,28 @@ int main(void) {
 						destino = sorteiaDestino(OCEANIA);
 						pais = iniciaPais(&pais, destino, OCEANIA);
 					}
-					mudaEstado(&estado, JOGO);
+					mudaEstado(estado, JOGO);
 				}*/
 			}
 			else if (estado == JOGO) {
 				/*if (keys[ESC] || keys[P] || clicar em 'pause') {
-					mudaEstado(&estado, PAUSE);
+					mudaEstado(estado, PAUSE);
 				}*/
 			}
 			else if (estado == PAUSE) {
 				/*if (keys[ESC] || clicar em 'voltar') {
-					mudaEstado(&estado, JOGO);
+					mudaEstado(estado, JOGO);
 				}
 				else if (clicar em 'sair') {
-					mudaEstado(&estado, GAMEOVER);
+					mudaEstado(estado, GAMEOVER);
 				}
 				else if (clicar em 'configuracoes') {
-					mudaEstado(&estado, CONFIGURACOES);
+					mudaEstado(estado, CONFIGURACOES);
 				}*/
 			}
 			else if (estado == CONFIGURACOES) {
 				/*if (clicar em 'voltar') {
-					mudaEstado(&estado, JOGO);
+					mudaEstado(estado, JOGO);
 				}
 				else if(clicar em 'som') {
 					tira som;
