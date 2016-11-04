@@ -19,136 +19,144 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino, int continente) {
 		switch (destino) {
 		case 1:
 			pais->nome = "Bahamas";
-			pais->localizacao_x = 452;
-			pais->localizacao_y = 495;
+			pais->localizacao_x = 416;
+			pais->localizacao_y = 531;
 			break;
 		case 2:
 			pais->nome = "Canadá";
-			pais->localizacao_x = 513;
-			pais->localizacao_y = 341;
+			pais->localizacao_x = 464;
+			pais->localizacao_y = 378;
 			break;
 		case 3:
 			pais->nome = "Estados Unidos da América";
-			pais->localizacao_x = 474;
-			pais->localizacao_y = 406;
+			pais->localizacao_x = 431;
+			pais->localizacao_y = 449;
 			break;
 		case 4:
 			pais->nome = "México";
-			pais->localizacao_x = 336;
-			pais->localizacao_y = 519;
+			pais->localizacao_x = 274;
+			pais->localizacao_y = 567;
 			break;
 		case 5:
-			pais->nome = "Caribe";
-			pais->localizacao_x = 439;
-			pais->localizacao_y = 505;
+			pais->nome = "Cuba";
+			pais->localizacao_x = 409;
+			pais->localizacao_y = 570;
 			break;
 		case 6:
 			pais->nome = "Belize";
-			pais->localizacao_x = 390;
-			pais->localizacao_y = 537;
+			pais->localizacao_x = 337;
+			pais->localizacao_y = 590;
 			break;
 		case 7:
 			pais->nome = "Porto Rico";
-			pais->localizacao_x = 508;
-			pais->localizacao_y = 533;
+			pais->localizacao_x = 468;
+			pais->localizacao_y = 588;
 			break;
 		case 8:
 			pais->nome = "Costa Rica";
-			pais->localizacao_x = 407;
-			pais->localizacao_y = 585;
+			pais->localizacao_x = 357;
+			pais->localizacao_y = 642;
 			break;
 		case 9:
 			pais->nome = "El Salvador";
-			pais->localizacao_x = 387;
-			pais->localizacao_y = 558;
+			pais->localizacao_x = 333;
+			pais->localizacao_y = 618;
 			break;
 		case 10:
 			pais->nome = "Guatemala";
-			pais->localizacao_x = 380;
-			pais->localizacao_y = 549;
+			pais->localizacao_x = 322;
+			pais->localizacao_y = 605;
 			break;
 		case 11:
 			pais->nome = "Honduras";
-			pais->localizacao_x = 395;
-			pais->localizacao_y = 554;
+			pais->localizacao_x = 343;
+			pais->localizacao_y = 613;
 			break;
 		case 12:
 			pais->nome = "Nicarágua";
-			pais->localizacao_x = 400;
-			pais->localizacao_y = 567;
+			pais->localizacao_x = 351;
+			pais->localizacao_y = 627;
 			break;
 		case 13:
 			pais->nome = "Panamá";
-			pais->localizacao_x = 419;
-			pais->localizacao_y = 591;
+			pais->localizacao_x = 384;
+			pais->localizacao_y = 649;
 			break;
+		case 14:
+			pais->nome = "Haiti";
+			pais->localizacao_x = 430;
+			pais->localizacao_y = 589;
+		case 15:
+			pais->nome = "República Dominicana";
+			pais->localizacao_x = 446;
+			pais->localizacao_y = 581;
 		}
 	case AMERICAS:
 		switch (destino) {
 		case 1:
 			pais->nome = "Argentina";
-			pais->localizacao_x = 566;
-			pais->localizacao_y = 854;
+			pais->localizacao_x = 453;
+			pais->localizacao_y = 412;
 			break;
 		case 2:
 			pais->nome = "Bolívia";
-			pais->localizacao_x = 500;
-			pais->localizacao_y = 741;
+			pais->localizacao_x = 378;
+			pais->localizacao_y = 302;
 			break;
 		case 3:
 			pais->nome = "Brasil";
-			pais->localizacao_x = 609;
-			pais->localizacao_y = 750;
+			pais->localizacao_x = 506;
+			pais->localizacao_y = 297;
 			break;
 		case 4:
 			pais->nome = "Chile";
-			pais->localizacao_x = 497;
-			pais->localizacao_y = 833;
+			pais->localizacao_x = 380;
+			pais->localizacao_y = 443;
 			break;
 		case 5:
 			pais->nome = "Colômbia";
-			pais->localizacao_x = 463;
-			pais->localizacao_y = 610;
+			pais->localizacao_x = 340;
+			pais->localizacao_y = 171;
 			break;
 		case 6:
 			pais->nome = "Equador";
-			pais->localizacao_x = 437;
-			pais->localizacao_y = 649;
+			pais->localizacao_x = 312;
+			pais->localizacao_y = 199;
 			break;
 		case 7:
 			pais->nome = "Guiana";
-			pais->localizacao_x = 544;
-			pais->localizacao_y = 605;
+			pais->localizacao_x = 429;
+			pais->localizacao_y = 151;
 			break;
 		case 8:
 			pais->nome = "Guiana Francesa";
-			pais->localizacao_x = 579;
-			pais->localizacao_y = 615;
+			pais->localizacao_x = 467;
+			pais->localizacao_y = 166;
 			break;
 		case 9:
 			pais->nome = "Paraguai";
-			pais->localizacao_x = 563;
-			pais->localizacao_y = 786;
+			pais->localizacao_x = 454;
+			pais->localizacao_y = 352;
 			break;
 		case 10:
 			pais->nome = "Peru";
-			pais->localizacao_x = 451;
-			pais->localizacao_y = 716;
+			pais->localizacao_x = 324;
+			pais->localizacao_y = 265;
 			break;
 		case 11:
 			pais->nome = "Suriname";
-			pais->localizacao_x = 561;
-			pais->localizacao_y = 612;
+			pais->localizacao_x = 449;
+			pais->localizacao_y = 155;
 			break;
 		case 12:
 			pais->nome = "Uruguai";
-			pais->localizacao_x = 576;
-			pais->localizacao_y = 840;
+			pais->localizacao_x = 473;
+			pais->localizacao_y = 412;
 			break;
 		case 13:
 			pais->nome = "Venezuela";
-			pais->localizacao_x = 496;
-			pais->localizacao_y = 580;
+			pais->localizacao_x = 392;
+			pais->localizacao_y = 122;
 			break;
 		}
 	case AFRICA:
