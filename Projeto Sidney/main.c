@@ -6,6 +6,7 @@
 #include <allegro5/allegro_primitives.h>
 #include "objetos.h"
 #include <stdio.h>
+#include <math.h>
 
 const int WIDTH = 839;
 const int HEIGHT = 685;
@@ -17,37 +18,40 @@ bool keys[7] = {false, false, false, false, false, false, false};
 void iniciaAviao(AVIOES *aviao) {
 	aviao->x = WIDTH / 2;
 	aviao->y = HEIGHT / 2;
-	aviao->velocidade = 1.85;
-	aviao->combustivel = 100;
-	aviao->placar = 0;
+	aviao->velocidade = 2;
+	aviao->combustivel = 100.0;
 }
-/*void desenhaAviao(AVIOES aviao) {                      //desenha nave
+void desenhaAviao(AVIOES aviao) {                      //desenha nave
 	al_draw_filled_rectangle(aviao.x, aviao.y - 9, aviao.x + 10, aviao.y - 7, al_map_rgb(255, 0, 0));
 	al_draw_filled_rectangle(aviao.x, aviao.y + 9, aviao.x + 10, aviao.y + 7, al_map_rgb(255, 0, 0));
 
 	al_draw_filled_triangle(aviao.x - 12, aviao.y - 17, aviao.x + 12, aviao.y, aviao.x - 12, aviao.y + 17, al_map_rgb(0, 255, 0));
 	al_draw_filled_rectangle(aviao.x - 12, aviao.y - 2, aviao.x + 15, aviao.y + 2, al_map_rgb(0, 0, 255));
-}*/
+}
 void mAviaoCima(AVIOES *aviao) {                      //movimenta nave pra cima
 	aviao->y -= aviao->velocidade;
+	aviao->combustivel -= 0.1;
 	if (aviao->y < 0) {
 		aviao->y = 0;
 	}
 }
 void mAviaoBaixo(AVIOES *aviao) {                      //movimenta nave pra baixo
 	aviao->y += aviao->velocidade;
+	aviao->combustivel -= 0.1;
 	if (aviao->y > HEIGHT) {
 		aviao->y = HEIGHT;
 	}
 }
 void mAviaoEsq(AVIOES *aviao) {                      //movimenta nave pra esquerda
 	aviao->x -= aviao->velocidade;
+	aviao->combustivel -= 0.1;
 	if (aviao->x < 0) {
 		aviao->x = 0;
 	}
 }
 void mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direita
 	aviao->x += aviao->velocidade;
+	aviao->combustivel -= 0.1;
 	if (aviao->x > WIDTH) {
 		aviao->x = WIDTH;
 	}
@@ -70,14 +74,33 @@ int sorteiaDestino(int continente) {
 
 	return destino;
 }
-DESTINOS *iniciaPais(DESTINOS *pais, int destino, int continente);
+DESTINOS *iniciaPais(DESTINOS *pais, int destino, int continente);              //objetos.h
 
+double calculaDistancia(AVIOES aviao, DESTINOS *pais) {
+	double distancia, pontos = 100.0;
+
+	distancia = sqrt(pow((pais->localizacao_x - aviao.x), 2) + pow((pais->localizacao_y - aviao.y), 2));
+	
+	while (distancia > 0.0 && pontos >= 0.0) {
+		pontos -= 0.5;
+		distancia -= 0.5;
+	}
+
+	return pontos;
+}
+void restauraCombustivel(AVIOES *aviao, double pontos) {
+	aviao->combustivel += pontos;
+	if (aviao->combustivel >= 100.0) {
+		aviao->combustivel = 100.0;
+	}
+}
 
 int main(void) {
 
-	bool done = false, redraw = false, menu1 = false, menu2 = false, pauseTela = false;
+	bool done = false, redraw = false, acertou = false, menu1 = false, menu2 = false, pauseTela = false;
 	const int FPS = 60;
-	int estado = MENUG, continente = -1;
+	int estado = MENUG, continente = -1, destino = -1;
+	double pontos;
 
 	DESTINOS *pais = NULL;
 	AVIOES aviao;
@@ -86,7 +109,7 @@ int main(void) {
 	ALLEGRO_EVENT_QUEUE *fila_de_eventos = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_FONT *fonte = NULL;
-	ALLEGRO_BITMAP *imagemAviao = NULL;
+	//ALLEGRO_BITMAP *imagemAviao = NULL;
 	//bitmaps de menus
 	ALLEGRO_BITMAP *americacn = NULL;
 	ALLEGRO_BITMAP *americas = NULL;
@@ -147,11 +170,11 @@ int main(void) {
 		return -1;
 	}
 
-	imagemAviao = al_load_bitmap("aviao.png");
+	/*imagemAviao = al_load_bitmap("aviao.png");
 	if (!imagemAviao) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar aviao!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
-	}
+	}*/
 
 	americacn = al_load_bitmap("americacn.jpg");
 	americas = al_load_bitmap("americas.jpg");
@@ -202,21 +225,63 @@ int main(void) {
 		else if (evento.type == ALLEGRO_EVENT_TIMER) {
 			redraw = true;
 
-			if(estado == JOGO) {
+			switch (estado) {
+			case MENUG:
+				if (keys[ESC]) {
+					done = true;
+				}
+				break;
+			case MENUC:
+				if (keys[ESC]) {
+					estado = MENUG;
+					keys[ESC] = false;
+				}
+				break;
+			case JOGO:
 				if (keys[ESC] || keys[P]) {
 					estado = PAUSE;
+					keys[ESC] = false;
+					keys[P] = false;
 				}
-				if (keys[UP]) {
-					mAviaoCima(&aviao);
+				if (aviao.combustivel > 0.0) {
+					if (keys[SPACE]) {
+						pontos = calculaDistancia(aviao, &pais);
+						restauraCombustivel(&aviao, pontos);
+					}
+					if (keys[UP]) {
+						mAviaoCima(&aviao);
+					}
+					else if (keys[DOWN]) {
+						mAviaoBaixo(&aviao);
+					}
+					if (keys[LEFT]) {
+						mAviaoEsq(&aviao);
+					}
+					else if (keys[RIGHT]) {
+						mAviaoDir(&aviao);
+					}
 				}
-				if (keys[DOWN]) {
-					mAviaoBaixo(&aviao);
+				break;
+			case PAUSE:
+				if (keys[ESC]) {
+					estado = JOGO;
+					keys[ESC] = false;
 				}
-				if (keys[LEFT]) {
-					mAviaoEsq(&aviao);
-				}
-				if (keys[RIGHT]) {
-					mAviaoDir(&aviao);
+			case CONFIGURACOES:
+				if (keys[ESC]) {
+					if (menu1) {
+						estado = MENUG;
+						menu1 = false;
+					}
+					if (menu2) {
+						estado = MENUC;
+						menu2 = false;
+					}
+					else if (pauseTela) {
+						estado = PAUSE;
+						pauseTela = false;
+					}
+					keys[ESC] = false;
 				}
 			}
 		}
@@ -241,7 +306,7 @@ int main(void) {
 				keys[SPACE] = true;
 				break;
 			case ALLEGRO_KEY_P:
-				keys[PAUSE] = true;
+				keys[P] = true;
 				break;
 			}
 		}
@@ -267,7 +332,7 @@ int main(void) {
 					keys[ESC] = false;
 					break;
 				case ALLEGRO_KEY_P:
-					keys[PAUSE] = false;
+					keys[P] = false;
 					break;
 				}
 			}
@@ -289,15 +354,17 @@ int main(void) {
 				//clicar em americacn
 				if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 144 && evento.mouse.y <= 203)) {
 					continente = AMERICACN;
-					//destino = sorteiaDestino(AMERICACN);
-					iniciaPais(&pais, sorteiaDestino(AMERICACN), AMERICACN);
+					destino = sorteiaDestino(AMERICACN);
+					printf("%d\n", destino);
+					iniciaPais(&pais, destino, AMERICACN);
 					estado = JOGO;
 				}
 				//clicar em americas
 				else if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 218 && evento.mouse.y <= 273)) {
 					continente = AMERICAS;
-					//destino = sorteiaDestino(AMERICAS);
-					iniciaPais(&pais, sorteiaDestino(AMERICAS), AMERICAS);
+					destino = sorteiaDestino(AMERICAS);
+					printf("%d\n", destino);
+					iniciaPais(&pais, destino, AMERICAS);
 					estado = JOGO;
 				}
 				//clicar em africa
@@ -310,22 +377,25 @@ int main(void) {
 				//clicar em europa
 				else if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 352 && evento.mouse.y <= 412)) {
 					continente = EUROPA;
-					//destino = sorteiaDestino(EUROPA);
-					iniciaPais(&pais, sorteiaDestino(EUROPA), EUROPA);
+					destino = sorteiaDestino(EUROPA);
+					printf("%d\n", destino);
+					iniciaPais(&pais, destino, EUROPA);
 					estado = JOGO;
 				}
 				//clicar em asia
 				else if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 422 && evento.mouse.y <= 479)) {
 					continente = ASIA;
-					//destino = sorteiaDestino(ASIA);
-					iniciaPais(&pais, sorteiaDestino(ASIA), ASIA);
+					destino = sorteiaDestino(ASIA);
+					printf("%d\n", destino);
+					iniciaPais(&pais, destino, ASIA);
 					estado = JOGO;
 				}
 				//clicar em oceania
 				else if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 495 && evento.mouse.y <= 551)) {
 					continente = OCEANIA;
-					//destino = sorteiaDestino(OCEANIA);
-					iniciaPais(&pais, sorteiaDestino(OCEANIA), OCEANIA);
+					destino = sorteiaDestino(OCEANIA);
+					printf("%d\n", destino);
+					iniciaPais(&pais, destino, OCEANIA);
 					estado = JOGO;
 				}
 				//clicar em sair
@@ -344,27 +414,38 @@ int main(void) {
 				}*/
 				break;
 			case PAUSE:
-				/*if (clicar em 'voltar') {
+				//clicar em voltar
+				if ((evento.mouse.x >= 544 && evento.mouse.x <= 791) && (evento.mouse.y >= 432 && evento.mouse.y <= 685)) {
 					estado = JOGO;
 				}
-				else if (clicar em 'sair') {
+				//clicar em sair
+				if ((evento.mouse.x >= 43 && evento.mouse.x <= 282) && (evento.mouse.y >= 432 && evento.mouse.y <= 526)) {
 					done = true;
 				}
-				else if (clicar em 'configuracoes') {
+				//clicar em configuracoes
+				if ((evento.mouse.x >= 201 && evento.mouse.x <= 584) && (evento.mouse.y >= 228 && evento.mouse.y <= 332)) {
 					pauseTela = true;
 					estado = CONFIGURACOES;
-				}*/
+				}
 				break;
 			case CONFIGURACOES:
-				/*if (clicar em 'voltar') {
-					if(menu1)
+				//clicar em voltar
+				if ((evento.mouse.x >= 514 && evento.mouse.x <= 777) && (evento.mouse.y >= 292 && evento.mouse.y <= 447)) {
+					if (menu1) {
 						estado = MENUG;
-					else if(menu2)
+						menu1 = false;
+					}
+					else if (menu2) {
 						estado = MENUC;
-					else if(pauseTela)
+						menu2 = false;
+					}
+					else if (pauseTela) {
 						estado = PAUSE;
+						configuracoes = false;
+					}
 				}
-				else if(clicar em 'som') {
+				//clicar em mudo
+				/*else if((evento.mouse.x >= 63 && evento.mouse.x <= 348) && (evento.mouse.y >= 292 && evento.mouse.y <= 431)) {
 					tira som;
 				}*/
 				break;
@@ -384,32 +465,56 @@ int main(void) {
 				if (continente == AMERICACN) {
 					al_draw_bitmap(americacn, 0, 0, 0);
 					al_draw_text(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "OI"/*, pais->nome*/);
-					al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					//al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					desenhaAviao(aviao);
+					if (acertou) {
+						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+					}
 				}
 				else if (continente == AMERICAS) {
 					al_draw_bitmap(americas, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
-					al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					//al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					desenhaAviao(aviao);
+					if (acertou) {
+						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+					}
 				}
 				else if (continente == AFRICA) {
 					al_draw_bitmap(africa, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%c", pais->nome);
-					al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					//al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					desenhaAviao(aviao);
+					if (acertou) {
+						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+					}
 				}
 				else if (continente == EUROPA) {
 					al_draw_bitmap(europa, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%c", pais->nome);
-					al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					//al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					desenhaAviao(aviao);
+					if (acertou) {
+						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+					}
 				}
 				else if (continente == ASIA) {
 					al_draw_bitmap(asia, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%c", pais->nome);
-					al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					//al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					desenhaAviao(aviao);
+					if (acertou) {
+						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+					}
 				}
 				else if (continente == OCEANIA) {
 					al_draw_bitmap(oceania, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%c", pais->nome);
-					al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					//al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+					desenhaAviao(aviao);
+					if (acertou) {
+						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+					}
 				}
 			}
 			else if (estado == PAUSE) {
@@ -434,7 +539,7 @@ int main(void) {
 	al_destroy_bitmap(menuc);
 	al_destroy_bitmap(pause);
 	al_destroy_bitmap(configuracoes);
-	al_destroy_bitmap(imagemAviao);
+	//al_destroy_bitmap(imagemAviao);
 	al_destroy_event_queue(fila_de_eventos);
 	al_destroy_display(janela);
 

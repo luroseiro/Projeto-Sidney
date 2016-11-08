@@ -4,8 +4,7 @@ typedef struct avioes {
 	int x;
 	int y;
 	int velocidade;
-	int combustivel;
-	int placar;
+	double combustivel;
 } AVIOES;
 typedef struct destinos {
 	char *nome;
