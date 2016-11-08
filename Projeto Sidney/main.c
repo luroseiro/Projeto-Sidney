@@ -9,11 +9,10 @@
 
 const int WIDTH = 839;
 const int HEIGHT = 685;
-AVIOES aviao;
 enum KEYS{UP, DOWN, LEFT, RIGHT, SPACE, ESC, P};
-enum ESTADOS{MENUG, MENUC, JOGO, PAUSE, CONFIGURACOES, GAMEOVER};
+enum ESTADOS{MENUG, MENUC, JOGO, PAUSE, CONFIGURACOES};
 //enum CONTINENTES{AMERICACN, AMERICAS, AFRICA, EUROPA, ASIA, OCEANIA};
-bool keys[7] = {false, false, false, false, false, false};
+bool keys[7] = {false, false, false, false, false, false, false};
 
 void iniciaAviao(AVIOES *aviao) {
 	aviao->x = WIDTH / 2;
@@ -56,67 +55,32 @@ void mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direit
 int sorteiaDestino(int continente) {
 	int destino = -1;
 	
-	if (destino == AMERICACN)
+	if (continente == AMERICACN)
 		destino = 1 + (rand() % 15);
-	else if (destino == AMERICAS)
+	else if (continente == AMERICAS)
 		destino = 1 + (rand() % 13);
-	else if (destino == AFRICA)
+	else if (continente == AFRICA)
 		destino = 1 + (rand() % 53);
-	else if (destino == EUROPA)
+	else if (continente == EUROPA)
 		destino = 1 + (rand() % 53);
-	else if (destino == ASIA)
+	else if (continente == ASIA)
 		destino = 1 + (rand() % 35);
-	else if (destino == OCEANIA)
+	else if (continente == OCEANIA)
 		destino = 1 + (rand() % 5);
 
 	return destino;
 }
 DESTINOS *iniciaPais(DESTINOS *pais, int destino, int continente);
 
-void mudaEstado(int estado, int novoEstado) {
-	if (estado == MENUG) {
-		printf("Deixando o estado MENUG\n");
-	}
-	else if (estado == MENUC) {
-		printf("Deixando o estado MENUC\n");
-	}
-	else if (estado == JOGO) {
-		printf("Deixando o estado JOGO\n");
-		iniciaAviao(&aviao);
-	}
-	else if (estado = PAUSE) {
-		printf("Deixando o estado PAUSE\n");
-	}
-	else if (estado == GAMEOVER) {
-		printf("Deixando o estado GAMEOVER\n");
-	}
-
-	estado = novoEstado;
-
-	if (estado == MENUG) {
-		printf("Entrando no estado MENUG\n");
-	}
-	else if (estado == MENUC) {
-		printf("Entrando no estado MENUC\n");
-	}
-	else if (estado == JOGO) {
-		printf("Entrando no estado JOGO\n");
-	}
-	else if (estado = PAUSE) {
-		printf("Entrando no estado PAUSE\n");
-	}
-	else if (estado == GAMEOVER) {
-		printf("Entrando no estado GAMEOVER\n");
-	}
-}
 
 int main(void) {
 
-	bool done = false, redraw = false;
+	bool done = false, redraw = false, menu1 = false, menu2 = false, pauseTela = false;
 	const int FPS = 60;
-	int estado = 0, continente = -1;
+	int estado = MENUG, continente = -1;
 
 	DESTINOS *pais = NULL;
+	AVIOES aviao;
 
 	ALLEGRO_DISPLAY *janela = NULL;
 	ALLEGRO_EVENT_QUEUE *fila_de_eventos = NULL;
@@ -172,6 +136,17 @@ int main(void) {
 		return -1;
 	}
 
+	fila_de_eventos = al_create_event_queue();
+	if (!fila_de_eventos) {
+		al_show_native_message_box(janela, "ERRO", "Erro ao criar fila de eventos!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
+		return -1;
+	}
+	timer = al_create_timer(1.0 / FPS);
+	if (!timer) {
+		al_show_native_message_box(janela, "ERRO", "Erro ao criar timer!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
+		return -1;
+	}
+
 	imagemAviao = al_load_bitmap("aviao.png");
 	if (!imagemAviao) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar aviao!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
@@ -198,18 +173,8 @@ int main(void) {
 		return -1;
 	}
 
-	fila_de_eventos = al_create_event_queue();
-	if (!fila_de_eventos) {
-		al_show_native_message_box(janela, "ERRO", "Erro ao criar fila de eventos!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
-		return -1;
-	}
-	timer = al_create_timer(1.0 / FPS);
-	if (!timer) {
-		al_show_native_message_box(janela, "ERRO", "Erro ao criar timer!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
-		return -1;
-	}
-
 	srand(time(NULL));
+
 	iniciaAviao(&aviao);
 
 	fonte = al_load_font("fonte.ttf", 27, 0);
@@ -217,8 +182,6 @@ int main(void) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar fonte!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
-
-	mudaEstado(estado, MENUG);
 
 	//Registrando na fila de eventos
 	al_register_event_source(fila_de_eventos, al_get_keyboard_event_source());
@@ -237,90 +200,11 @@ int main(void) {
 			done = true;
 		}
 		else if (evento.type == ALLEGRO_EVENT_TIMER) {
-			switch (estado) {
-			case MENUG:
-				if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-					if (evento.mouse.button & 1) {
-						if ((evento.mouse.x >= 222 && evento.mouse.x <= 504) && (evento.mouse.y >= 391 && evento.mouse.y <= 518)) {
-							mudaEstado(estado, MENUC);
-						}
-						else if ((evento.mouse.x >= 582 && evento.mouse.x <= 812) && (evento.mouse.y >= 584 && evento.mouse.y <= 649)) {
-							mudaEstado(estado, CONFIGURACOES);
-						}
-					}
-				}
-				break;
-			case MENUC:
-				//clicar em americacn
-				if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-					if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 144 && evento.mouse.y <= 203)) {
-						continente = AMERICACN;
-						//destino = sorteiaDestino(AMERICACN);
-						pais = iniciaPais(&pais, sorteiaDestino(AMERICACN), AMERICACN);
-						mudaEstado(estado, JOGO);
-					}
-				}
-				//clicar em americas
-				else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-					if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 218 && evento.mouse.y <= 273)) {
-						continente = AMERICAS;
-						//destino = sorteiaDestino(AMERICAS);
-						pais = iniciaPais(&pais, sorteiaDestino(AMERICAS), AMERICAS);
-						mudaEstado(estado, JOGO);
-					}
-				}
-				//clicar em africa
-				else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-					if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 283 && evento.mouse.y <= 341)) {
-						continente = AFRICA;
-						//destino = sorteiaDestino(AFRICA);
-						pais = iniciaPais(&pais, sorteiaDestino(AFRICA), AFRICA);
-						mudaEstado(estado, JOGO);
-					}
-				}
-				//clicar em europa
-				else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-					if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 352 && evento.mouse.y <= 412)) {
-						continente = EUROPA;
-						//destino = sorteiaDestino(EUROPA);
-						pais = iniciaPais(&pais, sorteiaDestino(EUROPA), EUROPA);
-						mudaEstado(estado, JOGO);
-					}
-				}
-				//clicar em asia
-				else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-					if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 422 && evento.mouse.y <= 479)) {
-						continente = ASIA;
-						//destino = sorteiaDestino(ASIA);
-						pais = iniciaPais(&pais, sorteiaDestino(ASIA), ASIA);
-						mudaEstado(estado, JOGO);
-					}
-				}
-				//clicar em oceania
-				else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-					if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 495 && evento.mouse.y <= 551)) {
-						continente = OCEANIA;
-						//destino = sorteiaDestino(OCEANIA);
-						pais = iniciaPais(&pais, sorteiaDestino(OCEANIA), OCEANIA);
-						mudaEstado(estado, JOGO);
-					}
-				}
-				//clicar em sair
-				else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-					if ((evento.mouse.x >= 32 && evento.mouse.x <= 236) && (evento.mouse.y >= 606 && evento.mouse.y <= 662)) {
-						mudaEstado(estado, MENUG);
-					}
-				}
-				//clicar em configuracoes
-				else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
-					if ((evento.mouse.x >= 634 && evento.mouse.x <= 820) && (evento.mouse.y >= 591 && evento.mouse.y <= 662)) {
-						mudaEstado(estado, CONFIGURACOES);
-					}
-				}
-				break;
-			case JOGO:
-				if (keys[ESC] || keys[P] /*|| clicar em 'pause'*/) {
-					mudaEstado(estado, PAUSE);
+			redraw = true;
+
+			if(estado == JOGO) {
+				if (keys[ESC] || keys[P]) {
+					estado = PAUSE;
 				}
 				if (keys[UP]) {
 					mAviaoCima(&aviao);
@@ -334,31 +218,7 @@ int main(void) {
 				if (keys[RIGHT]) {
 					mAviaoDir(&aviao);
 				}
-				break;
-			case PAUSE:
-				/*if (keys[ESC] || clicar em 'voltar') {
-					mudaEstado(estado, JOGO);
-				}
-				else if (clicar em 'sair') {
-					mudaEstado(estado, GAMEOVER);
-				}
-				else if (clicar em 'configuracoes') {
-					mudaEstado(estado, CONFIGURACOES);
-				}*/
-				break;
-			case CONFIGURACOES:
-				/*if (clicar em 'voltar') {
-					mudaEstado(estado, JOGO);
-				}
-				else if(clicar em 'som') {
-					tira som;
-				}*/
-				break;
-			case GAMEOVER:
-				done = true;
-				break;
 			}
-			redraw = true;
 		}
 		else if (evento.type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch (evento.keyboard.keycode) {  
@@ -412,6 +272,104 @@ int main(void) {
 				}
 			}
 		}
+		else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+			switch (estado) {
+			case MENUG:
+				//clicar em menuc
+				if ((evento.mouse.x >= 222 && evento.mouse.x <= 504) && (evento.mouse.y >= 391 && evento.mouse.y <= 518)) {
+					estado = MENUC;
+				}
+				//clicar em configuracoes
+				else if ((evento.mouse.x >= 582 && evento.mouse.x <= 812) && (evento.mouse.y >= 584 && evento.mouse.y <= 649)) {
+					menu1 = true;
+					estado = CONFIGURACOES;
+				}
+				break;
+			case MENUC:
+				//clicar em americacn
+				if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 144 && evento.mouse.y <= 203)) {
+					continente = AMERICACN;
+					//destino = sorteiaDestino(AMERICACN);
+					iniciaPais(&pais, sorteiaDestino(AMERICACN), AMERICACN);
+					estado = JOGO;
+				}
+				//clicar em americas
+				else if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 218 && evento.mouse.y <= 273)) {
+					continente = AMERICAS;
+					//destino = sorteiaDestino(AMERICAS);
+					iniciaPais(&pais, sorteiaDestino(AMERICAS), AMERICAS);
+					estado = JOGO;
+				}
+				//clicar em africa
+				else if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 283 && evento.mouse.y <= 341)) {
+					continente = AFRICA;
+					//destino = sorteiaDestino(AFRICA);
+					iniciaPais(&pais, sorteiaDestino(AFRICA), AFRICA);
+					estado = JOGO;
+				}
+				//clicar em europa
+				else if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 352 && evento.mouse.y <= 412)) {
+					continente = EUROPA;
+					//destino = sorteiaDestino(EUROPA);
+					iniciaPais(&pais, sorteiaDestino(EUROPA), EUROPA);
+					estado = JOGO;
+				}
+				//clicar em asia
+				else if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 422 && evento.mouse.y <= 479)) {
+					continente = ASIA;
+					//destino = sorteiaDestino(ASIA);
+					iniciaPais(&pais, sorteiaDestino(ASIA), ASIA);
+					estado = JOGO;
+				}
+				//clicar em oceania
+				else if ((evento.mouse.x >= 180 && evento.mouse.x <= 607) && (evento.mouse.y >= 495 && evento.mouse.y <= 551)) {
+					continente = OCEANIA;
+					//destino = sorteiaDestino(OCEANIA);
+					iniciaPais(&pais, sorteiaDestino(OCEANIA), OCEANIA);
+					estado = JOGO;
+				}
+				//clicar em sair
+				else if ((evento.mouse.x >= 32 && evento.mouse.x <= 236) && (evento.mouse.y >= 606 && evento.mouse.y <= 662)) {
+					estado = MENUG;
+				}
+				//clicar em configuracoes
+				else if ((evento.mouse.x >= 634 && evento.mouse.x <= 820) && (evento.mouse.y >= 591 && evento.mouse.y <= 662)) {
+					menu2 = true;
+					estado = CONFIGURACOES;
+				}
+				break;
+			case JOGO:
+				/*if (clicar em 'pause') {
+					estado = PAUSE;
+				}*/
+				break;
+			case PAUSE:
+				/*if (clicar em 'voltar') {
+					estado = JOGO;
+				}
+				else if (clicar em 'sair') {
+					done = true;
+				}
+				else if (clicar em 'configuracoes') {
+					pauseTela = true;
+					estado = CONFIGURACOES;
+				}*/
+				break;
+			case CONFIGURACOES:
+				/*if (clicar em 'voltar') {
+					if(menu1)
+						estado = MENUG;
+					else if(menu2)
+						estado = MENUC;
+					else if(pauseTela)
+						estado = PAUSE;
+				}
+				else if(clicar em 'som') {
+					tira som;
+				}*/
+				break;
+			}
+		}
 
 		if (redraw && al_is_event_queue_empty(fila_de_eventos)) {
 			redraw = false;
@@ -425,7 +383,7 @@ int main(void) {
 			else if (estado == JOGO) {
 				if (continente == AMERICACN) {
 					al_draw_bitmap(americacn, 0, 0, 0);
-					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais->nome);
+					al_draw_text(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "OI"/*, pais->nome*/);
 					al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
 				}
 				else if (continente == AMERICAS) {
