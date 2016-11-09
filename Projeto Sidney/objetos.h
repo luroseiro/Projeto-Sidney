@@ -910,29 +910,64 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino, int continente) {
 		switch (destino) {
 		case 1:
 			pais->nome = "Austrália";
-			pais->localizacao_x = 1606;
-			pais->localizacao_y = 899;
+			pais->localizacao_x = 481;
+			pais->localizacao_y = 404;
 			break;
 		case 2:
 			pais->nome = "Ilhas Salomão";
-			pais->localizacao_x = 1711;
-			pais->localizacao_y = 703;
+			pais->localizacao_x = 574;
+			pais->localizacao_y = 217;
 			break;
 		case 3:
 			pais->nome = "Indonésia";
-			pais->localizacao_x = 1430;
-			pais->localizacao_y = 681;
+			pais->localizacao_x = 265;
+			pais->localizacao_y = 201;
 			break;
 		case 4:
 			pais->nome = "Nova Zelândia";
-			pais->localizacao_x = 1725;
-			pais->localizacao_y = 970;
+			pais->localizacao_x = 588;
+			pais->localizacao_y = 521;
 			break;
 		case 5:
 			pais->nome = "Papua-Nova Guiné";
-			pais->localizacao_x = 1648;
-			pais->localizacao_y = 714;
+			pais->localizacao_x = 503;
+			pais->localizacao_y = 228;
 			break;
+		case 6:
+			pais->nome = "Fiji";
+			pais->localizacao_x = 725;
+			pais->localizacao_y = 258;
+			break;
+		case 7:
+			pais->nome = "Ilhas Marshall";
+			pais->localizacao_x = 639;
+			pais->localizacao_y = 171;
+			break;
+		case 8:
+			pais->nome = "Kiribati";
+			pais->localizacao_x = 693;
+			pais->localizacao_y = 108;
+			break;
+		case 9:
+			pais->nome = "Nauru";
+			pais->localizacao_x = 646;
+			pais->localizacao_y = 206;
+			break;
+		case 10:
+			pais->nome = "Palau";
+			pais->localizacao_x = 392;
+			pais->localizacao_y = 144;
+			break;
+		case 11:
+			pais->nome = "Samoa";
+			pais->localizacao_x = 591;
+			pais->localizacao_y = 334;
+			break;
+		case 12:
+			pais->nome = "Vanuatu";
+			pais->localizacao_x = 612;
+			pais->localizacao_y = 277;
+			break;				
 		}
 		break;
 	}
