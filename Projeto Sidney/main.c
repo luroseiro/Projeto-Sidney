@@ -79,7 +79,7 @@ int sorteiaDestino(int continente) {
 		local = 1 + (rand() % 41);
 	}
 	else if (continente == OCEANIA) {
-		local = 1 + (rand() % 5);
+		local = 1 + (rand() % 12);
 	}
 	return local;
 }
