@@ -61,22 +61,27 @@ bool mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direit
 	return true;
 }
 int sorteiaDestino(int continente) {
-	int destino = -1;
-	
-	if (continente == AMERICACN)
-		destino = 1 + (rand() % 15);
-	else if (continente == AMERICAS)
-		destino = 1 + (rand() % 13);
-	else if (continente == AFRICA)
-		destino = 1 + (rand() % 53);
-	else if (continente == EUROPA)
-		destino = 1 + (rand() % 53);
-	else if (continente == ASIA)
-		destino = 1 + (rand() % 35);
-	else if (continente == OCEANIA)
-		destino = 1 + (rand() % 5);
+	int local;
 
-	return destino;
+	if (continente == AMERICACN) {
+		local = 1 + (rand() % 15);
+	}
+	else if (continente == AMERICAS) {
+		local = 1 + (rand() % 13);
+	}
+	else if (continente == AFRICA) {
+		local = 1 + (rand() % 53);
+	}
+	else if (continente == EUROPA) {
+		local = 1 + (rand() % 53);
+	}
+	else if (continente == ASIA) {
+		local = 1 + (rand() % 35);
+	}
+	else if (continente == OCEANIA) {
+		local = 1 + (rand() % 5);
+	}
+	return local;
 }
 
 double calculaDistancia(AVIOES aviao, DESTINOS *pais) {
@@ -384,9 +389,10 @@ int main(void) {
 				//clicar em americacn
 				if ((evento.mouse.x >= 290 && evento.mouse.x <= 550) && (evento.mouse.y >= 94 && evento.mouse.y <= 164)) {
 					continente = AMERICACN;
-					destino = sorteiaDestino(AMERICACN);
+					destino = sorteiaDestino(continente);
 					printf("%d\n", destino);
-					iniciaPais(&pais, destino, AMERICACN);
+					iniciaPais(&pais, destino, continente);
+					printf("%s\n", pais.nome);
 					estado = JOGO;
 				}
 				//clicar em americas
