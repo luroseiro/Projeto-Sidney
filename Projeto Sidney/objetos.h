@@ -86,10 +86,12 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino, int continente) {
 			pais->nome = "Haiti";
 			pais->localizacao_x = 430;
 			pais->localizacao_y = 589;
+			break;
 		case 15:
 			pais->nome = "República Dominicana";
 			pais->localizacao_x = 446;
 			pais->localizacao_y = 581;
+			break;
 		}
 		break;
 	case AMERICAS:
