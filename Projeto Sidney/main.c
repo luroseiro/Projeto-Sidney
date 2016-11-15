@@ -6,6 +6,7 @@
 #include <allegro5/allegro_primitives.h>
 #include "objetos.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 const int WIDTH = 839;
@@ -55,7 +56,8 @@ bool mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direit
 }
 
 int sorteiaDestino(int destinos[]) {
-	int local;
+	int local, j = 0;
+	bool preenche = false;
 
 	local = 1 + (rand() % 187);
 
@@ -67,22 +69,34 @@ int sorteiaDestino(int destinos[]) {
 		}
 	}
 
+	preenche = true;
+
+	if(preenche) {
+		destinos[j] = local;
+		j++;
+		preenche = false;
+	}
+
 	return local;
 }
-int sorteioFinal() {
 
-}
-
-double calculaDistancia(AVIOES aviao, DESTINOS *pais) {
+double calculaDistancia(AVIOES aviao, DESTINOS *pais, int continente) {
 	double distancia, pontos = 100.0;
 
-	distancia = sqrt(pow((pais->localizacao_x - aviao.x), 2) + pow((pais->localizacao_y - aviao.y), 2));
+	if (pais->continente == continente) {
+		distancia = sqrt(pow((pais->localizacao_x - aviao.x), 2) + pow((pais->localizacao_y - aviao.y), 2));
+	}
+	else {
+		pontos = 0.0;
+		goto fim;
+	}
 	
 	while (distancia > 0.0 && pontos >= 0.0) {
 		pontos -= 0.5;
 		distancia -= 0.5;
 	}
 
+	fim:
 	return pontos;
 }
 void restauraCombustivel(AVIOES *aviao, double pontos) {
@@ -100,6 +114,7 @@ int main(void) {
 	bool done = false, redraw = false, menu = false, pauseTela = false;
 	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false;      //frase da distancia
 	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;
+	bool contamericacn = false, contamericas = false, contafrica = false, conteuropa = false, contasia = false, contoceania = false;
 	const int FPS = 60;
 	int estado = MENUG, continente = -1, destino = -1, destinos[187];
 	double pontos;
@@ -255,7 +270,7 @@ int main(void) {
 				if (aviao.combustivel > 0.0) {
 					//para aviao
 					if (keys[SPACE]) {
-						pontos = calculaDistancia(aviao, &pais);
+						pontos = calculaDistancia(aviao, &pais, continente);
 						keys[SPACE] = false;
 
 						//verifica frase final
@@ -418,12 +433,12 @@ int main(void) {
 					estado = PAUSE;
 				}*/
 				//clicar em um dos outros continentes
-				if (pais.continente == "americacn") {
+				if (continente == AMERICACN) {
 					//clicar em americas
-					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-						continente = AMERICAS;
+					if ((evento.mouse.x >= 773 && evento.mouse.x <= 780) && (evento.mouse.y >= 256 && evento.mouse.y <= 260)) {
+						contamericas = true;
 					}
-					//clicar em africa
+					/*//clicar em africa
 					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
 						continente = AFRICA;
 					}
@@ -437,15 +452,15 @@ int main(void) {
 					}
 					//clicar em oceania
 					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = OCEANIA;
+						continente = OCEANIA;
 					}*/
 				}
-				else if (pais.continente == "americas") {
+				else if (continente == AMERICAS) {
 					//clicar em americacn
-					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AMERICACN;
+					if ((evento.mouse.x >= 178 && evento.mouse.x <= 190) && (evento.mouse.y >= 165 && evento.mouse.y <= 180)) {
+						contamericacn = true;
 					}
-					//clicar em africa
+					/*//clicar em africa
 					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
 					continente = AFRICA;
 					}
@@ -462,7 +477,7 @@ int main(void) {
 					continente = OCEANIA;
 					}*/
 				}
-				else if (pais.continente == "africa") {
+				else if (continente == AFRICA) {
 					//clicar em americacn
 					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
 					continente = AMERICACN;
@@ -484,7 +499,7 @@ int main(void) {
 					continente = OCEANIA;
 					}*/
 				}
-				else if (pais.continente == "europa") {
+				else if (continente == EUROPA) {
 					//clicar em americacn
 					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
 					continente = AMERICACN;
@@ -506,7 +521,7 @@ int main(void) {
 					continente = OCEANIA;
 					}*/
 				}
-				else if (pais.continente == "asia") {
+				else if (continente == ASIA) {
 					//clicar em americacn
 					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
 					continente = AMERICACN;
@@ -528,7 +543,7 @@ int main(void) {
 					continente = OCEANIA;
 					}*/
 				}
-				else if (pais.continente == "oceania") {
+				else if (continente == OCEANIA) {
 					//clicar em americacn
 					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
 					continente = AMERICACN;
@@ -570,6 +585,7 @@ int main(void) {
 					restauraCombustivel(&aviao, 100.0);
 					restauraPosicao(&aviao);
 					estado = MENUG;
+					system("cls");
 				}
 				break;
 			case CONFIGURACOES:
@@ -595,6 +611,7 @@ int main(void) {
 					restauraCombustivel(&aviao, 100.0);
 					restauraPosicao(&aviao);
 					estado = PREJOGO;
+					system("cls");
 				}
 				//clicar em sair
 				else if((evento.mouse.x >= 100 && evento.mouse.x <= 419) && (evento.mouse.y >= 422 && evento.mouse.y <= 512)) {
@@ -619,6 +636,7 @@ int main(void) {
 			}
 			else if (estado == JOGO) {
 				if (continente == AMERICACN) {
+					damericacn:
 					al_draw_bitmap(americacn, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
 
@@ -662,23 +680,34 @@ int main(void) {
 					}
 
 					//mudar de continente
-					if (continente == AMERICAS) {
-						al_draw_bitmap(americas, 0, 0, 0);
+					if (contamericas) {
+						contamericas = false;
+						continente = AMERICAS;
+						goto damericas;
 					}
-					else if (continente == AFRICA) {
-						al_draw_bitmap(africa, 0, 0, 0);
+					else if (contafrica) {
+						contafrica = false;
+						continente = AFRICA;
+						goto dafrica;
 					}
-					else if (continente == EUROPA) {
-						al_draw_bitmap(europa, 0, 0, 0);
+					else if (conteuropa) {
+						conteuropa = false;
+						continente = EUROPA;
+						goto dafrica;
 					}
-					else if (continente == ASIA) {
-						al_draw_bitmap(asia, 0, 0, 0);
+					else if (contasia) {
+						contasia = false;
+						continente = ASIA;
+						goto dafrica;
 					}
-					else if (continente == OCEANIA) {
-						al_draw_bitmap(oceania, 0, 0, 0);
+					else if (contoceania) {
+						contoceania = false;
+						continente = OCEANIA;
+						goto doceania;
 					}
 				}
 				else if (continente == AMERICAS) {
+					damericas:
 					al_draw_bitmap(americas, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
 
@@ -717,23 +746,34 @@ int main(void) {
 					}
 
 					//mudar de continente
-					if (continente == AMERICACN) {
-						al_draw_bitmap(americacn, 0, 0, 0);
+					if (contamericacn) {
+						contamericacn = false;
+						continente = AMERICACN;
+						goto damericacn;
 					}
-					else if (continente == AFRICA) {
-						al_draw_bitmap(africa, 0, 0, 0);
+					else if (contafrica) {
+						contafrica = false;
+						continente = AFRICA;
+						goto dafrica;
 					}
-					else if (continente == EUROPA) {
-						al_draw_bitmap(europa, 0, 0, 0);
+					else if (conteuropa) {
+						conteuropa = false;
+						continente = EUROPA;
+						goto deuropa;
 					}
-					else if (continente == ASIA) {
-						al_draw_bitmap(asia, 0, 0, 0);
+					else if (contasia) {
+						contasia = false;
+						continente = ASIA;
+						goto dasia;
 					}
-					else if (continente == OCEANIA) {
-						al_draw_bitmap(oceania, 0, 0, 0);
+					else if (contoceania) {
+						contoceania = false;
+						continente = OCEANIA;
+						goto doceania;
 					}
 				}
 				else if (continente == AFRICA) {
+					dafrica:
 					al_draw_bitmap(africa, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
 
@@ -772,23 +812,34 @@ int main(void) {
 					}
 
 					//mudar de continente
-					if (continente == AMERICACN) {
-						al_draw_bitmap(americacn, 0, 0, 0);
+					if (contamericacn) {
+						contamericacn = false;
+						continente = AMERICACN;
+						goto damericacn;
 					}
-					else if (continente == AMERICAS) {
-						al_draw_bitmap(americas, 0, 0, 0);
+					else if (contamericas) {
+						contamericas = false;
+						continente = AMERICAS;
+						goto damericas;
 					}
-					else if (continente == EUROPA) {
-						al_draw_bitmap(europa, 0, 0, 0);
+					else if (conteuropa) {
+						conteuropa = false;
+						continente = EUROPA;
+						goto deuropa;
 					}
-					else if (continente == ASIA) {
-						al_draw_bitmap(asia, 0, 0, 0);
+					else if (contasia) {
+						contasia = false;
+						continente = ASIA;
+						goto dasia;
 					}
-					else if (continente == OCEANIA) {
-						al_draw_bitmap(oceania, 0, 0, 0);
+					else if (contoceania) {
+						contoceania = false;
+						continente = OCEANIA;
+						goto doceania;
 					}
 				}
 				else if (continente == EUROPA) {
+					deuropa:
 					al_draw_bitmap(europa, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
 
@@ -827,23 +878,34 @@ int main(void) {
 					}
 
 					//mudar de continente
-					if (continente == AMERICACN) {
-						al_draw_bitmap(americacn, 0, 0, 0);
+					if (contamericacn) {
+						contamericacn = false;
+						continente = AMERICACN;
+						goto damericacn;
 					}
-					else if (continente == AMERICAS) {
-						al_draw_bitmap(americas, 0, 0, 0);
+					else if (contamericas) {
+						contamericas = false;
+						continente = AMERICAS;
+						goto damericas;
 					}
-					else if (continente == AFRICA) {
-						al_draw_bitmap(africa, 0, 0, 0);
+					else if (contafrica) {
+						contafrica = false;
+						continente = AFRICA;
+						goto dafrica;
 					}
-					else if (continente == ASIA) {
-						al_draw_bitmap(asia, 0, 0, 0);
+					else if (contasia) {
+						contasia = false;
+						continente = ASIA;
+						goto dasia;
 					}
-					else if (continente == OCEANIA) {
-						al_draw_bitmap(oceania, 0, 0, 0);
+					else if (contoceania) {
+						contoceania = false;
+						continente = OCEANIA;
+						goto doceania;
 					}
 				}
 				else if (continente == ASIA) {
+					dasia:
 					al_draw_bitmap(asia, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
 
@@ -882,23 +944,34 @@ int main(void) {
 					}
 
 					//mudar de continente
-					if (continente == AMERICACN) {
-						al_draw_bitmap(americacn, 0, 0, 0);
+					if (contamericacn) {
+						contamericacn = false;
+						continente = AMERICACN;
+						goto damericacn;
 					}
-					else if (continente == AMERICAS) {
-						al_draw_bitmap(americas, 0, 0, 0);
+					else if (contamericas) {
+						contamericas = false;
+						continente = AMERICAS;
+						goto damericas;
 					}
-					else if (continente == AFRICA) {
-						al_draw_bitmap(africa, 0, 0, 0);
+					else if (contafrica) {
+						contafrica = false;
+						continente = AFRICA;
+						goto dafrica;
 					}
-					else if (continente == EUROPA) {
-						al_draw_bitmap(europa, 0, 0, 0);
+					else if (conteuropa) {
+						conteuropa = false;
+						continente = EUROPA;
+						goto deuropa;
 					}
-					else if (continente == OCEANIA) {
-						al_draw_bitmap(oceania, 0, 0, 0);
+					else if (contoceania) {
+						contoceania = false;
+						continente = OCEANIA;
+						goto doceania;
 					}
 				}
 				else if (continente == OCEANIA) {
+					doceania:
 					al_draw_bitmap(oceania, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
 
@@ -937,20 +1010,30 @@ int main(void) {
 					}
 
 					//mudar de continente
-					if (continente == AMERICACN) {
-						al_draw_bitmap(americacn, 0, 0, 0);
+					if (contamericacn) {
+						contamericacn = false;
+						continente = AMERICACN;
+						goto damericacn;
 					}
-					else if (continente == AMERICAS) {
-						al_draw_bitmap(americas, 0, 0, 0);
+					else if (contamericas) {
+						contamericas = false;
+						continente = AMERICAS;
+						goto damericas;
 					}
-					else if (continente == AFRICA) {
-						al_draw_bitmap(africa, 0, 0, 0);
+					else if (contafrica) {
+						contafrica = false;
+						continente = AFRICA;
+						goto dafrica;
 					}
-					else if (continente == EUROPA) {
-						al_draw_bitmap(europa, 0, 0, 0);
+					else if (conteuropa) {
+						conteuropa = false;
+						continente = EUROPA;
+						goto deuropa;
 					}
-					else if (continente == ASIA) {
-						al_draw_bitmap(asia, 0, 0, 0);
+					else if (contasia) {
+						contasia = false;
+						continente = OCEANIA;
+						goto dasia;
 					}
 				}
 			}
