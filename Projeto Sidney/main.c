@@ -12,9 +12,10 @@
 const int WIDTH = 839;
 const int HEIGHT = 685;
 enum KEYS{UP, DOWN, LEFT, RIGHT, SPACE, ESC, P};
+enum NUM{F1, F2, F3, F4, F5};
 enum ESTADOS{MENUG, AJUDA, PREJOGO, JOGO, PAUSE, CONFIGURACOES, GAMEOVER};
-//enum CONTINENTES{AMERICACN, AMERICAS, AFRICA, EUROPA, ASIA, OCEANIA};
-bool keys[7] = {false, false, false, false, false, false, false};
+bool keys[7] = {false, false, false, false, false, false, false};      //movimentacao
+bool num[5] = {false, false, false, false, false};                    //mudanca de continente
 
 void iniciaAviao(AVIOES *aviao	) {
 	aviao->x = WIDTH / 2;
@@ -114,7 +115,9 @@ int main(void) {
 	bool done = false, redraw = false, menu = false, pauseTela = false;
 	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false;      //frase da distancia
 	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;
+	//mudança de tela
 	bool contamericacn = false, contamericas = false, contafrica = false, conteuropa = false, contasia = false, contoceania = false;
+	//variaveis de controle
 	const int FPS = 60;
 	int estado = MENUG, continente = -1, destino = -1, destinos[187];
 	double pontos;
@@ -141,11 +144,13 @@ int main(void) {
 	ALLEGRO_BITMAP *configuracoes = NULL;
 	ALLEGRO_BITMAP *gameOver = NULL;
 
+	//inicializacao allegro
 	if (!al_init()) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar Allegro!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
 
+	//criando display
 	janela = al_create_display(WIDTH, HEIGHT);
 	if (!janela) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar janela!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
@@ -190,6 +195,7 @@ int main(void) {
 		return -1;
 	}
 
+	//sprite aviao
 	imagemAviao = al_load_bitmap("aviao.png");
 	if (!imagemAviao) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar aviao!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
@@ -244,11 +250,11 @@ int main(void) {
 		al_wait_for_event(fila_de_eventos, &evento);
 
 		if (evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+			system("cls");
 			done = true;
 		}
 		else if (evento.type == ALLEGRO_EVENT_TIMER) {
 			redraw = true;
-
 			switch (estado) {
 			case MENUG:
 				if (keys[ESC]) {
@@ -262,11 +268,176 @@ int main(void) {
 				}
 				break;
 			case JOGO:
+				//clicar em um dos outros continentes
+				if (continente == AMERICACN) {
+					//clicar em americas
+					if (num[F1]) {
+						contamericas = true;
+						num[F1] = false;
+					}
+					//clicar em africa
+					else if (num[F2]) {
+						contafrica = true;
+						num[F2] = false;
+					}
+					//clicar em europa
+					else if (num[F3]) {
+						conteuropa = true;
+						num[F3] = false;
+					}
+					//clicar em asia
+					else if (num[F4]) {
+						contasia = true;
+						num[F4] = false;
+					}
+					//clicar em oceania
+					else if (num[F5]) {
+						contoceania = true;
+						num[F5] = false;
+					}
+				}
+				else if (continente == AMERICAS) {
+					//clicar em americacn
+					if (num[F1]) {
+						contamericacn = true;
+						num[F1] = false;
+					}
+					//clicar em africa
+					else if (num[F2]) {
+						contafrica = true;
+						num[F2] = false;
+					}
+					//clicar em europa
+					else if (num[F3]) {
+						conteuropa = true;
+						num[F3] = false;
+					}
+					//clicar em asia
+					else if (num[F4]) {
+						contasia = true;
+						num[F4] = false;
+					}
+					//clicar em oceania
+					else if (num[F5]) {
+						contoceania = true;
+						num[F5] = false;
+					}
+				}
+				else if (continente == AFRICA) {
+					//clicar em americacn
+					if (num[F1]) {
+						contamericacn = true;
+						num[F1] = false;
+					}
+					//clicar em americas
+					else if (num[F2]) {
+						contamericas = true;
+						num[F2] = false;
+					}
+					//clicar em europa
+					else if (num[F3]) {
+						conteuropa = true;
+						num[F3] = false;
+					}
+					//clicar em asia
+					else if (num[F4]) {
+						contasia = true;
+						num[F4] = false;
+					}
+					//clicar em oceania
+					else if (num[F5]) {
+						contoceania = true;
+						num[F5] = false;
+					}
+				}
+				else if (continente == EUROPA) {
+					//clicar em americacn
+					if (num[F1]) {
+						contamericacn = true;
+						num[F1] = false;
+					}
+					//clicar em americas
+					else if (num[F2]) {
+						contamericas = true;
+						num[F2] = false;
+					}
+					//clicar em africa
+					else if (num[F3]) {
+						contafrica = true;
+						num[F3] = false;
+					}
+					//clicar em asia
+					else if (num[F4]) {
+						contasia = true;
+						num[F4] = false;
+					}
+					//clicar em oceania
+					else if (num[F5]) {
+						contoceania = true;
+						num[F5] = false;
+					}
+				}
+				else if (continente == ASIA) {
+					//clicar em americacn
+					if (num[F1]) {
+						contamericacn = true;
+						num[F1] = false;
+					}
+					//clicar em americas
+					else if (num[F2]) {
+						contamericas = true;
+						num[F2] = false;
+					}
+					//clicar em africa
+					else if (num[F3]) {
+						contafrica = true;
+						num[F3] = false;
+					}
+					//clicar em europa
+					else if (num[F4]) {
+						conteuropa = true;
+						num[F4] = false;
+					}
+					//clicar em oceania
+					else if (num[F5]) {
+						contoceania = true;
+						num[F5] = false;
+					}
+				}
+				else if (continente == OCEANIA) {
+					//clicar em americacn
+					if (num[F1]) {
+						contamericacn = true;
+						num[F1] = false;
+					}
+					//clicar em americas
+					else if (num[F2]) {
+						contamericas = true;
+						num[F2] = false;
+					}
+					//clicar em africa
+					else if (num[F3]) {
+						contafrica = true;
+						num[F3] = false;
+					}
+					//clicar em europa
+					else if (num[F4]) {
+						conteuropa = true;
+						num[F4] = false;
+					}
+					//clicar em asia
+					else if (num[F5]) {
+						contasia = true;
+						num[F5] = false;
+					}
+				}
+				//pause
 				if (keys[ESC] || keys[P]) {
 					estado = PAUSE;
 					keys[ESC] = false;
 					keys[P] = false;
 				}
+				//jogo principal
 				if (aviao.combustivel > 0.0) {
 					//para aviao
 					if (keys[SPACE]) {
@@ -364,6 +535,22 @@ int main(void) {
 			case ALLEGRO_KEY_P:
 				keys[P] = true;
 				break;
+			//mudanca de continente
+			case ALLEGRO_KEY_F1:
+				num[F1] = true;
+				break;
+			case ALLEGRO_KEY_F2:
+				num[F2] = true;
+				break;
+			case ALLEGRO_KEY_F3:
+				num[F3] = true;
+				break;
+			case ALLEGRO_KEY_F4:
+				num[F4] = true;
+				break;
+			case ALLEGRO_KEY_F5:
+				num[F5] = true;
+				break;
 			}
 		}
 		else if (evento.type == ALLEGRO_EVENT_KEY_UP) {
@@ -389,6 +576,22 @@ int main(void) {
 					break;
 				case ALLEGRO_KEY_P:
 					keys[P] = false;
+					break;
+				//mudanca de continente
+				case ALLEGRO_KEY_F1:
+					num[F1] = false;
+					break;
+				case ALLEGRO_KEY_F2:
+					num[F2] = false;
+					break;
+				case ALLEGRO_KEY_F3:
+					num[F3] = false;
+					break;
+				case ALLEGRO_KEY_F4:
+					num[F4] = false;
+					break;
+				case ALLEGRO_KEY_F5:
+					num[F5] = false;
 					break;
 				}
 			}
@@ -432,139 +635,6 @@ int main(void) {
 				/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
 					estado = PAUSE;
 				}*/
-				//clicar em um dos outros continentes
-				if (continente == AMERICACN) {
-					//clicar em americas
-					if ((evento.mouse.x >= 773 && evento.mouse.x <= 780) && (evento.mouse.y >= 256 && evento.mouse.y <= 260)) {
-						contamericas = true;
-					}
-					/*//clicar em africa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-						continente = AFRICA;
-					}
-					//clicar em europa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-						continente = EUROPA;
-					}
-					//clicar em asia
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-						continente = ASIA;
-					}
-					//clicar em oceania
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-						continente = OCEANIA;
-					}*/
-				}
-				else if (continente == AMERICAS) {
-					//clicar em americacn
-					if ((evento.mouse.x >= 178 && evento.mouse.x <= 190) && (evento.mouse.y >= 165 && evento.mouse.y <= 180)) {
-						contamericacn = true;
-					}
-					/*//clicar em africa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AFRICA;
-					}
-					//clicar em europa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = EUROPA;
-					}
-					//clicar em asia
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = ASIA;
-					}
-					//clicar em oceania
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = OCEANIA;
-					}*/
-				}
-				else if (continente == AFRICA) {
-					//clicar em americacn
-					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AMERICACN;
-					}
-					//clicar em americas
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AMERICAS;
-					}
-					//clicar em europa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = EUROPA;
-					}
-					//clicar em asia
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = ASIA;
-					}
-					//clicar em oceania
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = OCEANIA;
-					}*/
-				}
-				else if (continente == EUROPA) {
-					//clicar em americacn
-					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AMERICACN;
-					}
-					//clicar em americas
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AMERICAS;
-					}
-					//clicar em africa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AFRICA;
-					}
-					//clicar em asia
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = ASIA;
-					}
-					//clicar em oceania
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = OCEANIA;
-					}*/
-				}
-				else if (continente == ASIA) {
-					//clicar em americacn
-					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AMERICACN;
-					}
-					//clicar em americas
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AMERICAS;
-					}
-					//clicar em africa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AFRICA;
-					}
-					//clicar em europa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = EUROPA;
-					}
-					//clicar em oceania
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = OCEANIA;
-					}*/
-				}
-				else if (continente == OCEANIA) {
-					//clicar em americacn
-					/*if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AMERICACN;
-					}
-					//clicar em americas
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AMERICAS;
-					}
-					//clicar em africa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = AFRICA;
-					}
-					//clicar em europa
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = EUROPA;
-					}
-					//clicar em asia
-					else if ((evento.mouse.x >= 492 && evento.mouse.x <= 755) && (evento.mouse.y >= 473 && evento.mouse.y <= 544)) {
-					continente = ASIA;
-					}*/
-				}
 				break;
 			case PAUSE:
 				//clicar em voltar
@@ -573,6 +643,7 @@ int main(void) {
 				}
 				//clicar em sair
 				else if ((evento.mouse.x >= 83 && evento.mouse.x <= 344) && (evento.mouse.y >= 369 && evento.mouse.y <= 438)) {
+					system("cls");
 					done = true;
 				}
 				//clicar em configuracoes
@@ -615,6 +686,7 @@ int main(void) {
 				}
 				//clicar em sair
 				else if((evento.mouse.x >= 100 && evento.mouse.x <= 419) && (evento.mouse.y >= 422 && evento.mouse.y <= 512)) {
+					system("cls");
 					done = true;
 				}
 				break;
@@ -659,50 +731,55 @@ int main(void) {
 
 					//frase final
 					if (acertou) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
-						//acertou = false;
+						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						acertou = false;
 					}
 					else if (perto1) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Chegou bem perto!");
-						//perto1 = false;
+						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto1 = false;
 					}
 					else if (perto2) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Faltou um pouco!");
-						//perto2 = false;
+						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto2 = false;
 					}
 					else if (perto3) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Foi mais ou menos!");
-						//perto3 = false;
+						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto3 = false;
 					}
 					else if (longe) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Errou longe!");
-						//longe = false;
+						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						longe = false;
 					}
 
 					//mudar de continente
 					if (contamericas) {
 						contamericas = false;
 						continente = AMERICAS;
+						restauraPosicao(&aviao);
 						goto damericas;
 					}
 					else if (contafrica) {
 						contafrica = false;
 						continente = AFRICA;
+						restauraPosicao(&aviao);
 						goto dafrica;
 					}
 					else if (conteuropa) {
 						conteuropa = false;
 						continente = EUROPA;
+						restauraPosicao(&aviao);
 						goto dafrica;
 					}
 					else if (contasia) {
 						contasia = false;
 						continente = ASIA;
+						restauraPosicao(&aviao);
 						goto dafrica;
 					}
 					else if (contoceania) {
 						contoceania = false;
 						continente = OCEANIA;
+						restauraPosicao(&aviao);
 						goto doceania;
 					}
 				}
@@ -730,45 +807,55 @@ int main(void) {
 
 					//frase final
 					if (acertou) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						acertou = false;
 					}
 					else if (perto1) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Chegou bem perto!");
+						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto1 = false;
 					}
 					else if (perto2) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Faltou um pouco!");
+						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto2 = false;
 					}
 					else if (perto3) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Foi mais ou menos!");
+						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto3 = false;
 					}
 					else if (longe) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Errou longe!");
+						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						longe = false;
 					}
 
 					//mudar de continente
 					if (contamericacn) {
 						contamericacn = false;
 						continente = AMERICACN;
+						restauraPosicao(&aviao);
 						goto damericacn;
 					}
 					else if (contafrica) {
 						contafrica = false;
 						continente = AFRICA;
+						restauraPosicao(&aviao);
 						goto dafrica;
 					}
 					else if (conteuropa) {
 						conteuropa = false;
 						continente = EUROPA;
+						restauraPosicao(&aviao);
 						goto deuropa;
 					}
 					else if (contasia) {
 						contasia = false;
 						continente = ASIA;
+						restauraPosicao(&aviao);
 						goto dasia;
 					}
 					else if (contoceania) {
 						contoceania = false;
 						continente = OCEANIA;
+						restauraPosicao(&aviao);
 						goto doceania;
 					}
 				}
@@ -796,45 +883,55 @@ int main(void) {
 
 					//frase final
 					if (acertou) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						acertou = false;
 					}
 					else if (perto1) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Chegou bem perto!");
+						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto1 = false;
 					}
 					else if (perto2) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Faltou um pouco!");
+						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto2 = false;
 					}
 					else if (perto3) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Foi mais ou menos!");
+						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto3 = false;
 					}
 					else if (longe) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Errou longe!");
+						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						longe = false;
 					}
 
 					//mudar de continente
 					if (contamericacn) {
 						contamericacn = false;
 						continente = AMERICACN;
+						restauraPosicao(&aviao);
 						goto damericacn;
 					}
 					else if (contamericas) {
 						contamericas = false;
 						continente = AMERICAS;
+						restauraPosicao(&aviao);
 						goto damericas;
 					}
 					else if (conteuropa) {
 						conteuropa = false;
 						continente = EUROPA;
+						restauraPosicao(&aviao);
 						goto deuropa;
 					}
 					else if (contasia) {
 						contasia = false;
 						continente = ASIA;
+						restauraPosicao(&aviao);
 						goto dasia;
 					}
 					else if (contoceania) {
 						contoceania = false;
 						continente = OCEANIA;
+						restauraPosicao(&aviao);
 						goto doceania;
 					}
 				}
@@ -862,45 +959,55 @@ int main(void) {
 
 					//frase final
 					if (acertou) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						acertou = false;
 					}
 					else if (perto1) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Chegou bem perto!");
+						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto1 = false;
 					}
 					else if (perto2) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Faltou um pouco!");
+						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto2 = false;
 					}
 					else if (perto3) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Foi mais ou menos!");
+						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto3 = false;
 					}
 					else if (longe) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Errou longe!");
+						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						longe = false;
 					}
 
 					//mudar de continente
 					if (contamericacn) {
 						contamericacn = false;
 						continente = AMERICACN;
+						restauraPosicao(&aviao);
 						goto damericacn;
 					}
 					else if (contamericas) {
 						contamericas = false;
 						continente = AMERICAS;
+						restauraPosicao(&aviao);
 						goto damericas;
 					}
 					else if (contafrica) {
 						contafrica = false;
 						continente = AFRICA;
+						restauraPosicao(&aviao);
 						goto dafrica;
 					}
 					else if (contasia) {
 						contasia = false;
 						continente = ASIA;
+						restauraPosicao(&aviao);
 						goto dasia;
 					}
 					else if (contoceania) {
 						contoceania = false;
 						continente = OCEANIA;
+						restauraPosicao(&aviao);
 						goto doceania;
 					}
 				}
@@ -928,45 +1035,55 @@ int main(void) {
 
 					//frase final
 					if (acertou) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						acertou = false;
 					}
 					else if (perto1) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Chegou bem perto!");
+						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto1 = false;
 					}
 					else if (perto2) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Faltou um pouco!");
+						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto2 = false;
 					}
 					else if (perto3) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Foi mais ou menos!");
+						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto3 = false;
 					}
 					else if (longe) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Errou longe!");
+						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						longe = false;
 					}
 
 					//mudar de continente
 					if (contamericacn) {
 						contamericacn = false;
 						continente = AMERICACN;
+						restauraPosicao(&aviao);
 						goto damericacn;
 					}
 					else if (contamericas) {
 						contamericas = false;
 						continente = AMERICAS;
+						restauraPosicao(&aviao);
 						goto damericas;
 					}
 					else if (contafrica) {
 						contafrica = false;
 						continente = AFRICA;
+						restauraPosicao(&aviao);
 						goto dafrica;
 					}
 					else if (conteuropa) {
 						conteuropa = false;
 						continente = EUROPA;
+						restauraPosicao(&aviao);
 						goto deuropa;
 					}
 					else if (contoceania) {
 						contoceania = false;
 						continente = OCEANIA;
+						restauraPosicao(&aviao);
 						goto doceania;
 					}
 				}
@@ -994,45 +1111,55 @@ int main(void) {
 
 					//frase final
 					if (acertou) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Destino correto!");
+						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						acertou = false;
 					}
 					else if (perto1) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Chegou bem perto!");
+						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto1 = false;
 					}
 					else if (perto2) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Faltou um pouco!");
+						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto2 = false;
 					}
 					else if (perto3) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Foi mais ou menos!");
+						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						perto3 = false;
 					}
 					else if (longe) {
-						al_draw_text(fonte, al_map_rgb(0, 255, 0), WIDTH / 2, HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Errou longe!");
+						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						longe = false;
 					}
 
 					//mudar de continente
 					if (contamericacn) {
 						contamericacn = false;
 						continente = AMERICACN;
+						restauraPosicao(&aviao);
 						goto damericacn;
 					}
 					else if (contamericas) {
 						contamericas = false;
 						continente = AMERICAS;
+						restauraPosicao(&aviao);
 						goto damericas;
 					}
 					else if (contafrica) {
 						contafrica = false;
 						continente = AFRICA;
+						restauraPosicao(&aviao);
 						goto dafrica;
 					}
 					else if (conteuropa) {
 						conteuropa = false;
 						continente = EUROPA;
+						restauraPosicao(&aviao);
 						goto deuropa;
 					}
 					else if (contasia) {
 						contasia = false;
 						continente = OCEANIA;
+						restauraPosicao(&aviao);
 						goto dasia;
 					}
 				}
