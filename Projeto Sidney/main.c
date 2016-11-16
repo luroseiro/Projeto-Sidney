@@ -25,7 +25,7 @@ void iniciaAviao(AVIOES *aviao	) {
 }
 bool mAviaoCima(AVIOES *aviao) {                      //movimenta nave pra cima
 	aviao->y -= aviao->velocidade;
-	aviao->combustivel -= 0.2;
+	aviao->combustivel -= 0.1;
 	if (aviao->y < 0) {
 		aviao->y = 0;
 	}
@@ -112,7 +112,7 @@ void restauraPosicao(AVIOES *aviao) {
 }
 
 int main(void) {
-	bool done = false, redraw = false, menu = false, pauseTela = false;
+	bool done = false, redraw = false, menu = false, pauseTela = false, primeira = true;
 	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false;      //frase da distancia
 	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;
 	//mudança de tela
@@ -268,32 +268,38 @@ int main(void) {
 				}
 				break;
 			case JOGO:
-				//clicar em um dos outros continentes
+				aviao.combustivel -= 0.01;
+				//mudar de continente
 				if (continente == AMERICACN) {
 					//clicar em americas
 					if (num[F1]) {
 						contamericas = true;
 						num[F1] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em africa
 					else if (num[F2]) {
 						contafrica = true;
 						num[F2] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em europa
 					else if (num[F3]) {
 						conteuropa = true;
 						num[F3] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em asia
 					else if (num[F4]) {
 						contasia = true;
 						num[F4] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em oceania
 					else if (num[F5]) {
 						contoceania = true;
 						num[F5] = false;
+						aviao.combustivel -= 1.0;
 					}
 				}
 				else if (continente == AMERICAS) {
@@ -301,26 +307,31 @@ int main(void) {
 					if (num[F1]) {
 						contamericacn = true;
 						num[F1] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em africa
 					else if (num[F2]) {
 						contafrica = true;
 						num[F2] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em europa
 					else if (num[F3]) {
 						conteuropa = true;
 						num[F3] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em asia
 					else if (num[F4]) {
 						contasia = true;
 						num[F4] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em oceania
 					else if (num[F5]) {
 						contoceania = true;
 						num[F5] = false;
+						aviao.combustivel -= 1.0;
 					}
 				}
 				else if (continente == AFRICA) {
@@ -328,26 +339,31 @@ int main(void) {
 					if (num[F1]) {
 						contamericacn = true;
 						num[F1] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em americas
 					else if (num[F2]) {
 						contamericas = true;
 						num[F2] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em europa
 					else if (num[F3]) {
 						conteuropa = true;
 						num[F3] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em asia
 					else if (num[F4]) {
 						contasia = true;
 						num[F4] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em oceania
 					else if (num[F5]) {
 						contoceania = true;
 						num[F5] = false;
+						aviao.combustivel -= 1.0;
 					}
 				}
 				else if (continente == EUROPA) {
@@ -355,26 +371,31 @@ int main(void) {
 					if (num[F1]) {
 						contamericacn = true;
 						num[F1] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em americas
 					else if (num[F2]) {
 						contamericas = true;
 						num[F2] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em africa
 					else if (num[F3]) {
 						contafrica = true;
 						num[F3] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em asia
 					else if (num[F4]) {
 						contasia = true;
 						num[F4] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em oceania
 					else if (num[F5]) {
 						contoceania = true;
 						num[F5] = false;
+						aviao.combustivel -= 1.0;
 					}
 				}
 				else if (continente == ASIA) {
@@ -382,26 +403,31 @@ int main(void) {
 					if (num[F1]) {
 						contamericacn = true;
 						num[F1] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em americas
 					else if (num[F2]) {
 						contamericas = true;
 						num[F2] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em africa
 					else if (num[F3]) {
 						contafrica = true;
 						num[F3] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em europa
 					else if (num[F4]) {
 						conteuropa = true;
 						num[F4] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em oceania
 					else if (num[F5]) {
 						contoceania = true;
 						num[F5] = false;
+						aviao.combustivel -= 1.0;
 					}
 				}
 				else if (continente == OCEANIA) {
@@ -409,26 +435,31 @@ int main(void) {
 					if (num[F1]) {
 						contamericacn = true;
 						num[F1] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em americas
 					else if (num[F2]) {
 						contamericas = true;
 						num[F2] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em africa
 					else if (num[F3]) {
 						contafrica = true;
 						num[F3] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em europa
 					else if (num[F4]) {
 						conteuropa = true;
 						num[F4] = false;
+						aviao.combustivel -= 1.0;
 					}
 					//clicar em asia
 					else if (num[F5]) {
 						contasia = true;
 						num[F5] = false;
+						aviao.combustivel -= 1.0;
 					}
 				}
 				//pause
@@ -483,6 +514,10 @@ int main(void) {
 					else if (keys[RIGHT]) {
 						mDir = mAviaoDir(&aviao);
 					}
+				}
+				else {
+					al_show_native_message_box(janela, "OPS!", "Seu combustivel acabou!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+					estado = GAMEOVER;
 				}
 				break;
 			case PAUSE:
