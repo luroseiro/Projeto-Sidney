@@ -17,11 +17,12 @@ enum ESTADOS{MENUG, AJUDA, PREJOGO, JOGO, PAUSE, CONFIGURACOES, GAMEOVER};
 bool keys[7] = {false, false, false, false, false, false, false};      //movimentacao
 bool num[5] = {false, false, false, false, false};                    //mudanca de continente
 
-void iniciaAviao(AVIOES *aviao	) {
+void iniciaAviao(AVIOES *aviao) {
 	aviao->x = WIDTH / 2;
 	aviao->y = HEIGHT / 2;
 	aviao->velocidade = 2;
 	aviao->combustivel = 100.0;
+	aviao->graus = 0.0;
 }
 bool mAviaoCima(AVIOES *aviao) {                      //movimenta nave pra cima
 	aviao->y -= aviao->velocidade;
@@ -55,6 +56,49 @@ bool mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direit
 	}
 	return true;
 }
+double rotaciona(AVIOES *aviao) {
+	if (aviao->graus == 0.0) {
+		if (keys[LEFT]) {
+			aviao->graus = 2.0;
+		}
+	}
+	else if (aviao->graus > 0.0 && aviao->graus < 180.0) {
+		if (keys[LEFT]) {
+			aviao->graus += 2.0;
+			if (aviao->graus >= 180.0) {
+				aviao->graus = 180.0;
+			}
+		}
+		else if (keys[RIGHT]) {
+			aviao->graus -= 2.0;
+			if (aviao->graus <= 0.0) {
+				aviao->graus = 0.0;
+			}
+		}
+	}
+	else if (aviao->graus == 180.0) {
+		if (keys[RIGHT]) {
+			aviao->graus -= 2.0;
+		}
+	}
+	else if (aviao->graus > 180.0 && aviao->graus < 360.0) {
+		if (keys[LEFT]) {
+			aviao->graus -= 2.0;
+			if (aviao->graus <= 180.0) {
+				aviao->graus = 180.0;
+			}
+		}
+		else if (keys[RIGHT]) {
+			aviao->graus += 2.0;
+			if (aviao->graus >= 360.0) {
+				aviao->graus = 0.0;
+			}
+		}
+	}
+
+	return aviao->graus;
+}
+
 
 int sorteiaDestino(int destinos[]) {
 	int local, j = 0;
@@ -113,13 +157,13 @@ void restauraPosicao(AVIOES *aviao) {
 
 int main(void) {
 	bool done = false, redraw = false, menu = false, pauseTela = false, primeira = true;
-	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false;      //frase da distancia
-	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;
+	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false;       //frase da distancia
+	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;                           //movimentacao
 	//mudança de tela
 	bool contamericacn = false, contamericas = false, contafrica = false, conteuropa = false, contasia = false, contoceania = false;
 	//variaveis de controle
 	const int FPS = 60;
-	int estado = MENUG, continente = -1, destino = -1, destinos[187];
+	int estado = MENUG, continente = -1, destino = -1, destinos[187], imagemW = 0, imagemH = 0;
 	double pontos;
 
 	DESTINOS pais;
@@ -197,6 +241,8 @@ int main(void) {
 
 	//sprite aviao
 	imagemAviao = al_load_bitmap("aviao.png");
+	imagemW = al_get_bitmap_width(imagemAviao);
+	imagemH = al_get_bitmap_height(imagemAviao);
 	if (!imagemAviao) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar aviao!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
@@ -269,6 +315,7 @@ int main(void) {
 				break;
 			case JOGO:
 				aviao.combustivel -= 0.01;
+
 				//mudar de continente
 				if (continente == AMERICACN) {
 					//clicar em americas
@@ -462,12 +509,14 @@ int main(void) {
 						aviao.combustivel -= 1.0;
 					}
 				}
+
 				//pause
 				if (keys[ESC] || keys[P]) {
 					estado = PAUSE;
 					keys[ESC] = false;
 					keys[P] = false;
 				}
+
 				//jogo principal
 				if (aviao.combustivel > 0.0) {
 					//para aviao
@@ -500,6 +549,7 @@ int main(void) {
 						iniciaPais(&pais, destino);
 						printf("%s\n", pais.nome);
 					}
+
 					//movimento vertical
 					if (keys[UP]) {
 						mCima = mAviaoCima(&aviao);
@@ -507,6 +557,7 @@ int main(void) {
 					else if (keys[DOWN]) {
 						mBaixo = mAviaoBaixo(&aviao);
 					}
+
 					//movimento horizontal
 					if (keys[LEFT]) {
 						mEsq = mAviaoEsq(&aviao);
@@ -749,20 +800,22 @@ int main(void) {
 
 					//movimentacao
 					if(!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mCima) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mBaixo) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mEsq) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mDir) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
+
+					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
 					//frase final
 					if (acertou) {

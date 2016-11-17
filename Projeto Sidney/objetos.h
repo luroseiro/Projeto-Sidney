@@ -6,6 +6,7 @@ typedef struct avioes {
 	int velocidade;
 	int pontuacao;
 	double combustivel;
+	double graus;
 } AVIOES;
 typedef struct destinos {
 	char *nome;
