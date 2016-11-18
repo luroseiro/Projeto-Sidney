@@ -159,7 +159,7 @@ int main(void) {
 	bool done = false, redraw = false, menu = false, pauseTela = false, primeira = true;
 	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false;       //frase da distancia
 	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;                           //movimentacao
-	//mudança de tela
+	//mudanÃ§a de tela
 	bool contamericacn = false, contamericas = false, contafrica = false, conteuropa = false, contasia = false, contoceania = false;
 	//variaveis de controle
 	const int FPS = 60;
@@ -1281,6 +1281,7 @@ int main(void) {
 	al_destroy_bitmap(configuracoes);
 	al_destroy_bitmap(gameOver);
 	al_destroy_bitmap(imagemAviao);
+	al_destroy_font(fonte);
 	al_destroy_event_queue(fila_de_eventos);
 	al_destroy_display(janela);
 
