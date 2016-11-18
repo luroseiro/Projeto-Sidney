@@ -104,12 +104,12 @@ int sorteiaDestino(int destinos[]) {
 	int local, j = 0;
 	bool preenche = false;
 
-	local = 1 + (rand() % 187);
+	local = 1 + (rand() % 186);
 
 	for (int i = 0; i < sizeof(destinos); i++) {
 		verifica:
 		if (destinos[i] == local) {
-			local = 1 + (rand() % 187);
+			local = 1 + (rand() % 186);
 			goto verifica;
 		}
 	}
@@ -163,7 +163,7 @@ int main(void) {
 	bool contamericacn = false, contamericas = false, contafrica = false, conteuropa = false, contasia = false, contoceania = false;
 	//variaveis de controle
 	const int FPS = 60;
-	int estado = MENUG, continente = -1, destino = -1, destinos[187], imagemW = 0, imagemH = 0;
+	int estado = MENUG, continente = -1, destino = -1, destinos[186], imagemW = 0, imagemH = 0;
 	double pontos;
 
 	DESTINOS pais;
