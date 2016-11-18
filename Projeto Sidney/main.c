@@ -4,6 +4,8 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include "objetos.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -58,47 +60,160 @@ bool mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direit
 }
 double rotaciona(AVIOES *aviao) {
 	if (aviao->graus == 0.0) {
-		if (keys[LEFT]) {
-			aviao->graus = 2.0;
+		if (keys[LEFT] || keys[UP]) {
+			aviao->graus -= 2.0;
+		}
+		else if (keys[DOWN]) {
+			aviao->graus = -360.0;
 		}
 	}
-	else if (aviao->graus > 0.0 && aviao->graus < 180.0) {
-		if (keys[LEFT]) {
-			aviao->graus += 2.0;
-			if (aviao->graus >= 180.0) {
-				aviao->graus = 180.0;
+	else if (aviao->graus < 0.0 && aviao->graus > -90.0) {
+		if (keys[RIGHT] && keys[UP]) {
+			if (aviao->graus < 0.0 && aviao->graus > -45.0) {
+				aviao->graus -= 2.0;
+				if (aviao->graus <= -45.0) {
+					aviao->graus = -45.0;
+				}
+			}
+			else if (aviao->graus < -45.0 && aviao->graus > -90.0) {
+				aviao->graus += 2.0;
+				if (aviao->graus >= -45.0) {
+					aviao->graus = -45.0;
+				}
 			}
 		}
-		else if (keys[RIGHT]) {
+		else if (keys[LEFT] || keys[UP]) {
 			aviao->graus -= 2.0;
-			if (aviao->graus <= 0.0) {
+			if (aviao->graus <= -90.0) {
+				aviao->graus = -90.0;
+			}
+		}
+		else if (keys[RIGHT] || keys[DOWN]) {
+			aviao->graus += 2.0;
+			if (aviao->graus >= 0.0) {
 				aviao->graus = 0.0;
 			}
 		}
 	}
-	else if (aviao->graus == 180.0) {
-		if (keys[RIGHT]) {
+	else if (aviao->graus == -90.0) {
+		if (keys[LEFT] || keys[DOWN]) {
 			aviao->graus -= 2.0;
-		}
-	}
-	else if (aviao->graus > 180.0 && aviao->graus < 360.0) {
-		if (keys[LEFT]) {
-			aviao->graus -= 2.0;
-			if (aviao->graus <= 180.0) {
-				aviao->graus = 180.0;
-			}
 		}
 		else if (keys[RIGHT]) {
 			aviao->graus += 2.0;
-			if (aviao->graus >= 360.0) {
-				aviao->graus = 0.0;
+		}
+	}
+	else if (aviao->graus < -90.0 && aviao->graus > -180.0) {
+		if (keys[LEFT] && keys[UP]) {
+			if (aviao->graus < -90.0 && aviao->graus > -135.0) {
+				aviao->graus -= 2.0;
+				if (aviao->graus <= -135.0) {
+					aviao->graus = -135.0;
+				}
 			}
+			else if (aviao->graus < -135.0 && aviao->graus > -180.0) {
+				aviao->graus += 2.0;
+				if (aviao->graus >= -135.0) {
+					aviao->graus = -135.0;
+				}
+			}
+		}
+		else if (keys[LEFT] || keys[DOWN]) {
+			aviao->graus -= 2.0;
+			if (aviao->graus <= -180.0) {
+				aviao->graus = -180.0;
+			}
+		}
+		else if (keys[RIGHT] || keys[UP]) {
+			aviao->graus += 2.0;
+			if (aviao->graus >= -90.0) {
+				aviao->graus = -90.0;
+			}
+		}
+	}
+	else if (aviao->graus == -180.0) {
+		if (keys[RIGHT] || keys[UP]) {
+			aviao->graus += 2.0;
+		}
+		else if (keys[DOWN]) {
+			aviao->graus -= 2.0;
+		}
+	}
+	else if (aviao->graus < -180.0 && aviao->graus > -270.0) {
+		if (keys[LEFT] && keys[DOWN]) {
+			if (aviao->graus < -180.0 && aviao->graus > -225.0) {
+				aviao->graus -= 2.0;
+				if (aviao->graus <= -225.0) {
+					aviao->graus = -225.0;
+				}
+			}
+			else if (aviao->graus < -225.0 && aviao->graus > -270.0) {
+				aviao->graus += 2.0;
+				if (aviao->graus >= -225.0) {
+					aviao->graus = -225.0;
+				}
+			}
+		}
+		else if (keys[LEFT] || keys[UP]) {
+			aviao->graus += 2.0;
+			if (aviao->graus >= -180.0) {
+				aviao->graus = -180.0;
+			}
+		}
+		else if (keys[RIGHT] || keys[DOWN]) {
+			aviao->graus -= 2.0;
+			if (aviao->graus <= -270.0) {
+				aviao->graus = -270.0;
+			}
+		}
+	}
+	else if (aviao->graus == -270.0) {
+		if (keys[LEFT] || keys[UP]) {
+			aviao->graus += 2.0;
+		}
+		else if (keys[RIGHT]) {
+			aviao->graus -= 2.0;
+		}
+	}
+	else if (aviao->graus < -270.0 && aviao->graus > -360.0) {
+		if (keys[RIGHT] && keys[DOWN]) {
+			if (aviao->graus < -270.0 && aviao->graus > -315.0) {
+				aviao->graus -= 2.0;
+				if (aviao->graus <= -315.0) {
+					aviao->graus = -315.0;
+				}
+			}
+			else if (aviao->graus < -315.0 && aviao->graus > -360.0) {
+				aviao->graus += 2.0;
+				if (aviao->graus >= -315.0) {
+					aviao->graus = -315.0;
+				}
+			}
+		}
+		else if(keys[LEFT] || keys[DOWN]) {
+			aviao->graus += 2.0;
+			if (aviao->graus >= -270.0) {
+				aviao->graus = -270.0;
+			}
+		}
+		else if (keys[RIGHT] || keys[UP]) {
+			aviao->graus -= 2.0;
+			if (aviao->graus <= -360.0) {
+				aviao->graus = -360.0;
+			}
+		}
+	}
+	else if (aviao->graus == -360.0) {
+		if (keys[DOWN]) {
+			aviao->graus += 2.0;
+		}
+		else if (keys[LEFT] || keys[UP]) {
+			aviao->graus = 0.0;
 		}
 	}
 
 	return aviao->graus;
 }
-
 
 int sorteiaDestino(int destinos[]) {
 	int local, j = 0;
@@ -878,20 +993,22 @@ int main(void) {
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mCima) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mBaixo) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mEsq) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mDir) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
+
+					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
 					//frase final
 					if (acertou) {
@@ -954,20 +1071,22 @@ int main(void) {
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mCima) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mBaixo) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mEsq) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mDir) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
+
+					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
 					//frase final
 					if (acertou) {
@@ -1030,20 +1149,22 @@ int main(void) {
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mCima) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mBaixo) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mEsq) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mDir) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
+
+					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
 					//frase final
 					if (acertou) {
@@ -1106,20 +1227,22 @@ int main(void) {
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mCima) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mBaixo) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mEsq) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mDir) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
+
+					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
 					//frase final
 					if (acertou) {
@@ -1182,20 +1305,22 @@ int main(void) {
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_bitmap(imagemAviao, WIDTH / 2, HEIGHT / 2, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mCima) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mBaixo) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					if (mEsq) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
 					else if (mDir) {
-						al_draw_bitmap(imagemAviao, aviao.x, aviao.y, 0);
+						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
 					}
+
+					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
 					//frase final
 					if (acertou) {

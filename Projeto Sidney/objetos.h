@@ -4,7 +4,6 @@ typedef struct avioes {
 	int x;
 	int y;
 	int velocidade;
-	int pontuacao;
 	double combustivel;
 	double graus;
 } AVIOES;
