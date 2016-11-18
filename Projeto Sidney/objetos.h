@@ -784,360 +784,355 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		pais->continente = EUROPA;
 		break;
 	case 128:
-		pais->nome = "Rússia";
-		pais->localizacao_x = 504;
-		pais->localizacao_y = 273;
-		pais->continente = EUROPA;
-	case 129:
 		pais->nome = "San Marino";
 		pais->localizacao_x = 397;
 		pais->localizacao_y = 377;
 		pais->continente = EUROPA;
 		break;
-	case 130:
+	case 129:
 		pais->nome = "Sérvia";
 		pais->localizacao_x = 440;
 		pais->localizacao_y = 362;
 		pais->continente = EUROPA;
 		break;
-	case 131:
+	case 130:
 		pais->nome = "Suécia";
 		pais->localizacao_x = 418;
 		pais->localizacao_y = 253;
 		pais->continente = EUROPA;
 		break;
-	case 132:
+	case 131:
 		pais->nome = "Suíça";
 		pais->localizacao_x = 372;
 		pais->localizacao_y = 354;
 		pais->continente = EUROPA;
 		break;
-	case 133:
+	case 132:
 		pais->nome = "Turquia";
 		pais->localizacao_x = 503;
 		pais->localizacao_y = 402;
 		pais->continente = EUROPA;
 		break;
-	case 134:
+	case 133:
 		pais->nome = "Ucrânia";
 		pais->localizacao_x = 494;
 		pais->localizacao_y = 321;
 		pais->continente = EUROPA;
 		break;
 	//asia
-	case 135:
+	case 134:
 		pais->nome = "Afeganistão";
 		pais->localizacao_x = 281;
 		pais->localizacao_y = 429;
 		pais->continente = ASIA;
 		break;
-	case 136:
+	case 135:
 		pais->nome = "Arábia Saudita";
 		pais->localizacao_x = 170;
 		pais->localizacao_y = 506;
 		pais->continente = ASIA;
 		break;
-	case 137:
+	case 136:
 		pais->nome = "Armênia";
 		pais->localizacao_x = 136;
 		pais->localizacao_y = 393;
 		pais->continente = ASIA;
 		break;
-	case 138:
+	case 137:
 		pais->nome = "Azerbaijão";
 		pais->localizacao_x = 165;
 		pais->localizacao_y = 391;
 		pais->continente = ASIA;
 		break;
-	case 139:
+	case 138:
 		pais->nome = "Bangladesh";
 		pais->localizacao_x = 418;
 		pais->localizacao_y = 498;
 		pais->continente = ASIA;
 		break;
-	case 140:
+	case 139:
 		pais->nome = "Emirados Árabes";
 		pais->localizacao_x = 208;
 		pais->localizacao_y = 503;
 		pais->continente = ASIA;
-	case 141:
+	case 140:
 		pais->nome = "Brunei";
 		pais->localizacao_x = 582;
 		pais->localizacao_y = 620;
 		pais->continente = ASIA;
 		break;
-	case 142:
+	case 141:
 		pais->nome = "Butão";
 		pais->localizacao_x = 408;
 		pais->localizacao_y = 470;
 		pais->continente = ASIA;
 		break;
-	case 143:
+	case 142:
 		pais->nome = "Camboja";
 		pais->localizacao_x = 512;
 		pais->localizacao_y = 573;
 		pais->continente = ASIA;
 		break;
-	case 144:
+	case 143:
 		pais->nome = "Cazaquistão";
 		pais->localizacao_x = 276;
 		pais->localizacao_y = 291;
 		pais->continente = ASIA;
 		break;
-	case 145:
+	case 144:
 		pais->nome = "Chipre";
 		pais->localizacao_x = 77;
 		pais->localizacao_y = 434;
 		pais->continente = ASIA;
 		break;
-	case 146:
+	case 145:
 		pais->nome = "Coréia do Norte";
 		pais->localizacao_x = 588;
 		pais->localizacao_y = 360;
 		pais->continente = ASIA;
 		break;
-	case 147:
+	case 146:
 		pais->nome = "Coréia do Sul";
 		pais->localizacao_x = 611;
 		pais->localizacao_y = 391;
 		pais->continente = ASIA;
 		break;
-	case 148:
+	case 147:
 		pais->nome = "Filipinas";
 		pais->localizacao_x = 611;
 		pais->localizacao_y = 544;
 		pais->continente = ASIA;
 		break;
-	case 149:
+	case 148:
 		pais->nome = "Índia";
 		pais->localizacao_x = 336;
 		pais->localizacao_y = 463;
 		pais->continente = ASIA;
 		break;
-	case 150:
+	case 149:
 		pais->nome = "Indonésia";
 		pais->localizacao_x = 665;
 		pais->localizacao_y = 676;
 		pais->continente = ASIA;
 		break;
-	case 151:
+	case 150:
 		pais->nome = "Irã";
 		pais->localizacao_x = 182;
 		pais->localizacao_y = 427;
 		pais->continente = ASIA;
 		break;
-	case 152:
+	case 151:
 		pais->nome = "Iraque";
 		pais->localizacao_x = 140;
 		pais->localizacao_y = 442;
 		pais->continente = ASIA;
 		break;
-	case 153:
+	case 152:
 		pais->nome = "Japão";
 		pais->localizacao_x = 679;
 		pais->localizacao_y = 371;
 		pais->continente = ASIA;
 		break;
-	case 154:
+	case 153:
 		pais->nome = "Laos";
 		pais->localizacao_x = 494;
 		pais->localizacao_y = 525;
 		pais->continente = ASIA;
 		break;
-	case 155:
+	case 154:
 		pais->nome = "Maldivas";
 		pais->localizacao_x = 325;
 		pais->localizacao_y = 624;
 		pais->continente = ASIA;
 		break;
-	case 156:
+	case 155:
 		pais->nome = "Mongólia";
 		pais->localizacao_x = 468;
 		pais->localizacao_y = 306;
 		pais->continente = ASIA;
 		break;
-	case 157:
+	case 156:
 		pais->nome = "Nepal";
 		pais->localizacao_x = 382;
 		pais->localizacao_y = 469;
 		pais->continente = ASIA;
 		break;
-	case 158:
+	case 157:
 		pais->nome = "Paquistão";
 		pais->localizacao_x = 303;
 		pais->localizacao_y = 438;
 		pais->continente = ASIA;
 		break;
-	case 159:
+	case 158:
 		pais->nome = "Quirguistão";
 		pais->localizacao_x = 298;
 		pais->localizacao_y = 369;
 		pais->continente = ASIA;
 		break;
-	case 160:
+	case 159:
 		pais->nome = "Rússia";
 		pais->localizacao_x = 96;
 		pais->localizacao_y = 274;
 		pais->continente = ASIA;
 		break;
-	case 161:
+	case 160:
 		pais->nome = "Sri Lanka";
 		pais->localizacao_x = 377;
 		pais->localizacao_y = 607;
 		pais->continente = ASIA;
 		break;
-	case 162:
+	case 161:
 		pais->nome = "Tailândia";
 		pais->localizacao_x = 487;
 		pais->localizacao_y = 558;
 		pais->continente = ASIA;
 		break;
-	case 163:
+	case 162:
 		pais->nome = "Tajiquistão";
 		pais->localizacao_x = 279;
 		pais->localizacao_y = 396;
 		pais->continente = ASIA;
 		break;
-	case 164:
+	case 163:
 		pais->nome = "Síria";
 		pais->localizacao_x = 107;
 		pais->localizacao_y = 434;
 		pais->continente = ASIA;
 		break;
-	case 165:
+	case 164:
 		pais->nome = "Turquemenistao";
 		pais->localizacao_x = 221;
 		pais->localizacao_y = 403;
 		pais->continente = ASIA;
 		break;
-	case 166:
+	case 165:
 		pais->nome = "Turquia";
 		pais->localizacao_x = 68;
 		pais->localizacao_y = 403;
 		pais->continente = ASIA;
 		break;
-	case 167:
+	case 166:
 		pais->nome = "Uzbequistão";
 		pais->localizacao_x = 265;
 		pais->localizacao_y = 382;
 		pais->continente = ASIA;
 		break;
-	case 168:
+	case 167:
 		pais->nome = "Vietnã";
 		pais->localizacao_x = 508;
 		pais->localizacao_y = 508;
 		pais->continente = ASIA;
 		break;
-	case 169:
+	case 168:
 		pais->nome = "Omã";
 		pais->localizacao_x = 230;
 		pais->localizacao_y = 510;
 		pais->continente = ASIA;
 		break;
-	case 170:
+	case 169:
 		pais->nome = "Catar";
 		pais->localizacao_x = 193;
 		pais->localizacao_y = 492;
 		pais->continente = ASIA;
 		break;
-	case 171:
+	case 170:
 		pais->nome = "Iêmen";
 		pais->localizacao_x = 157;
 		pais->localizacao_y = 562;
 		pais->continente = ASIA;
 		break;
-	case 172:
+	case 171:
 		pais->nome = "Jordânia";
 		pais->localizacao_x = 100;
 		pais->localizacao_y = 461;
 		pais->continente = ASIA;
 		break;
-	case 173:
+	case 172:
 		pais->nome = "Kuwait";
 		pais->localizacao_x = 166;
 		pais->localizacao_y = 469;
 		pais->continente = ASIA;
 		break;
-	case 174:
+	case 173:
 		pais->nome = "Singapura";
 		pais->localizacao_x = 513;
 		pais->localizacao_y = 646;
 		pais->continente = ASIA;
 		break;
-	case 175:
+	case 174:
 		pais->nome = "Taiwan";
 		pais->localizacao_x = 595;
 		pais->localizacao_y = 477;
 		pais->continente = ASIA;
 		break;
 	//oceania
-	case 176:
+	case 175:
 		pais->nome = "Austrália";
 		pais->localizacao_x = 481;
 		pais->localizacao_y = 404;
 		pais->continente = OCEANIA;
 		break;
-	case 177:
+	case 176:
 		pais->nome = "Ilhas Salomão";
 		pais->localizacao_x = 574;
 		pais->localizacao_y = 217;
 		pais->continente = OCEANIA;
 		break;
-	case 178:
+	case 177:
 		pais->nome = "Indonésia";
 		pais->localizacao_x = 265;
 		pais->localizacao_y = 201;
 		pais->continente = OCEANIA;
 		break;
-	case 179:
+	case 178:
 		pais->nome = "Nova Zelândia";
 		pais->localizacao_x = 588;
 		pais->localizacao_y = 521;
 		pais->continente = OCEANIA;
 		break;
-	case 180:
+	case 179:
 		pais->nome = "Papua-Nova Guiné";
 		pais->localizacao_x = 503;
 		pais->localizacao_y = 228;
 		pais->continente = OCEANIA;
 		break;
-	case 181:
+	case 180:
 		pais->nome = "Fiji";
 		pais->localizacao_x = 725;
 		pais->localizacao_y = 258;
 		pais->continente = OCEANIA;
 		break;
-	case 182:
+	case 181:
 		pais->nome = "Ilhas Marshall";
 		pais->localizacao_x = 639;
 		pais->localizacao_y = 171;
 		pais->continente = OCEANIA;
 		break;
-	case 183:
+	case 182:
 		pais->nome = "Kiribati";
 		pais->localizacao_x = 693;
 		pais->localizacao_y = 108;
 		pais->continente = OCEANIA;
 		break;
-	case 184:
+	case 183:
 		pais->nome = "Nauru";
 		pais->localizacao_x = 646;
 		pais->localizacao_y = 206;
 		pais->continente = OCEANIA;
 		break;
-	case 185:
+	case 184:
 		pais->nome = "Palau";
 		pais->localizacao_x = 392;
 		pais->localizacao_y = 144;
 		pais->continente = OCEANIA;
 		break;
-	case 186:
+	case 185:
 		pais->nome = "Samoa";
 		pais->localizacao_x = 591;
 		pais->localizacao_y = 334;
 		pais->continente = OCEANIA;
 		break;
-	case 187:
+	case 186:
 		pais->nome = "Vanuatu";
 		pais->localizacao_x = 612;
 		pais->localizacao_y = 277;
