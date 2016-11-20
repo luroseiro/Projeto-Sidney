@@ -16,8 +16,10 @@ const int HEIGHT = 685;
 enum KEYS{UP, DOWN, LEFT, RIGHT, SPACE, ESC, P};
 enum NUM{F1, F2, F3, F4, F5};
 enum ESTADOS{MENUG, AJUDA, PREJOGO, JOGO, PAUSE, CONFIGURACOES, GAMEOVER};
-bool keys[7] = {false, false, false, false, false, false, false};      //movimentacao
-bool num[5] = {false, false, false, false, false};                    //mudanca de continente
+//movimentação
+bool keys[7] = {false, false, false, false, false, false, false};
+//muda de continente
+bool num[5] = {false, false, false, false, false};
 
 void iniciaAviao(AVIOES *aviao) {
 	aviao->x = WIDTH / 2;
@@ -923,6 +925,7 @@ int main(void) {
 						al_stop_sample_instance(instance1);
 						mudo = true;
 					}
+					al_show_native_message_box(janela, "MUDO", "Jogo silenciado", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
 				}
 				break;
 			case GAMEOVER:
