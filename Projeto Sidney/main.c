@@ -963,6 +963,7 @@ int main(void) {
 					damericacn:
 					al_draw_bitmap(americacn, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
+					al_draw_textf(fonte, al_map_rgb(0, 0, 0), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
 
 					//movimentacao
 					if(!mCima && !mBaixo && !mEsq && !mDir) {
@@ -1041,6 +1042,7 @@ int main(void) {
 					damericas:
 					al_draw_bitmap(americas, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
+					al_draw_textf(fonte, al_map_rgb(0, 0, 0), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
@@ -1119,6 +1121,7 @@ int main(void) {
 					dafrica:
 					al_draw_bitmap(africa, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
+					al_draw_textf(fonte, al_map_rgb(0, 0, 0), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
@@ -1197,6 +1200,7 @@ int main(void) {
 					deuropa:
 					al_draw_bitmap(europa, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
+					al_draw_textf(fonte, al_map_rgb(0, 0, 0), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
@@ -1275,6 +1279,7 @@ int main(void) {
 					dasia:
 					al_draw_bitmap(asia, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
+					al_draw_textf(fonte, al_map_rgb(0, 0, 0), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
@@ -1353,6 +1358,7 @@ int main(void) {
 					doceania:
 					al_draw_bitmap(oceania, 0, 0, 0);
 					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
+					al_draw_textf(fonte, al_map_rgb(0, 0, 0), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
 
 					//movimentacao
 					if (!mCima && !mBaixo && !mEsq && !mDir) {
