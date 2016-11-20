@@ -271,9 +271,11 @@ void restauraPosicao(AVIOES *aviao) {
 }
 
 int main(void) {
-	bool done = false, redraw = false, menu = false, pauseTela = false, primeira = true;
-	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false;       //frase da distancia
-	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;                           //movimentacao
+	bool done = false, redraw = false, menu = false, pauseTela = false, primeira = true, menus = false, mudo = false;
+	//frase de distancia
+	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false;
+	//movimentação
+	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;
 	//mudança de tela
 	bool contamericacn = false, contamericas = false, contafrica = false, conteuropa = false, contasia = false, contoceania = false;
 	//variaveis de controle
@@ -302,6 +304,11 @@ int main(void) {
 	ALLEGRO_BITMAP *pause = NULL;
 	ALLEGRO_BITMAP *configuracoes = NULL;
 	ALLEGRO_BITMAP *gameOver = NULL;
+	//audio
+	ALLEGRO_SAMPLE *motor = NULL;
+	ALLEGRO_SAMPLE *musica = NULL;
+	ALLEGRO_SAMPLE_INSTANCE *instance1 = NULL;
+	ALLEGRO_SAMPLE_INSTANCE *instance2 = NULL;
 
 	//inicializacao allegro
 	if (!al_init()) {
@@ -325,6 +332,10 @@ int main(void) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao instalar mouse!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+	if (!al_install_audio()) {
+		al_show_native_message_box(janela, "ERRO", "Erro ao instalar audio!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
+		return -1;
+	}
 	if (!al_init_primitives_addon()) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar primitivos!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
@@ -339,6 +350,10 @@ int main(void) {
 	}
 	if (!al_init_ttf_addon()) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar addon de ttf!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
+		return -1;
+	}
+	if (!al_init_acodec_addon()) {
+		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar addon acodec!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
 
@@ -396,6 +411,19 @@ int main(void) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar fonte!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+
+	al_reserve_samples(10);
+	motor = al_load_sample("motor.ogg");
+	//musica = al_load_sample("musica.ogg");
+	instance1 = al_create_sample_instance(motor);
+	//instance2 = al_create_sample_instance(musica);
+	if (!motor || !instance1/* || !musica || instance2*/) {
+		al_show_native_message_box(janela, "ERRO", "Erro ao criar audios!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
+		return -1;
+	}
+
+	al_attach_sample_instance_to_mixer(instance1, al_get_default_mixer());
+	//al_attach_sample_instance_to_mixer(instance2, al_get_default_mixer());
 
 	//Registrando na fila de eventos
 	al_register_event_source(fila_de_eventos, al_get_keyboard_event_source());
@@ -665,23 +693,34 @@ int main(void) {
 						printf("%s\n", pais.nome);
 					}
 
-					//movimento vertical
-					if (keys[UP]) {
-						mCima = mAviaoCima(&aviao);
-					}
-					else if (keys[DOWN]) {
-						mBaixo = mAviaoBaixo(&aviao);
-					}
+					//movimenta e toca audio
+					if (keys[UP] || keys[DOWN] || keys[LEFT] || keys[RIGHT]) {
+						//movimento vertical
+						if (keys[UP]) {
+							mCima = mAviaoCima(&aviao);
+						}
+						else if (keys[DOWN]) {
+							mBaixo = mAviaoBaixo(&aviao);
+						}
+						//movimento horizontal
+						if (keys[LEFT]) {
+							mEsq = mAviaoEsq(&aviao);
+						}
+						else if (keys[RIGHT]) {
+							mDir = mAviaoDir(&aviao);
+						}
 
-					//movimento horizontal
-					if (keys[LEFT]) {
-						mEsq = mAviaoEsq(&aviao);
+						if (!mudo) {
+							al_play_sample_instance(instance1);
+						}
 					}
-					else if (keys[RIGHT]) {
-						mDir = mAviaoDir(&aviao);
+					//para audio
+					else {
+						al_stop_sample_instance(instance1);
 					}
 				}
 				else {
+					al_stop_sample_instance(instance1);
 					al_show_native_message_box(janela, "OPS!", "Seu combustivel acabou!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
 					estado = GAMEOVER;
 				}
@@ -806,6 +845,7 @@ int main(void) {
 				}
 				//clicar em configuracoes
 				else if ((evento.mouse.x >= 554 && evento.mouse.x <= 762) && (evento.mouse.y >= 594 && evento.mouse.y <= 653)) {
+					menus = true;
 					menu = true;
 					estado = CONFIGURACOES;
 				}
@@ -849,6 +889,7 @@ int main(void) {
 				}
 				//clicar em configuracoes
 				else if ((evento.mouse.x >= 280 && evento.mouse.x <= 561) && (evento.mouse.y >= 180 && evento.mouse.y <= 273)) {
+					menus = false;
 					pauseTela = true;
 					estado = CONFIGURACOES;
 				}
@@ -874,7 +915,14 @@ int main(void) {
 				}
 				//clicar em mudo
 				else if((evento.mouse.x >= 72 && evento.mouse.x <= 334) && (evento.mouse.y >= 321 && evento.mouse.y <= 391)) {
-					//tira som;
+					if (menus) {
+						//al_stop_sample_instance(instance2);
+						mudo = true;
+					}
+					else {
+						al_stop_sample_instance(instance1);
+						mudo = true;
+					}
 				}
 				break;
 			case GAMEOVER:
@@ -1406,6 +1454,10 @@ int main(void) {
 	al_destroy_bitmap(configuracoes);
 	al_destroy_bitmap(gameOver);
 	al_destroy_bitmap(imagemAviao);
+	al_destroy_sample(motor);
+	al_destroy_sample(musica);
+	al_destroy_sample_instance(instance1);
+	al_destroy_sample_instance(instance2);
 	al_destroy_font(fonte);
 	al_destroy_event_queue(fila_de_eventos);
 	al_destroy_display(janela);
