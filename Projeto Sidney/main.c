@@ -7,8 +7,6 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include "objetos.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
 
 const int WIDTH = 839;
@@ -247,7 +245,6 @@ double calculaDistancia(AVIOES aviao, DESTINOS *pais, int continente) {
 
 	if (pais->continente == continente) {
 		distancia = sqrt(pow((pais->localizacao_x - aviao.x), 2) + pow((pais->localizacao_y - aviao.y), 2));
-		printf("%.2f\n", distancia);
 	}
 	else {
 		pontos = 0.0;
@@ -430,6 +427,7 @@ int main(void) {
 	al_attach_sample_instance_to_mixer(instance2, al_get_default_mixer());
 
 	al_set_sample_instance_playmode(instance2, ALLEGRO_PLAYMODE_LOOP);
+	al_set_sample_instance_gain(instance1, 2);
 
 	//Registrando na fila de eventos
 	al_register_event_source(fila_de_eventos, al_get_keyboard_event_source());
@@ -679,6 +677,10 @@ int main(void) {
 					estado = PAUSE;
 					keys[ESC] = false;
 					keys[P] = false;
+					keys[UP] = false;
+					keys[DOWN] = false;
+					keys[LEFT] = false;
+					keys[RIGHT] = false;
 				}
 
 				//jogo principal
@@ -713,9 +715,7 @@ int main(void) {
 						restauraCombustivel(&aviao, pontos);
 						destino = -1;
 						destino = sorteiaDestino(destinos);
-						printf("%d\n", destino);
 						iniciaPais(&pais, destino);
-						printf("%s\n", pais.nome);
 					}
 
 					//movimenta e toca audio
@@ -906,9 +906,7 @@ int main(void) {
 				//clicar em jogar
 				if ((evento.mouse.x >= 498 && evento.mouse.x <= 609) && (evento.mouse.y >= 574 && evento.mouse.y <= 644)) {
 					destino = sorteiaDestino(destinos);
-					printf("%d\n", destino);
 					iniciaPais(&pais, destino);
-					printf("%s\n", pais.nome);
 					continente = rand() % 5;
 					estado = PREJOGO;
 				}
@@ -976,7 +974,7 @@ int main(void) {
 				}
 				//clicar em voltar ao menu inicial
 				else if ((evento.mouse.x >= 288 && evento.mouse.x <= 551) && (evento.mouse.y >= 533 && evento.mouse.y <= 604)) {
-					restauraCombustivel(&aviao, 100.0);
+					restauraCombustivel(&aviao, 300.0);
 					restauraPosicao(&aviao);
 					estado = MENUG;
 					system("cls");
@@ -1010,7 +1008,7 @@ int main(void) {
 			case GAMEOVER:
 				//clicar em jogar novamente
 				if((evento.mouse.x >= 486 && evento.mouse.x <= 747) && (evento.mouse.y >= 342 && evento.mouse.y <= 414)) {
-					restauraCombustivel(&aviao, 100.0);
+					restauraCombustivel(&aviao, 300.0);
 					restauraPosicao(&aviao);
 					estado = AJUDA;
 					system("cls");
