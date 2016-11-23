@@ -30,7 +30,7 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		pais->continente = AMERICACN;
 		break;
 	case 3:
-		pais->nome = "E.U.A.";
+		pais->nome = "Estados Unidos";
 		pais->localizacao_x = 431;
 		pais->localizacao_y = 449;
 		pais->continente = AMERICACN;
@@ -404,13 +404,13 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		pais->continente = AFRICA;
 		break;
 	case 65:
-		pais->nome = "República Centro-Africana";
+		pais->nome = "Rep. Centro-Africana";
 		pais->localizacao_x = 411;
 		pais->localizacao_y = 338;
 		pais->continente = AFRICA;
 		break;
 	case 66:
-		pais->nome = "República do Congo";
+		pais->nome = "Congo";
 		pais->localizacao_x = 392;
 		pais->localizacao_y = 390;
 		pais->continente = AFRICA;
@@ -573,7 +573,7 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		pais->continente = EUROPA;
 		break;
 	case 93:
-		pais->nome = "República Tcheca";
+		pais->nome = "Rep. Tcheca";
 		pais->localizacao_x = 353;
 		pais->localizacao_y = 395;
 		pais->continente = EUROPA;
@@ -729,7 +729,7 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		pais->continente = EUROPA;
 		break;
 	case 119:
-		pais->nome = "Países Baixos (Holanda)";
+		pais->nome = "Holanda";
 		pais->localizacao_x = 256;
 		pais->localizacao_x = 368;
 		pais->continente = EUROPA;

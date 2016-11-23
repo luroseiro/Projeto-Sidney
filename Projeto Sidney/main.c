@@ -31,32 +31,32 @@ void iniciaAviao(AVIOES *aviao) {
 bool mAviaoCima(AVIOES *aviao) {                      //movimenta nave pra cima
 	aviao->y -= aviao->velocidade;
 	aviao->combustivel -= 0.1;
-	if (aviao->y < 0) {
-		aviao->y = 0;
+	if (aviao->y < 24) {
+		aviao->y = 24;
 	}
 	return true;
 }
 bool mAviaoBaixo(AVIOES *aviao) {                      //movimenta nave pra baixo
 	aviao->y += aviao->velocidade;
 	aviao->combustivel -= 0.1;
-	if (aviao->y > HEIGHT - 36) {
-		aviao->y = HEIGHT - 36;
+	if (aviao->y > HEIGHT - 24) {
+		aviao->y = HEIGHT - 24;
 	}
 	return true;
 }
 bool mAviaoEsq(AVIOES *aviao) {                      //movimenta nave pra esquerda
 	aviao->x -= aviao->velocidade;
 	aviao->combustivel -= 0.1;
-	if (aviao->x < 0) {
-		aviao->x = 0;
+	if (aviao->x < 24) {
+		aviao->x = 24;
 	}
 	return true;
 }
 bool mAviaoDir(AVIOES *aviao) {                      //movimenta nave pra direita
 	aviao->x += aviao->velocidade;
 	aviao->combustivel -= 0.1;
-	if (aviao->x > WIDTH - 48) {
-		aviao->x = WIDTH - 48;
+	if (aviao->x > WIDTH - 24) {
+		aviao->x = WIDTH - 24;
 	}
 	return true;
 }
@@ -247,6 +247,7 @@ double calculaDistancia(AVIOES aviao, DESTINOS *pais, int continente) {
 
 	if (pais->continente == continente) {
 		distancia = sqrt(pow((pais->localizacao_x - aviao.x), 2) + pow((pais->localizacao_y - aviao.y), 2));
+		printf("%.2f\n", distancia);
 	}
 	else {
 		pontos = 0.0;
@@ -262,7 +263,7 @@ double calculaDistancia(AVIOES aviao, DESTINOS *pais, int continente) {
 	return pontos;
 }
 void restauraCombustivel(AVIOES *aviao, double pontos) {
-	aviao->combustivel += pontos;
+	aviao->combustivel += (pontos / 3);
 	if (aviao->combustivel >= 100.0) {
 		aviao->combustivel = 100.0;
 	}
@@ -417,16 +418,18 @@ int main(void) {
 
 	al_reserve_samples(10);
 	motor = al_load_sample("motor.ogg");
-	//musica = al_load_sample("musica.ogg");
+	musica = al_load_sample("musica.ogg");
 	instance1 = al_create_sample_instance(motor);
-	//instance2 = al_create_sample_instance(musica);
-	if (!motor || !instance1/* || !musica || instance2*/) {
+	instance2 = al_create_sample_instance(musica);
+	if (!motor || !instance1 || !musica || !instance2) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar audios!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
 
 	al_attach_sample_instance_to_mixer(instance1, al_get_default_mixer());
-	//al_attach_sample_instance_to_mixer(instance2, al_get_default_mixer());
+	al_attach_sample_instance_to_mixer(instance2, al_get_default_mixer());
+
+	al_set_sample_instance_playmode(instance2, ALLEGRO_PLAYMODE_LOOP);
 
 	//Registrando na fila de eventos
 	al_register_event_source(fila_de_eventos, al_get_keyboard_event_source());
@@ -450,7 +453,10 @@ int main(void) {
 			switch (estado) {
 			case MENUG:
 				if (!mudo) {
-					//al_play_sample_instance(instance2);
+					al_play_sample_instance(instance2);
+				}
+				else {
+					al_stop_sample_instance(instance2);
 				}
 				
 				if (keys[ESC]) {
@@ -459,7 +465,10 @@ int main(void) {
 				break;
 			case AJUDA:
 				if (!mudo) {
-					//al_play_sample_instance(instance2);
+					al_play_sample_instance(instance2);
+				}
+				else {
+					al_stop_sample_instance(instance2);
 				}
 
 				if (keys[ESC]) {
@@ -468,6 +477,7 @@ int main(void) {
 				}
 				break;
 			case JOGO:
+				al_stop_sample_instance(instance2);
 				aviao.combustivel -= 0.01;
 
 				//mudar de continente
@@ -677,6 +687,10 @@ int main(void) {
 					if (keys[SPACE]) {
 						pontos = calculaDistancia(aviao, &pais, continente);
 						keys[SPACE] = false;
+						keys[UP] = false;
+						keys[DOWN] = false;
+						keys[LEFT] = false;
+						keys[RIGHT] = false;
 
 						//verifica frase final
 						if (pontos >= 90.0) {
@@ -738,7 +752,10 @@ int main(void) {
 				break;
 			case PAUSE:
 				if (!mudo) {
-					//al_play_sample_instance(instance2);
+					al_play_sample_instance(instance2);
+				}
+				else {
+					al_stop_sample_instance(instance2);
 				}
 
 				if (keys[ESC]) {
@@ -748,7 +765,10 @@ int main(void) {
 				break;
 			case CONFIGURACOES:
 				if (!mudo) {
-					//al_play_sample_instance(instance2);
+					al_play_sample_instance(instance2);
+				}
+				else {
+					al_stop_sample_instance(instance2);
 				}
 
 				if (keys[ESC]) {
@@ -765,7 +785,10 @@ int main(void) {
 				break;
 			case GAMEOVER:
 				if (!mudo) {
-					//al_play_sample_instance(instance2);
+					al_play_sample_instance(instance2);
+				}
+				else {
+					al_stop_sample_instance(instance2);
 				}
 
 				//controle de movimentação
@@ -974,7 +997,7 @@ int main(void) {
 				//clicar em mudo
 				else if((evento.mouse.x >= 72 && evento.mouse.x <= 334) && (evento.mouse.y >= 321 && evento.mouse.y <= 391)) {
 					if (menus) {
-						//al_stop_sample_instance(instance2);
+						al_stop_sample_instance(instance2);
 						mudo = true;
 					}
 					else {
