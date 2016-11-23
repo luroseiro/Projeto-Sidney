@@ -448,11 +448,19 @@ int main(void) {
 			redraw = true;
 			switch (estado) {
 			case MENUG:
+				if (!mudo) {
+					//al_play_sample_instance(instance2);
+				}
+				
 				if (keys[ESC]) {
 					done = true;
 				}
 				break;
 			case AJUDA:
+				if (!mudo) {
+					//al_play_sample_instance(instance2);
+				}
+
 				if (keys[ESC]) {
 					estado = MENUG;
 					keys[ESC] = false;
@@ -728,12 +736,20 @@ int main(void) {
 				}
 				break;
 			case PAUSE:
+				if (!mudo) {
+					//al_play_sample_instance(instance2);
+				}
+
 				if (keys[ESC]) {
 					estado = JOGO;
 					keys[ESC] = false;
 				}
 				break;
 			case CONFIGURACOES:
+				if (!mudo) {
+					//al_play_sample_instance(instance2);
+				}
+
 				if (keys[ESC]) {
 					if (menu) {
 						estado = MENUG;
@@ -747,6 +763,10 @@ int main(void) {
 				}
 				break;
 			case GAMEOVER:
+				if (!mudo) {
+					//al_play_sample_instance(instance2);
+				}
+
 				//controle de movimentação
 				keys[UP] = false;
 				keys[DOWN] = false;
@@ -968,7 +988,7 @@ int main(void) {
 				if((evento.mouse.x >= 486 && evento.mouse.x <= 747) && (evento.mouse.y >= 342 && evento.mouse.y <= 414)) {
 					restauraCombustivel(&aviao, 100.0);
 					restauraPosicao(&aviao);
-					estado = PREJOGO;
+					estado = AJUDA;
 					system("cls");
 				}
 				//clicar em sair
