@@ -9,6 +9,7 @@
 #include "objetos.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 const int WIDTH = 839;
 const int HEIGHT = 685;

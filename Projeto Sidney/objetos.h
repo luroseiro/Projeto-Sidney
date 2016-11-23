@@ -30,7 +30,7 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		pais->continente = AMERICACN;
 		break;
 	case 3:
-		pais->nome = "Estados Unidos da América";
+		pais->nome = "E.U.A.";
 		pais->localizacao_x = 431;
 		pais->localizacao_y = 449;
 		pais->continente = AMERICACN;
@@ -110,80 +110,80 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 	//americas
 	case 16:
 		pais->nome = "Argentina";
-		pais->localizacao_x = 453;
-		pais->localizacao_y = 412;
+		pais->localizacao_x = 450;
+		pais->localizacao_y = 445;
 		pais->continente = AMERICAS;
 		break;
 	case 17:
 		pais->nome = "Bolívia";
-		pais->localizacao_x = 378;
-		pais->localizacao_y = 302;
+		pais->localizacao_x = 363;
+		pais->localizacao_y = 306;
 		pais->continente = AMERICAS;
 		break;
 	case 18:
 		pais->nome = "Brasil";
-		pais->localizacao_x = 506;
-		pais->localizacao_y = 297;
+		pais->localizacao_x = 513;
+		pais->localizacao_y = 295;
 		pais->continente = AMERICAS;
 		break;
 	case 19:
 		pais->nome = "Chile";
-		pais->localizacao_x = 380;
-		pais->localizacao_y = 443;
+		pais->localizacao_x = 355;
+		pais->localizacao_y = 423;
 		pais->continente = AMERICAS;
 		break;
 	case 20:
 		pais->nome = "Colômbia";
-		pais->localizacao_x = 340;
-		pais->localizacao_y = 171;
+		pais->localizacao_x = 308;
+		pais->localizacao_y = 117;
 		pais->continente = AMERICAS;
 		break;
 	case 21:
 		pais->nome = "Equador";
-		pais->localizacao_x = 312;
-		pais->localizacao_y = 199;
+		pais->localizacao_x = 267;
+		pais->localizacao_y = 175;
 		pais->continente = AMERICAS;
 		break;
 	case 22:
 		pais->nome = "Guiana";
-		pais->localizacao_x = 429;
-		pais->localizacao_y = 151;
+		pais->localizacao_x = 426;
+		pais->localizacao_y = 143;
 		pais->continente = AMERICAS;
 		break;
 	case 23:
 		pais->nome = "Guiana Francesa";
 		pais->localizacao_x = 467;
-		pais->localizacao_y = 166;
+		pais->localizacao_y = 133;
 		pais->continente = AMERICAS;
 		break;
 	case 24:
 		pais->nome = "Paraguai";
-		pais->localizacao_x = 454;
-		pais->localizacao_y = 352;
+		pais->localizacao_x = 457;
+		pais->localizacao_y = 362;
 		pais->continente = AMERICAS;
 		break;
 	case 25:
 		pais->nome = "Peru";
-		pais->localizacao_x = 324;
-		pais->localizacao_y = 265;
+		pais->localizacao_x = 293;
+		pais->localizacao_y = 272;
 		pais->continente = AMERICAS;
 		break;
 	case 26:
 		pais->nome = "Suriname";
-		pais->localizacao_x = 449;
-		pais->localizacao_y = 155;
+		pais->localizacao_x = 446;
+		pais->localizacao_y = 128;
 		pais->continente = AMERICAS;
 		break;
 	case 27:
 		pais->nome = "Uruguai";
 		pais->localizacao_x = 473;
-		pais->localizacao_y = 412;
+		pais->localizacao_y = 442;
 		pais->continente = AMERICAS;
 		break;
 	case 28:
 		pais->nome = "Venezuela";
-		pais->localizacao_x = 392;
-		pais->localizacao_y = 122;
+		pais->localizacao_x = 365;
+		pais->localizacao_y = 71;
 		pais->continente = AMERICAS;
 		break;
 	//africa
@@ -508,62 +508,62 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 	//europa
 	case 82:
 		pais->nome = "Albânia";
-		pais->localizacao_x = 439;
-		pais->localizacao_y = 395;
+		pais->localizacao_x = 418;
+		pais->localizacao_y = 520;
 		pais->continente = EUROPA;
 		break;
 	case 83:
 		pais->nome = "Alemanha";
-		pais->localizacao_x = 398;
-		pais->localizacao_y = 310;
+		pais->localizacao_x = 302;
+		pais->localizacao_y = 407;
 		pais->continente = EUROPA;
 		break;
 	case 84:
 		pais->nome = "Andorra";
-		pais->localizacao_x = 336;
-		pais->localizacao_y = 385;
+		pais->localizacao_x = 234;
+		pais->localizacao_y = 500;
 		pais->continente = EUROPA;
 		break;
 	case 85:
 		pais->nome = "Armênia";
-		pais->localizacao_x = 571;
-		pais->localizacao_y = 399;
+		pais->localizacao_x = 659;
+		pais->localizacao_y = 523;
 		pais->continente = EUROPA;
 		break;
 	case 86:
 		pais->nome = "Áustria";
-		pais->localizacao_x = 413;
-		pais->localizacao_y = 348;
+		pais->localizacao_x = 354;
+		pais->localizacao_y = 428;
 		pais->continente = EUROPA;
 		break;
 	case 87:
 		pais->nome = "Azerbaijão";
-		pais->localizacao_x = 599;
-		pais->localizacao_y = 394;
+		pais->localizacao_x = 721;
+		pais->localizacao_y = 521;
 		pais->continente = EUROPA;
 		break;
 	case 88:
 		pais->nome = "Bélgica";
-		pais->localizacao_x = 352;
-		pais->localizacao_y = 324;
+		pais->localizacao_x = 257;
+		pais->localizacao_y = 386;
 		pais->continente = EUROPA;
 		break;
 	case 89:
 		pais->nome = "Bielorrúsia";
-		pais->localizacao_x = 474;
-		pais->localizacao_y = 298;
+		pais->localizacao_x = 477;
+		pais->localizacao_y = 334;
 		pais->continente = EUROPA;
 		break;
 	case 90:
-		pais->nome = "Bósnia e Herzegovinia";
-		pais->localizacao_x = 429;
-		pais->localizacao_y = 377;
+		pais->nome = "Bósnia e Herzegovina";
+		pais->localizacao_x = 405;
+		pais->localizacao_y = 483;
 		pais->continente = EUROPA;
 		break;
 	case 91:
 		pais->nome = "Bulgária";
-		pais->localizacao_x = 358;
-		pais->localizacao_y = 384;
+		pais->localizacao_x = 453;
+		pais->localizacao_y = 499;
 		pais->continente = EUROPA;
 		break;
 	case 92:
@@ -574,248 +574,248 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		break;
 	case 93:
 		pais->nome = "República Tcheca";
-		pais->localizacao_x = 404;
-		pais->localizacao_y = 330;
+		pais->localizacao_x = 353;
+		pais->localizacao_y = 395;
 		pais->continente = EUROPA;
 		break;
 	case 94:
 		pais->nome = "Chipre";
-		pais->localizacao_x = 514;
-		pais->localizacao_y = 438;
+		pais->localizacao_x = 558;
+		pais->localizacao_y = 598;
 		pais->continente = EUROPA;
 		break;
 	case 95:
 		pais->nome = "Croácia";
-		pais->localizacao_x = 411;
-		pais->localizacao_y = 368;
+		pais->localizacao_x = 378;
+		pais->localizacao_y = 560;
 		pais->continente = EUROPA;
 		break;
 	case 96:
 		pais->nome = "Dinamarca";
-		pais->localizacao_x = 388;
-		pais->localizacao_y = 289;
+		pais->localizacao_x = 324;
+		pais->localizacao_y = 316;
 		pais->continente = EUROPA;
 		break;
 	case 97:
 		pais->nome = "Eslováquia";
-		pais->localizacao_x = 426;
-		pais->localizacao_y = 343;
+		pais->localizacao_x = 388;
+		pais->localizacao_y = 418;
 		pais->continente = EUROPA;
 		break;
 	case 98:
 		pais->nome = "Eslovênia";
-		pais->localizacao_x = 407;
-		pais->localizacao_y = 360;
+		pais->localizacao_x = 358;
+		pais->localizacao_y = 457;
 		pais->continente = EUROPA;
 		break;
 	case 99:
 		pais->nome = "Espanha";
-		pais->localizacao_x = 310;
-		pais->localizacao_y = 407;
+		pais->localizacao_x = 183;
+		pais->localizacao_y = 528;
 		pais->continente = EUROPA;
 		break;
 	case 100:
 		pais->nome = "Estônia";
-		pais->localizacao_x = 453;
-		pais->localizacao_y = 255;
+		pais->localizacao_x = 451;
+		pais->localizacao_y = 253;
 		pais->continente = EUROPA;
 		break;
 	case 101:
 		pais->nome = "Finlândia";
-		pais->localizacao_x = 445;
-		pais->localizacao_y = 245;
+		pais->localizacao_x = 431;
+		pais->localizacao_y = 235;
 		pais->continente = EUROPA;
 		break;
 	case 102:
 		pais->nome = "França";
-		pais->localizacao_x = 341;
-		pais->localizacao_y = 337;
+		pais->localizacao_x = 241;
+		pais->localizacao_y = 420;
 		pais->continente = EUROPA;
 		break;
 	case 103:
 		pais->nome = "Geórgia";
-		pais->localizacao_x = 570;
-		pais->localizacao_y = 386;
+		pais->localizacao_x = 657;
+		pais->localizacao_y = 500;
 		pais->continente = EUROPA;
 		break;
 	case 104:
 		pais->nome = "Grécia";
 		pais->localizacao_x = 460;
-		pais->localizacao_y = 419;
+		pais->localizacao_y = 560;
 		pais->continente = EUROPA;
 		break;
 	case 105:
 		pais->nome = "Hungria";
-		pais->localizacao_x = 432;
-		pais->localizacao_y = 351;
+		pais->localizacao_x = 411;
+		pais->localizacao_y = 433;
 		pais->continente = EUROPA;
 		break;
 	case 106:
 		pais->nome = "Irlanda";
-		pais->localizacao_x = 297;
-		pais->localizacao_y = 305;
+		pais->localizacao_x = 129;
+		pais->localizacao_y = 361;
 		pais->continente = EUROPA;
 		break;
 	case 107:
 		pais->nome = "Islândia";
-		pais->localizacao_x = 231;
-		pais->localizacao_y = 218;
+		pais->localizacao_x = 31;
+		pais->localizacao_y = 181;
 		pais->continente = EUROPA;
 		break;
 	case 108:
 		pais->nome = "Itália";
-		pais->localizacao_x = 397;
-		pais->localizacao_y = 390;
+		pais->localizacao_x = 346;
+		pais->localizacao_y = 510;
 		pais->continente = EUROPA;
 		break;
 	case 109:
 		pais->nome = "Kosovo";
-		pais->localizacao_x = 443;
-		pais->localizacao_y = 381;
+		pais->localizacao_x = 422;
+		pais->localizacao_y = 496;
 		pais->continente = EUROPA;
 		break;
 	case 110:
 		pais->nome = "Letônia";
-		pais->localizacao_x = 454;
-		pais->localizacao_y = 271;
+		pais->localizacao_x = 445;
+		pais->localizacao_y = 289;
 		pais->continente = EUROPA;
 		break;
 	case 111:
 		pais->nome = "Liechtenstein";
-		pais->localizacao_x = 386;
-		pais->localizacao_y = 354;
+		pais->localizacao_x = 320;
+		pais->localizacao_y = 440;
 		pais->continente = EUROPA;
 		break;
 	case 112:
 		pais->nome = "Lituânia";
-		pais->localizacao_x = 455;
-		pais->localizacao_y = 290;
+		pais->localizacao_x = 444;
+		pais->localizacao_y = 319;
 		pais->continente = EUROPA;
 		break;
 	case 113:
 		pais->nome = "Luxemburgo";
-		pais->localizacao_x = 363;
-		pais->localizacao_y = 331;
+		pais->localizacao_x = 279;
+		pais->localizacao_y = 405;
 		pais->continente = EUROPA;
 		break;
 	case 114:
 		pais->nome = "Malta";
-		pais->localizacao_x = 408;
-		pais->localizacao_y = 422;
+		pais->localizacao_x = 471;
+		pais->localizacao_y = 597;
 		pais->continente = EUROPA;
 		break;
 	case 115:
 		pais->nome = "Moldávia";
-		pais->localizacao_x = 481;
-		pais->localizacao_y = 351;
+		pais->localizacao_x = 492;
+		pais->localizacao_y = 432;
 		pais->continente = EUROPA;
 		break;
 	case 116:
 		pais->nome = "Mônaco";
-		pais->localizacao_x = 368;
-		pais->localizacao_y = 381;
+		pais->localizacao_x = 291;
+		pais->localizacao_y = 484;
 		pais->continente = EUROPA;
 		break;
 	case 117:
 		pais->nome = "Montenegro";
-		pais->localizacao_x = 434;
-		pais->localizacao_y = 386;
+		pais->localizacao_x = 407;
+		pais->localizacao_y = 500;
 		pais->continente = EUROPA;
 		break;
 	case 118:
 		pais->nome = "Noruega";
-		pais->localizacao_x = 383;
-		pais->localizacao_y = 247;
+		pais->localizacao_x = 314;
+		pais->localizacao_y = 243;
 		pais->continente = EUROPA;
 		break;
 	case 119:
 		pais->nome = "Países Baixos (Holanda)";
-		pais->localizacao_x = 355;
-		pais->localizacao_x = 318;
+		pais->localizacao_x = 256;
+		pais->localizacao_x = 368;
 		pais->continente = EUROPA;
 		break;
 	case 120:
 		pais->nome = "Polônia";
-		pais->localizacao_x = 441;
-		pais->localizacao_y = 316;
+		pais->localizacao_x = 414;
+		pais->localizacao_y = 367;
 		pais->continente = EUROPA;
 		break;
 	case 121:
 		pais->nome = "Portugal";
-		pais->localizacao_x = 279;
-		pais->localizacao_y = 418;
+		pais->localizacao_x = 119;
+		pais->localizacao_y = 557;
 		pais->continente = EUROPA;
 		break;
 	case 122:
 		pais->nome = "Inglaterra";
-		pais->localizacao_x = 326;
-		pais->localizacao_y = 316;
+		pais->localizacao_x = 205;
+		pais->localizacao_y = 377;
 		pais->continente = EUROPA;
 		break;
 	case 123:
 		pais->nome = "Escócia";
-		pais->localizacao_x = 319;
-		pais->localizacao_y = 287;
+		pais->localizacao_x = 186;
+		pais->localizacao_y = 307;
 		pais->continente = EUROPA;
 		break;
 	case 124:
 		pais->nome = "País de Gales";
-		pais->localizacao_x = 308;
-		pais->localizacao_y = 320;
+		pais->localizacao_x = 173;
+		pais->localizacao_y = 376;
 		pais->continente = EUROPA;
 		break;
 	case 125:
 		pais->nome = "Irlanda do Norte";
-		pais->localizacao_x = 295;
-		pais->localizacao_y = 294;
+		pais->localizacao_x = 151;
+		pais->localizacao_y = 333;
 		pais->continente = EUROPA;
 		break;
 	case 126:
 		pais->nome = "Macedônia";
-		pais->localizacao_x = 448;
-		pais->localizacao_y = 389;
+		pais->localizacao_x = 433;
+		pais->localizacao_y = 511;
 		pais->continente = EUROPA;
 		break;
 	case 127:
 		pais->nome = "Romênia";
-		pais->localizacao_x = 468;
-		pais->localizacao_y = 367;
+		pais->localizacao_x = 471;
+		pais->localizacao_y = 470;
 		pais->continente = EUROPA;
 		break;
 	case 128:
 		pais->nome = "San Marino";
-		pais->localizacao_x = 397;
-		pais->localizacao_y = 377;
+		pais->localizacao_x = 339;
+		pais->localizacao_y = 490;
 		pais->continente = EUROPA;
 		break;
 	case 129:
 		pais->nome = "Sérvia";
-		pais->localizacao_x = 440;
-		pais->localizacao_y = 362;
+		pais->localizacao_x = 420;
+		pais->localizacao_y = 460;
 		pais->continente = EUROPA;
 		break;
 	case 130:
 		pais->nome = "Suécia";
-		pais->localizacao_x = 418;
-		pais->localizacao_y = 253;
+		pais->localizacao_x = 396;
+		pais->localizacao_y = 242;
 		pais->continente = EUROPA;
 		break;
 	case 131:
 		pais->nome = "Suíça";
-		pais->localizacao_x = 372;
-		pais->localizacao_y = 354;
+		pais->localizacao_x = 287;
+		pais->localizacao_y = 441;
 		pais->continente = EUROPA;
 		break;
 	case 132:
 		pais->nome = "Turquia";
-		pais->localizacao_x = 503;
-		pais->localizacao_y = 402;
+		pais->localizacao_x = 534;
+		pais->localizacao_y = 536;
 		pais->continente = EUROPA;
 		break;
 	case 133:
 		pais->nome = "Ucrânia";
-		pais->localizacao_x = 494;
-		pais->localizacao_y = 321;
+		pais->localizacao_x = 515;
+		pais->localizacao_y = 378;
 		pais->continente = EUROPA;
 		break;
 	//asia
@@ -1067,8 +1067,8 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 	//oceania
 	case 175:
 		pais->nome = "Austrália";
-		pais->localizacao_x = 481;
-		pais->localizacao_y = 404;
+		pais->localizacao_x = 516;
+		pais->localizacao_y = 481;
 		pais->continente = OCEANIA;
 		break;
 	case 176:
@@ -1079,14 +1079,14 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		break;
 	case 177:
 		pais->nome = "Indonésia";
-		pais->localizacao_x = 265;
-		pais->localizacao_y = 201;
+		pais->localizacao_x = 235;
+		pais->localizacao_y = 175;
 		pais->continente = OCEANIA;
 		break;
 	case 178:
 		pais->nome = "Nova Zelândia";
-		pais->localizacao_x = 588;
-		pais->localizacao_y = 521;
+		pais->localizacao_x = 691;
+		pais->localizacao_y = 532;
 		pais->continente = OCEANIA;
 		break;
 	case 179:
@@ -1122,7 +1122,7 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 	case 184:
 		pais->nome = "Palau";
 		pais->localizacao_x = 392;
-		pais->localizacao_y = 144;
+		pais->localizacao_y = 205;
 		pais->continente = OCEANIA;
 		break;
 	case 185:
