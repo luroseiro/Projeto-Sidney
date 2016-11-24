@@ -237,6 +237,8 @@ int sorteiaDestino(int destinos[]) {
 		preenche = false;
 	}
 
+
+	local = 1;
 	return local;
 }
 
@@ -247,13 +249,19 @@ double calculaDistancia(AVIOES aviao, DESTINOS *pais, int continente) {
 		distancia = sqrt(pow((pais->localizacao_x - aviao.x), 2) + pow((pais->localizacao_y - aviao.y), 2));
 	}
 	else {
-		pontos = 0.0;
+		pontos = -1.0;
 		goto fim;
 	}
 	
 	while (distancia > 0.0 && pontos >= 0.0) {
 		pontos -= 0.5;
+		if (pontos <= 0.0) {
+			pontos = 0.0;
+		}
 		distancia -= 0.5;
+		if (distancia <= 0.0) {
+			distancia = 0.0;
+		}
 	}
 
 	fim:
@@ -273,8 +281,9 @@ void restauraPosicao(AVIOES *aviao) {
 
 int main(void) {
 	bool done = false, redraw = false, menu = false, pauseTela = false, primeira = true, menus = false, mudo = false;
+	bool tentou = false;
 	//frase de distancia
-	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false;
+	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false, errouContinente = false;
 	//movimentação
 	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;
 	//mudança de tela
@@ -693,6 +702,7 @@ int main(void) {
 						keys[DOWN] = false;
 						keys[LEFT] = false;
 						keys[RIGHT] = false;
+						tentou = true;
 
 						//verifica frase final
 						if (pontos >= 90.0) {
@@ -707,8 +717,11 @@ int main(void) {
 						else if (pontos < 50.0 && pontos >= 40.0) {
 							perto3 = true;
 						}
-						else if (pontos < 40.0) {
+						else if (pontos < 40.0 && pontos >= 0.0) {
 							longe = true;
+						}
+						else if (pontos < 0.0) {
+							errouContinente = true;
 						}
 
 						//restaura combustivel e comeca de novo
@@ -1067,6 +1080,14 @@ int main(void) {
 
 					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
+					if (pais.continente == continente) {
+						if (tentou) {
+							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
+							al_flip_display();
+							tentou = false;
+						}
+					}
+
 					//frase final
 					if (acertou) {
 						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
@@ -1087,6 +1108,10 @@ int main(void) {
 					else if (longe) {
 						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
 						longe = false;
+					}
+					else if (errouContinente) {
+						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						errouContinente = false;
 					}
 
 					//mudar de continente
@@ -1152,6 +1177,14 @@ int main(void) {
 
 					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
+					if (pais.continente == continente) {
+						if (tentou) {
+							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
+							al_flip_display();
+							tentou = false;
+						}
+					}
+
 					//frase final
 					if (acertou) {
 						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
@@ -1172,6 +1205,10 @@ int main(void) {
 					else if (longe) {
 						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
 						longe = false;
+					}
+					else if (errouContinente) {
+						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						errouContinente = false;
 					}
 
 					//mudar de continente
@@ -1237,6 +1274,14 @@ int main(void) {
 
 					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
+					if (pais.continente == continente) {
+						if (tentou) {
+							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
+							al_flip_display();
+							tentou = false;
+						}
+					}
+
 					//frase final
 					if (acertou) {
 						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
@@ -1257,6 +1302,10 @@ int main(void) {
 					else if (longe) {
 						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
 						longe = false;
+					}
+					else if (errouContinente) {
+						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						errouContinente = false;
 					}
 
 					//mudar de continente
@@ -1322,6 +1371,14 @@ int main(void) {
 
 					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
+					if (pais.continente == continente) {
+						if (tentou) {
+							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
+							al_flip_display();
+							tentou = false;
+						}
+					}
+
 					//frase final
 					if (acertou) {
 						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
@@ -1342,6 +1399,10 @@ int main(void) {
 					else if (longe) {
 						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
 						longe = false;
+					}
+					else if (errouContinente) {
+						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						errouContinente = false;
 					}
 
 					//mudar de continente
@@ -1407,6 +1468,14 @@ int main(void) {
 
 					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
+					if (pais.continente == continente) {
+						if (tentou) {
+							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
+							al_flip_display();
+							tentou = false;
+						}
+					}
+
 					//frase final
 					if (acertou) {
 						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
@@ -1427,6 +1496,10 @@ int main(void) {
 					else if (longe) {
 						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
 						longe = false;
+					}
+					else if (errouContinente) {
+						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						errouContinente = false;
 					}
 
 					//mudar de continente
@@ -1492,6 +1565,14 @@ int main(void) {
 
 					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
 
+					if (pais.continente == continente) {
+						if (tentou) {
+							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
+							al_flip_display();
+							tentou = false;
+						}
+					}
+
 					//frase final
 					if (acertou) {
 						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
@@ -1512,6 +1593,10 @@ int main(void) {
 					else if (longe) {
 						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
 						longe = false;
+					}
+					else if (errouContinente) {
+						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
+						errouContinente = false;
 					}
 
 					//mudar de continente
