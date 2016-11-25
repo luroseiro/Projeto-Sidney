@@ -189,320 +189,320 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 	//africa
 	case 29:
 		pais->nome = "África do Sul";
-		pais->localizacao_x = 405;
-		pais->localizacao_y = 588;
+		pais->localizacao_x = 478;
+		pais->localizacao_y = 581;
 		pais->continente = AFRICA;
 		break;
 	case 30:
 		pais->nome = "Angola";
-		pais->localizacao_x = 382;
-		pais->localizacao_y = 434;
+		pais->localizacao_x = 371;
+		pais->localizacao_y = 436;
 		pais->continente = AFRICA;
 		break;
 	case 31:
 		pais->nome = "Argélia";
-		pais->localizacao_x = 335;
-		pais->localizacao_y = 233;
+		pais->localizacao_x = 285;
+		pais->localizacao_y = 29;
 		pais->continente = AFRICA;
 		break;
 	case 32:
 		pais->nome = "Benim";
-		pais->localizacao_x = 314;
-		pais->localizacao_y = 329;
+		pais->localizacao_x = 279;
+		pais->localizacao_y = 292;
 		pais->continente = AFRICA;
 		break;
 	case 33:
 		pais->nome = "Botswana";
-		pais->localizacao_x = 449;
-		pais->localizacao_y = 525;
+		pais->localizacao_x = 475;
+		pais->localizacao_y = 553;
 		pais->continente = AFRICA;
 		break;
 	case 34:
 		pais->nome = "Burkina Faso";
-		pais->localizacao_x = 294;
-		pais->localizacao_y = 298;
+		pais->localizacao_x = 247;
+		pais->localizacao_y = 246;
 		pais->continente = AFRICA;
 		break;
 	case 35:
 		pais->nome = "Burundi";
-		pais->localizacao_x = 475;
-		pais->localizacao_y = 392;
+		pais->localizacao_x = 506;
+		pais->localizacao_y = 379;
 		pais->continente = AFRICA;
 		break;
 	case 36:
 		pais->nome = "Cabo Verde";
-		pais->localizacao_x = 170;
-		pais->localizacao_y = 278;
+		pais->localizacao_x = 78;
+		pais->localizacao_y = 224;
 		pais->continente = AFRICA;
 		break;
 	case 37:
 		pais->nome = "Camarões";
-		pais->localizacao_x = 367;
-		pais->localizacao_y = 345;
+		pais->localizacao_x = 355;
+		pais->localizacao_y = 320;
 		pais->continente = AFRICA;
 		break;
 	case 38:
 		pais->nome = "Chade";
-		pais->localizacao_x = 392;
-		pais->localizacao_y = 307;
+		pais->localizacao_x = 390;
+		pais->localizacao_y = 244;
 		pais->continente = AFRICA;
 		break;
 	case 39:
 		pais->nome = "Comores";
-		pais->localizacao_x = 566;
-		pais->localizacao_y = 443;
+		pais->localizacao_x = 631;
+		pais->localizacao_y = 450;
 		pais->continente = AFRICA;
 		break;
 	case 40:
 		pais->nome = "Costa do Marfim";
-		pais->localizacao_x = 265;
-		pais->localizacao_y = 333;
+		pais->localizacao_x = 209;
+		pais->localizacao_y = 297;
 		pais->continente = AFRICA;
 		break;
 	case 41:
 		pais->nome = "Djibouti";
-		pais->localizacao_x = 551;
-		pais->localizacao_y = 297;
+		pais->localizacao_x = 615;
+		pais->localizacao_y = 249;
 		pais->continente = AFRICA;
 		break;
 	case 42:
 		pais->nome = "Egito";
-		pais->localizacao_x = 478;
-		pais->localizacao_y = 180;
+		pais->localizacao_x = 508;
+		pais->localizacao_y = 89;
 		pais->continente = AFRICA;
 		break;
 	case 43:
 		pais->nome = "Eritreia";
-		pais->localizacao_x = 526;
-		pais->localizacao_y = 272;
+		pais->localizacao_x = 574;
+		pais->localizacao_y = 215;
 		pais->continente = AFRICA;
 		break;
 	case 44:
 		pais->nome = "Etiópia";
-		pais->localizacao_x = 526;
-		pais->localizacao_y = 317;
+		pais->localizacao_x = 581;
+		pais->localizacao_y = 272;
 		pais->continente = AFRICA;
 		break;
 	case 45:
 		pais->nome = "Gabão";
-		pais->localizacao_x = 357;
-		pais->localizacao_y = 370;
+		pais->localizacao_x = 338;
+		pais->localizacao_y = 348;
 		pais->continente = AFRICA;
 		break;
 	case 46:
 		pais->nome = "Gâmbia";
-		pais->localizacao_x = 206;
-		pais->localizacao_y = 287;
+		pais->localizacao_x = 126;
+		pais->localizacao_y = 236;
 		pais->continente = AFRICA;
 		break;
 	case 47:
 		pais->nome = "Gana";
-		pais->localizacao_x = 297;
-		pais->localizacao_y = 334;
+		pais->localizacao_x = 258;
+		pais->localizacao_y = 301;
 		pais->continente = AFRICA;
 		break;
 	case 48:
 		pais->nome = "Guiné";
-		pais->localizacao_x = 216;
-		pais->localizacao_y = 311;
+		pais->localizacao_x = 148;
+		pais->localizacao_y = 267;
 		pais->continente = AFRICA;
 		break;
 	case 49:
 		pais->nome = "Guiné-Bissau";
-		pais->localizacao_x = 210;
-		pais->localizacao_y = 302;
+		pais->localizacao_x = 131;
+		pais->localizacao_y = 252;
 		pais->continente = AFRICA;
 		break;
 	case 50:
 		pais->nome = "Guiné Equatorial";
-		pais->localizacao_x = 351;
-		pais->localizacao_y = 350;
+		pais->localizacao_x = 330;
+		pais->localizacao_y = 325;
 		pais->continente = AFRICA;
 		break;
 	case 51:
 		pais->nome = "Lesoto";
-		pais->localizacao_x = 462;
-		pais->localizacao_y = 554;
+		pais->localizacao_x = 481;
+		pais->localizacao_y = 611;
 		pais->continente = AFRICA;
 		break;
 	case 52:
 		pais->nome = "Libéria";
-		pais->localizacao_x = 236;
-		pais->localizacao_y = 331;
+		pais->localizacao_x = 169;
+		pais->localizacao_y = 298;
 		pais->continente = AFRICA;
 		break;
 	case 53:
 		pais->nome = "Líbia";
-		pais->localizacao_x = 375;
-		pais->localizacao_y = 170;
+		pais->localizacao_x = 370;
+		pais->localizacao_y = 65;
 		pais->continente = AFRICA;
 		break;
 	case 54:
 		pais->nome = "Madagascar";
-		pais->localizacao_x = 575;
-		pais->localizacao_y = 493;
+		pais->localizacao_x = 651;
+		pais->localizacao_y = 512;
 		pais->continente = AFRICA;
 		break;
 	case 55:
 		pais->nome = "Malawi";
-		pais->localizacao_x = 501;
-		pais->localizacao_y = 454;
+		pais->localizacao_x = 543;
+		pais->localizacao_y = 468;
 		pais->continente = AFRICA;
 		break;
 	case 56:
 		pais->nome = "Mali";
-		pais->localizacao_x = 254;
-		pais->localizacao_y = 290;
+		pais->localizacao_x = 199;
+		pais->localizacao_y = 240;
 		pais->continente = AFRICA;
 		break;
 	case 57:
 		pais->nome = "Marrocos";
-		pais->localizacao_x = 251;
-		pais->localizacao_y = 164;
+		pais->localizacao_x = 208;
+		pais->localizacao_y = 56;
 		pais->continente = AFRICA;
 		break;
 	case 58:
 		pais->nome = "Maurícia";
-		pais->localizacao_x = 636;
-		pais->localizacao_y = 502;
+		pais->localizacao_x = 729;
+		pais->localizacao_y = 536;
 		pais->continente = AFRICA;
 		break;
 	case 59:
 		pais->nome = "Mauritânia";
-		pais->localizacao_x = 204;
-		pais->localizacao_y = 260;
+		pais->localizacao_x = 128;
+		pais->localizacao_y = 196;
 		pais->continente = AFRICA;
 		break;
 	case 60:
 		pais->nome = "Moçambique";
-		pais->localizacao_x = 494;
-		pais->localizacao_y = 527;
+		pais->localizacao_x = 532;
+		pais->localizacao_y = 557;
 		pais->continente = AFRICA;
 		break;
 	case 61:
 		pais->nome = "Namíbia";
-		pais->localizacao_x = 397;
-		pais->localizacao_y = 502;
+		pais->localizacao_x = 402;
+		pais->localizacao_y = 552;
 		pais->continente = AFRICA;
 		break;
 	case 62:
 		pais->nome = "Níger";
-		pais->localizacao_x = 316;
-		pais->localizacao_y = 285;
+		pais->localizacao_x = 286;
+		pais->localizacao_y = 229;
 		pais->continente = AFRICA;
 		break;
 	case 63:
 		pais->nome = "Nigéria";
-		pais->localizacao_x = 341;
-		pais->localizacao_y = 319;
+		pais->localizacao_x = 319;
+		pais->localizacao_y = 283;
 		pais->continente = AFRICA;
 		break;
 	case 64:
 		pais->nome = "Quênia";
-		pais->localizacao_x = 522;
-		pais->localizacao_y = 379;
+		pais->localizacao_x = 570;
+		pais->localizacao_y = 362;
 		pais->continente = AFRICA;
 		break;
 	case 65:
 		pais->nome = "Rep. Centro-Africana";
-		pais->localizacao_x = 411;
-		pais->localizacao_y = 338;
+		pais->localizacao_x = 417;
+		pais->localizacao_y = 305;
 		pais->continente = AFRICA;
 		break;
 	case 66:
 		pais->nome = "Congo";
-		pais->localizacao_x = 392;
-		pais->localizacao_y = 390;
+		pais->localizacao_x = 385;
+		pais->localizacao_y = 381;
 		pais->continente = AFRICA;
 		break;
 	case 67:
 		pais->nome = "Ruanda";
-		pais->localizacao_x = 480;
-		pais->localizacao_y = 382;
+		pais->localizacao_x = 509;
+		pais->localizacao_y = 366;
 		pais->continente = AFRICA;
 		break;
 	case 68:
 		pais->nome = "São Tomé e Príncipe";
-		pais->localizacao_x = 339;
-		pais->localizacao_y = 369;
+		pais->localizacao_x = 312;
+		pais->localizacao_y = 351;
 		pais->continente = AFRICA;
 		break;
 	case 69:
 		pais->nome = "Senegal";
-		pais->localizacao_x = 199;
-		pais->localizacao_y = 280;
+		pais->localizacao_x = 117;
+		pais->localizacao_y = 226;
 		pais->continente = AFRICA;
 		break;
 	case 70:
 		pais->nome = "Serra Leoa";
-		pais->localizacao_x = 221;
-		pais->localizacao_y = 320;
+		pais->localizacao_x = 146;
+		pais->localizacao_y = 281;
 		pais->continente = AFRICA;
 		break;
 	case 71:
 		pais->nome = "Seychelles";
-		pais->localizacao_x = 615;
-		pais->localizacao_y = 416;
+		pais->localizacao_x = 728;
+		pais->localizacao_y = 403;
 		pais->continente = AFRICA;
 		break;
 	case 72:
 		pais->nome = "Somália";
-		pais->localizacao_x = 564;
-		pais->localizacao_y = 361;
+		pais->localizacao_x = 631;
+		pais->localizacao_y = 335;
 		pais->continente = AFRICA;
 		break;
 	case 73:
 		pais->nome = "Suzilândia";
-		pais->localizacao_x = 483;
-		pais->localizacao_y = 537;
+		pais->localizacao_x = 513;
+		pais->localizacao_y = 582;
 		pais->continente = AFRICA;
 		break;
 	case 74:
 		pais->nome = "Sudão";
-		pais->localizacao_x = 488;
-		pais->localizacao_y = 277;
+		pais->localizacao_x = 513;
+		pais->localizacao_y = 223;
 		pais->continente = AFRICA;
 		break;
 	case 75:
 		pais->nome = "Sudão do Sul";
-		pais->localizacao_x = 492;
-		pais->localizacao_y = 339;
+		pais->localizacao_x = 525;
+		pais->localizacao_y = 311;
 		pais->continente = AFRICA;
 		break;
 	case 76:
 		pais->nome = "Tanzânia";
-		pais->localizacao_x = 532;
-		pais->localizacao_y = 409;
+		pais->localizacao_x = 583;
+		pais->localizacao_y = 411;
 		pais->continente = AFRICA;
 		break;
 	case 77:
 		pais->nome = "Togo";
-		pais->localizacao_x = 306;
-		pais->localizacao_y = 331;
+		pais->localizacao_x = 269;
+		pais->localizacao_y = 396;
 		pais->continente = AFRICA;
 		break;
 	case 78:
 		pais->nome = "Tunísia";
-		pais->localizacao_x = 354;
-		pais->localizacao_y = 136;
+		pais->localizacao_x = 335;
+		pais->localizacao_y = 23;
 		pais->continente = AFRICA;
 		break;
 	case 79:
 		pais->nome = "Uganda";
-		pais->localizacao_x = 494;
-		pais->localizacao_y = 369;
+		pais->localizacao_x = 532;
+		pais->localizacao_y = 348;
 		pais->continente = AFRICA;
 		break;
 	case 80:
 		pais->nome = "Zâmbia";
-		pais->localizacao_x = 461;
-		pais->localizacao_y = 466;
+		pais->localizacao_x = 479;
+		pais->localizacao_y = 482;
 		pais->continente = AFRICA;
 		break;
 	case 81:
 		pais->nome = "Zimbabwe";
-		pais->localizacao_x = 477;
-		pais->localizacao_y = 481;
+		pais->localizacao_x = 514;
+		pais->localizacao_y = 509;
 		pais->continente = AFRICA;
 		break;
 	//europa
@@ -514,8 +514,8 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		break;
 	case 83:
 		pais->nome = "Alemanha";
-		pais->localizacao_x = 302;
-		pais->localizacao_y = 407;
+		pais->localizacao_x = 339;
+		pais->localizacao_y = 360;
 		pais->continente = EUROPA;
 		break;
 	case 84:
@@ -999,7 +999,7 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		pais->continente = ASIA;
 		break;
 	case 164:
-		pais->nome = "Turquemenistao";
+		pais->nome = "Turquemenistão";
 		pais->localizacao_x = 221;
 		pais->localizacao_y = 403;
 		pais->continente = ASIA;

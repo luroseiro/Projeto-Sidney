@@ -237,8 +237,6 @@ int sorteiaDestino(int destinos[]) {
 		preenche = false;
 	}
 
-
-	local = 1;
 	return local;
 }
 
@@ -281,7 +279,8 @@ void restauraPosicao(AVIOES *aviao) {
 
 int main(void) {
 	bool done = false, redraw = false, menu = false, pauseTela = false, primeira = true, menus = false, mudo = false;
-	bool tentou = false;
+	//controle de feedback
+	bool tentou = false, foi = false, pronto = false;
 	//frase de distancia
 	bool acertou = false, perto1 = false, perto2 = false, perto3 = false, longe = false, errouContinente = false;
 	//movimentação
@@ -702,7 +701,10 @@ int main(void) {
 						keys[DOWN] = false;
 						keys[LEFT] = false;
 						keys[RIGHT] = false;
-						tentou = true;
+
+						if (pais.continente != continente) {
+							foi = true;
+						}
 
 						//verifica frase final
 						if (pontos >= 90.0) {
@@ -724,11 +726,17 @@ int main(void) {
 							errouContinente = true;
 						}
 
-						//restaura combustivel e comeca de novo
-						restauraCombustivel(&aviao, pontos);
-						destino = -1;
-						destino = sorteiaDestino(destinos);
-						iniciaPais(&pais, destino);
+						tentou = true;
+
+						//restaura combustivel e começa de novo
+						if (pronto) {
+							denovo:
+							restauraCombustivel(&aviao, pontos);
+							destino = -1;
+							destino = sorteiaDestino(destinos);
+							iniciaPais(&pais, destino);
+							pronto = false;
+						}
 					}
 
 					//movimenta e toca audio
@@ -1049,588 +1057,143 @@ int main(void) {
 				al_draw_textf(fonte, al_map_rgb(0, 0, 0), WIDTH / 2, HEIGHT - 260, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
 			}
 			else if (estado == JOGO) {
+				//desenha mapa do jogo
 				if (continente == AMERICACN) {
 					damericacn:
 					al_draw_bitmap(americacn, 0, 0, 0);
-					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
-					//desenha combustivel
-					if (aviao.combustivel >= 0.0) {
-						al_draw_textf(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
-					}
-					else {
-						al_draw_text(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: 0.0L");
-					}
-
-					//movimentacao
-					if(!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mCima) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mBaixo) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mEsq) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-
-					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
-
-					if (pais.continente == continente) {
-						if (tentou) {
-							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
-							al_flip_display();
-							tentou = false;
-						}
-					}
-
-					//frase final
-					if (acertou) {
-						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						acertou = false;
-					}
-					else if (perto1) {
-						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto1 = false;
-					}
-					else if (perto2) {
-						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto2 = false;
-					}
-					else if (perto3) {
-						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto3 = false;
-					}
-					else if (longe) {
-						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						longe = false;
-					}
-					else if (errouContinente) {
-						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						errouContinente = false;
-					}
-
-					//mudar de continente
-					if (contamericas) {
-						contamericas = false;
-						continente = AMERICAS;
-						restauraPosicao(&aviao);
-						goto damericas;
-					}
-					else if (contafrica) {
-						contafrica = false;
-						continente = AFRICA;
-						restauraPosicao(&aviao);
-						goto dafrica;
-					}
-					else if (conteuropa) {
-						conteuropa = false;
-						continente = EUROPA;
-						restauraPosicao(&aviao);
-						goto dafrica;
-					}
-					else if (contasia) {
-						contasia = false;
-						continente = ASIA;
-						restauraPosicao(&aviao);
-						goto dafrica;
-					}
-					else if (contoceania) {
-						contoceania = false;
-						continente = OCEANIA;
-						restauraPosicao(&aviao);
-						goto doceania;
-					}
 				}
 				else if (continente == AMERICAS) {
 					damericas:
 					al_draw_bitmap(americas, 0, 0, 0);
-					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
-					//desenha combustivel
-					if (aviao.combustivel >= 0.0) {
-						al_draw_textf(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
-					}
-					else {
-						al_draw_text(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: 0.0L");
-					}
-
-					//movimentacao
-					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mCima) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mBaixo) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mEsq) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-
-					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
-
-					if (pais.continente == continente) {
-						if (tentou) {
-							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
-							al_flip_display();
-							tentou = false;
-						}
-					}
-
-					//frase final
-					if (acertou) {
-						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						acertou = false;
-					}
-					else if (perto1) {
-						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto1 = false;
-					}
-					else if (perto2) {
-						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto2 = false;
-					}
-					else if (perto3) {
-						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto3 = false;
-					}
-					else if (longe) {
-						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						longe = false;
-					}
-					else if (errouContinente) {
-						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						errouContinente = false;
-					}
-
-					//mudar de continente
-					if (contamericacn) {
-						contamericacn = false;
-						continente = AMERICACN;
-						restauraPosicao(&aviao);
-						goto damericacn;
-					}
-					else if (contafrica) {
-						contafrica = false;
-						continente = AFRICA;
-						restauraPosicao(&aviao);
-						goto dafrica;
-					}
-					else if (conteuropa) {
-						conteuropa = false;
-						continente = EUROPA;
-						restauraPosicao(&aviao);
-						goto deuropa;
-					}
-					else if (contasia) {
-						contasia = false;
-						continente = ASIA;
-						restauraPosicao(&aviao);
-						goto dasia;
-					}
-					else if (contoceania) {
-						contoceania = false;
-						continente = OCEANIA;
-						restauraPosicao(&aviao);
-						goto doceania;
-					}
 				}
 				else if (continente == AFRICA) {
 					dafrica:
 					al_draw_bitmap(africa, 0, 0, 0);
-					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
-					//desenha combustivel
-					if (aviao.combustivel >= 0.0) {
-						al_draw_textf(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
-					}
-					else {
-						al_draw_text(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: 0.0L");
-					}
-
-					//movimentacao
-					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mCima) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mBaixo) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mEsq) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-
-					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
-
-					if (pais.continente == continente) {
-						if (tentou) {
-							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
-							al_flip_display();
-							tentou = false;
-						}
-					}
-
-					//frase final
-					if (acertou) {
-						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						acertou = false;
-					}
-					else if (perto1) {
-						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto1 = false;
-					}
-					else if (perto2) {
-						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto2 = false;
-					}
-					else if (perto3) {
-						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto3 = false;
-					}
-					else if (longe) {
-						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						longe = false;
-					}
-					else if (errouContinente) {
-						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						errouContinente = false;
-					}
-
-					//mudar de continente
-					if (contamericacn) {
-						contamericacn = false;
-						continente = AMERICACN;
-						restauraPosicao(&aviao);
-						goto damericacn;
-					}
-					else if (contamericas) {
-						contamericas = false;
-						continente = AMERICAS;
-						restauraPosicao(&aviao);
-						goto damericas;
-					}
-					else if (conteuropa) {
-						conteuropa = false;
-						continente = EUROPA;
-						restauraPosicao(&aviao);
-						goto deuropa;
-					}
-					else if (contasia) {
-						contasia = false;
-						continente = ASIA;
-						restauraPosicao(&aviao);
-						goto dasia;
-					}
-					else if (contoceania) {
-						contoceania = false;
-						continente = OCEANIA;
-						restauraPosicao(&aviao);
-						goto doceania;
-					}
 				}
 				else if (continente == EUROPA) {
 					deuropa:
 					al_draw_bitmap(europa, 0, 0, 0);
-					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
-					//desenha combustivel
-					if (aviao.combustivel >= 0.0) {
-						al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH - 315, 20, 0, "Combustível: %.1fL", aviao.combustivel);
-					}
-					else {
-						al_draw_text(fonte, al_map_rgb(255, 255, 255), WIDTH - 315, 20, 0, "Combustível: 0.0L");
-					}
-
-					//movimentacao
-					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mCima) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mBaixo) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mEsq) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-
-					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
-
-					if (pais.continente == continente) {
-						if (tentou) {
-							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
-							al_flip_display();
-							tentou = false;
-						}
-					}
-
-					//frase final
-					if (acertou) {
-						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						acertou = false;
-					}
-					else if (perto1) {
-						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto1 = false;
-					}
-					else if (perto2) {
-						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto2 = false;
-					}
-					else if (perto3) {
-						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto3 = false;
-					}
-					else if (longe) {
-						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						longe = false;
-					}
-					else if (errouContinente) {
-						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						errouContinente = false;
-					}
-
-					//mudar de continente
-					if (contamericacn) {
-						contamericacn = false;
-						continente = AMERICACN;
-						restauraPosicao(&aviao);
-						goto damericacn;
-					}
-					else if (contamericas) {
-						contamericas = false;
-						continente = AMERICAS;
-						restauraPosicao(&aviao);
-						goto damericas;
-					}
-					else if (contafrica) {
-						contafrica = false;
-						continente = AFRICA;
-						restauraPosicao(&aviao);
-						goto dafrica;
-					}
-					else if (contasia) {
-						contasia = false;
-						continente = ASIA;
-						restauraPosicao(&aviao);
-						goto dasia;
-					}
-					else if (contoceania) {
-						contoceania = false;
-						continente = OCEANIA;
-						restauraPosicao(&aviao);
-						goto doceania;
-					}
 				}
 				else if (continente == ASIA) {
 					dasia:
 					al_draw_bitmap(asia, 0, 0, 0);
-					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
-					//desenha combustivel
-					if (aviao.combustivel >= 0.0) {
-						al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH - 315, 20, 0, "Combustível: %.1fL", aviao.combustivel);
-					}
-					else {
-						al_draw_text(fonte, al_map_rgb(255, 255, 255), WIDTH - 315, 20, 0, "Combustível: 0.0L");
-					}
-
-					//movimentacao
-					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mCima) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mBaixo) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mEsq) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-
-					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
-
-					if (pais.continente == continente) {
-						if (tentou) {
-							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
-							al_flip_display();
-							tentou = false;
-						}
-					}
-
-					//frase final
-					if (acertou) {
-						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						acertou = false;
-					}
-					else if (perto1) {
-						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto1 = false;
-					}
-					else if (perto2) {
-						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto2 = false;
-					}
-					else if (perto3) {
-						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto3 = false;
-					}
-					else if (longe) {
-						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						longe = false;
-					}
-					else if (errouContinente) {
-						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						errouContinente = false;
-					}
-
-					//mudar de continente
-					if (contamericacn) {
-						contamericacn = false;
-						continente = AMERICACN;
-						restauraPosicao(&aviao);
-						goto damericacn;
-					}
-					else if (contamericas) {
-						contamericas = false;
-						continente = AMERICAS;
-						restauraPosicao(&aviao);
-						goto damericas;
-					}
-					else if (contafrica) {
-						contafrica = false;
-						continente = AFRICA;
-						restauraPosicao(&aviao);
-						goto dafrica;
-					}
-					else if (conteuropa) {
-						conteuropa = false;
-						continente = EUROPA;
-						restauraPosicao(&aviao);
-						goto deuropa;
-					}
-					else if (contoceania) {
-						contoceania = false;
-						continente = OCEANIA;
-						restauraPosicao(&aviao);
-						goto doceania;
-					}
 				}
 				else if (continente == OCEANIA) {
 					doceania:
 					al_draw_bitmap(oceania, 0, 0, 0);
-					al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
-					//desenha combustivel
-					if (aviao.combustivel >= 0.0) {
-						al_draw_textf(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
-					}
-					else {
-						al_draw_text(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: 0.0L");
-					}
-
-					//movimentacao
-					if (!mCima && !mBaixo && !mEsq && !mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mCima) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mBaixo) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					if (mEsq) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-					else if (mDir) {
-						al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
-					}
-
-					al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
-
-					if (pais.continente == continente) {
-						if (tentou) {
-							al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
-							al_flip_display();
-							tentou = false;
-						}
-					}
-
-					//frase final
-					if (acertou) {
-						al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						acertou = false;
-					}
-					else if (perto1) {
-						al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto1 = false;
-					}
-					else if (perto2) {
-						al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto2 = false;
-					}
-					else if (perto3) {
-						al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						perto3 = false;
-					}
-					else if (longe) {
-						al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						longe = false;
-					}
-					else if (errouContinente) {
-						al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, ALLEGRO_MESSAGEBOX_WARN);
-						errouContinente = false;
-					}
-
-					//mudar de continente
-					if (contamericacn) {
-						contamericacn = false;
-						continente = AMERICACN;
-						restauraPosicao(&aviao);
-						goto damericacn;
-					}
-					else if (contamericas) {
-						contamericas = false;
-						continente = AMERICAS;
-						restauraPosicao(&aviao);
-						goto damericas;
-					}
-					else if (contafrica) {
-						contafrica = false;
-						continente = AFRICA;
-						restauraPosicao(&aviao);
-						goto dafrica;
-					}
-					else if (conteuropa) {
-						conteuropa = false;
-						continente = EUROPA;
-						restauraPosicao(&aviao);
-						goto deuropa;
-					}
-					else if (contasia) {
-						contasia = false;
-						continente = OCEANIA;
-						restauraPosicao(&aviao);
-						goto dasia;
-					}
 				}
+
+				//mostra destino
+				al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH / 2, HEIGHT - 90, ALLEGRO_ALIGN_CENTRE, "%s", pais.nome);
+
+				//desenha combustivel
+				if (aviao.combustivel >= 0.0) {
+					al_draw_textf(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
+				}
+				else {
+					al_draw_text(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: 0.0L");
+				}
+
+				//movimentacao
+				if (!mCima && !mBaixo && !mEsq && !mDir) {
+					al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, WIDTH / 2, HEIGHT / 2, rotaciona(&aviao) * 3.14159 / 180, 0);
+				}
+				if (mCima) {
+					al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
+				}
+				else if (mBaixo) {
+					al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
+				}
+				if (mEsq) {
+					al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
+				}
+				else if (mDir) {
+					al_draw_rotated_bitmap(imagemAviao, imagemW / 2, imagemH / 2, aviao.x, aviao.y, rotaciona(&aviao) * 3.14159 / 180, 0);
+				}
+
+				//referência no avião
+				al_draw_filled_circle(aviao.x, aviao.y, 1, al_map_rgb(0, 0, 0));
+
+				//feedback localização
+				if (tentou && !foi) {
+					al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
+					al_flip_display();
+					tentou = false;
+					pronto = true;
+					foi = false;
+					goto denovo;
+				}
+				else if(tentou && foi){
+					pronto = true;
+					tentou = false;
+					foi = false;
+					goto denovo;
+				}
+
+				//feedback janela
+				if (acertou) {
+					al_show_native_message_box(janela, "Resultado:", "Destino correto!", NULL, NULL, 0);
+					acertou = false;
+				}
+				else if (perto1) {
+					al_show_native_message_box(janela, "Resultado:", "Chegou bem perto!", NULL, NULL, 0);
+					perto1 = false;
+				}
+				else if (perto2) {
+					al_show_native_message_box(janela, "Resultado:", "Faltou um pouco!", NULL, NULL, 0);
+					perto2 = false;
+				}
+				else if (perto3) {
+					al_show_native_message_box(janela, "Resultado:", "Foi mais ou menos!", NULL, NULL, 0);
+					perto3 = false;
+				}
+				else if (longe) {
+					al_show_native_message_box(janela, "Resultado:", "Errou longe!", NULL, NULL, 0);
+					longe = false;
+				}
+				else if (errouContinente) {
+					al_show_native_message_box(janela, "Resultado:", "Você errou o continente!", NULL, NULL, 0);
+					errouContinente = false;
+				}
+
+				//mudar de continente
+				if (contamericacn) {
+					contamericacn = false;
+					continente = AMERICACN;
+					restauraPosicao(&aviao);
+					goto damericacn;
+				}
+				else if (contamericas) {
+					contamericas = false;
+					continente = AMERICAS;
+					restauraPosicao(&aviao);
+					goto damericas;
+				}
+				else if (contafrica) {
+					contafrica = false;
+					continente = AFRICA;
+					restauraPosicao(&aviao);
+					goto dafrica;
+				}
+				else if (conteuropa) {
+					conteuropa = false;
+					continente = EUROPA;
+					restauraPosicao(&aviao);
+					goto deuropa;
+				}
+				else if (contasia) {
+					contasia = false;
+					continente = ASIA;
+					restauraPosicao(&aviao);
+					goto dasia;
+				}
+				else if (contoceania) {
+					contoceania = false;
+					continente = OCEANIA;
+					restauraPosicao(&aviao);
+					goto doceania;
+				}
+
 			}
 			else if (estado == PAUSE) {
 				al_draw_bitmap(pause, 0, 0, 0);
