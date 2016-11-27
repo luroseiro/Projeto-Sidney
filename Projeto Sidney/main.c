@@ -1088,10 +1088,20 @@ int main(void) {
 
 				//desenha combustivel
 				if (aviao.combustivel >= 0.0) {
-					al_draw_textf(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
+					if (continente == AMERICACN || continente == AMERICAS || continente == AFRICA || continente == OCEANIA) {
+						al_draw_textf(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: %.1fL", aviao.combustivel);
+					}
+					else {
+						al_draw_textf(fonte, al_map_rgb(255, 255, 255), WIDTH - 315, 20, 0, "Combustível: %.1fL", aviao.combustivel);
+					}
 				}
 				else {
-					al_draw_text(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: 0.0L");
+					if (continente == AMERICACN || continente == AMERICAS || continente == AFRICA || continente == OCEANIA) {
+						al_draw_text(fonte, al_map_rgb(255, 255, 255), 20, 20, 0, "Combustível: 0.0L");
+					}
+					else {
+						al_draw_text(fonte, al_map_rgb(255, 255, 255), WIDTH - 315, 20, 0, "Combustível: 0.0L");
+					}
 				}
 
 				//movimentacao
