@@ -76,8 +76,8 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 		break;
 	case 9:
 		pais->nome = "Brasil";
-		pais->localizacao_x = 513;
-		pais->localizacao_y = 295;
+		pais->localizacao_x = 500;
+		pais->localizacao_y = 280;
 		pais->continente = AMERICAS;
 		pais->dificuldade = 1;
 		break;

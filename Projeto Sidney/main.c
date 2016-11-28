@@ -16,7 +16,7 @@ const int HEIGHT = 685;
 //--------------------------------------------------------------------------------------
 
 
-//-------------------------------controle de teclas-------------------------------------
+//------------------------controle de teclas e telas------------------------------------
 enum KEYS{UP, DOWN, LEFT, RIGHT, SPACE, ESC, P};
 enum NUM{F1, F2, F3, F4, F5};
 enum ESTADOS{MENUG, AJUDA, PREJOGO, JOGO, PAUSE, CONFIGURACOES, GAMEOVER};
@@ -257,8 +257,6 @@ int sorteiaDestino(int destinos[], int rodada, int count) {
 	}
 
 	destinos[count] = local;
-
-	local = 22;
 
 	return local;
 }
@@ -547,6 +545,10 @@ int main(void) {
 				if (keys[ESC]) {
 					done = true;
 				}
+				else if (keys[SPACE]) {
+					estado = AJUDA;
+					keys[SPACE] = false;
+				}
 				break;
 			case AJUDA:
 				if (!mudo) {
@@ -559,6 +561,25 @@ int main(void) {
 				if (keys[ESC]) {
 					estado = MENUG;
 					keys[ESC] = false;
+				}
+				else if (keys[SPACE]) {
+					keys[SPACE] = false;
+					destino = sorteiaDestino(destinos, rodada, count);
+					count++;
+					rodada++;
+					iniciaPais(&pais, destino);
+					continente = rand() % 5;
+					estado = PREJOGO;
+				}
+				break;
+			case PREJOGO:
+				if (keys[ESC]) {
+					estado = MENUG;
+					keys[ESC] = false;
+				}
+				else if (keys[SPACE]) {
+					keys[SPACE] = false;
+					estado = JOGO;
 				}
 				break;
 			case JOGO:
