@@ -234,19 +234,19 @@ int sorteiaDestino(int destinos[], int rodada, int count) {
 
 	sorteia:
 	//DIFICULDADE 1
-	if (rodada <= 10) {
+	if (rodada <= 5) {
 		local = 1 + (rand() % 28);
 	}
 	//DIFICULDADE 2
-	else if (rodada > 10 && rodada <= 20) {
+	else if (rodada > 5 && rodada <= 10) {
 		local = 29 + (rand() % 65);
 	}
 	//DIFICULDADE 3
-	else if (rodada > 20 && rodada <= 30) {
+	else if (rodada > 10 && rodada <= 15) {
 		local = 66 + (rand() % 119);
 	}
 	//DIFICULDADE 4
-	else if (rodada > 30) {
+	else if (rodada > 15) {
 		local = 120 + (rand() % 181);
 	}
 
@@ -1039,7 +1039,7 @@ int main(void) {
 				break;
 			case AJUDA:
 				//clicar em jogar
-				if ((evento.mouse.x >= 498 && evento.mouse.x <= 609) && (evento.mouse.y >= 574 && evento.mouse.y <= 644)) {
+				if ((evento.mouse.x >= 498 && evento.mouse.x <= 759) && (evento.mouse.y >= 574 && evento.mouse.y <= 644)) {
 					destino = sorteiaDestino(destinos, rodada, count);
 					count++;
 					rodada++;
