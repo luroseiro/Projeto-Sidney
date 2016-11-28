@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Projeto Sidney", "Projeto Sidney\Projeto Sidney.vcxproj", "{915B2C5B-DA82-450B-A48E-C550C93AD859}"
 EndProject
-Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "Installer", "Installer\Installer.aiproj", "{D69F0BC2-9B61-4BDB-91F6-061E4D5714C1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +21,6 @@ Global
 		{915B2C5B-DA82-450B-A48E-C550C93AD859}.Release|x64.Build.0 = Release|x64
 		{915B2C5B-DA82-450B-A48E-C550C93AD859}.Release|x86.ActiveCfg = Release|Win32
 		{915B2C5B-DA82-450B-A48E-C550C93AD859}.Release|x86.Build.0 = Release|Win32
-		{D69F0BC2-9B61-4BDB-91F6-061E4D5714C1}.Debug|x64.ActiveCfg = All
-		{D69F0BC2-9B61-4BDB-91F6-061E4D5714C1}.Debug|x64.Build.0 = All
-		{D69F0BC2-9B61-4BDB-91F6-061E4D5714C1}.Debug|x86.ActiveCfg = All
-		{D69F0BC2-9B61-4BDB-91F6-061E4D5714C1}.Debug|x86.Build.0 = All
-		{D69F0BC2-9B61-4BDB-91F6-061E4D5714C1}.Release|x64.ActiveCfg = All
-		{D69F0BC2-9B61-4BDB-91F6-061E4D5714C1}.Release|x64.Build.0 = All
-		{D69F0BC2-9B61-4BDB-91F6-061E4D5714C1}.Release|x86.ActiveCfg = All
-		{D69F0BC2-9B61-4BDB-91F6-061E4D5714C1}.Release|x86.Build.0 = All
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

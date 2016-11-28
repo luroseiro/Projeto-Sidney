@@ -9,16 +9,22 @@
 #include "objetos.h"
 #include <math.h>
 
+
+//-----------------------------------tela-----------------------------------------------
 const int WIDTH = 839;
 const int HEIGHT = 685;
+//--------------------------------------------------------------------------------------
+
+
+//-------------------------------controle de teclas-------------------------------------
 enum KEYS{UP, DOWN, LEFT, RIGHT, SPACE, ESC, P};
 enum NUM{F1, F2, F3, F4, F5};
 enum ESTADOS{MENUG, AJUDA, PREJOGO, JOGO, PAUSE, CONFIGURACOES, GAMEOVER};
-//movimentação
-bool keys[7] = {false, false, false, false, false, false, false};
-//muda de continente
-bool num[5] = {false, false, false, false, false};
+//--------------------------------------------------------------------------------------
 
+
+//--------------------------movimentação------------------------------------------------
+bool keys[7] = {false, false, false, false, false, false, false};
 void iniciaAviao(AVIOES *aviao) {
 	aviao->x = WIDTH / 2;
 	aviao->y = HEIGHT / 2;
@@ -190,7 +196,7 @@ double rotaciona(AVIOES *aviao) {
 				}
 			}
 		}
-		else if(keys[LEFT] || keys[DOWN]) {
+		else if (keys[LEFT] || keys[DOWN]) {
 			aviao->graus += 2.0;
 			if (aviao->graus >= -270.0) {
 				aviao->graus = -270.0;
@@ -214,32 +220,46 @@ double rotaciona(AVIOES *aviao) {
 
 	return aviao->graus;
 }
+//--------------------------------------------------------------------------------------
 
-int sorteiaDestino(int destinos[]) {
-	int local, j = 0;
-	bool preenche = false;
 
-	local = 1 + (rand() % 186);
+//-----------------------muda de continente---------------------------------------------
+bool num[5] = {false, false, false, false, false};
+//--------------------------------------------------------------------------------------
+
+
+//-----------------------------destino e pontuação--------------------------------------
+int sorteiaDestino(int destinos[], int rodada, int count) {
+	int local;
+
+	sorteia:
+	//DIFICULDADE 1
+	if (rodada <= 10) {
+		local = 1 + (rand() % 28);
+	}
+	//DIFICULDADE 2
+	else if (rodada > 10 && rodada <= 20) {
+		local = 29 + (rand() % 65);
+	}
+	//DIFICULDADE 3
+	else if (rodada > 20 && rodada <= 30) {
+		local = 66 + (rand() % 119);
+	}
+	//DIFICULDADE 4
+	else if (rodada > 30) {
+		local = 120 + (rand() % 181);
+	}
 
 	for (int i = 0; i < sizeof(destinos); i++) {
-		verifica:
 		if (destinos[i] == local) {
-			local = 1 + (rand() % 186);
-			goto verifica;
+			goto sorteia;
 		}
 	}
 
-	preenche = true;
-
-	if(preenche) {
-		destinos[j] = local;
-		j++;
-		preenche = false;
-	}
+	destinos[count] = local;
 
 	return local;
 }
-
 double calculaDistancia(AVIOES aviao, DESTINOS *pais, int continente) {
 	double distancia, pontos = 100.0;
 
@@ -276,8 +296,13 @@ void restauraPosicao(AVIOES *aviao) {
 	aviao->y = HEIGHT / 2;
 	aviao->graus = 0.0;
 }
+//--------------------------------------------------------------------------------------
+
 
 int main(void) {
+
+	//----------------------------------------controle geral----------------------------
+	//mudança de telas, som, e condição do loop principal
 	bool done = false, redraw = false, menu = false, pauseTela = false, primeira = true, menus = false, mudo = false;
 	//controle de feedback
 	bool tentou = false, foi = false, pronto = false;
@@ -287,20 +312,32 @@ int main(void) {
 	bool mCima = false, mBaixo = false, mEsq = false, mDir = false;
 	//mudança de tela
 	bool contamericacn = false, contamericas = false, contafrica = false, conteuropa = false, contasia = false, contoceania = false;
-	//variaveis de controle
-	const int FPS = 60;
-	int estado = MENUG, continente = -1, destino = -1, destinos[186], imagemW = 0, imagemH = 0;
-	double pontos;
+	//--------------------------------------------------------------------------------------
 
+	
+	//--------------------------variáveis de controle---------------------------------------
+	const int FPS = 60;
+	int estado = MENUG, continente = -1, destino = -1, destinos[181], imagemW = 0, imagemH = 0, rodada = 0, count = 0;
+	double pontos;
+	//--------------------------------------------------------------------------------------
+
+
+	//--------------------------------objetos-----------------------------------------------
 	DESTINOS pais;
 	AVIOES aviao;
+	//--------------------------------------------------------------------------------------
 
+
+	//--------------------------------variáveis allegro-------------------------------------
 	ALLEGRO_DISPLAY *janela = NULL;
 	ALLEGRO_EVENT_QUEUE *fila_de_eventos = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_FONT *fonte = NULL;
-	ALLEGRO_BITMAP *imagemAviao;;
-	//bitmaps de menus
+	ALLEGRO_BITMAP *imagemAviao;
+	//--------------------------------------------------------------------------------------
+
+
+	//------------------------------bitmaps de menus----------------------------------------
 	ALLEGRO_BITMAP *americacn = NULL;
 	ALLEGRO_BITMAP *americas = NULL;
 	ALLEGRO_BITMAP *africa = NULL;
@@ -313,26 +350,35 @@ int main(void) {
 	ALLEGRO_BITMAP *pause = NULL;
 	ALLEGRO_BITMAP *configuracoes = NULL;
 	ALLEGRO_BITMAP *gameOver = NULL;
-	//audio
+	//--------------------------------------------------------------------------------------
+
+
+	//--------------------------------------audio-------------------------------------------
 	ALLEGRO_SAMPLE *motor = NULL;
 	ALLEGRO_SAMPLE *musica = NULL;
 	ALLEGRO_SAMPLE_INSTANCE *instance1 = NULL;
 	ALLEGRO_SAMPLE_INSTANCE *instance2 = NULL;
+	//--------------------------------------------------------------------------------------
 
-	//inicializacao allegro
+
+	//----------------------------inicializacao allegro-------------------------------------
 	if (!al_init()) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar Allegro!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+	//--------------------------------------------------------------------------------------
 
-	//criando display
+
+	//---------------------------------criando display--------------------------------------
 	janela = al_create_display(WIDTH, HEIGHT);
 	if (!janela) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar janela!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+	//--------------------------------------------------------------------------------------
 
-	//inicializando addons
+
+	//----------------------------inicializando addons--------------------------------------
 	if (!al_install_keyboard()) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao instalar teclado!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
@@ -365,8 +411,10 @@ int main(void) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar addon acodec!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+	//--------------------------------------------------------------------------------------
 
-	//incializando fila de eventos e timer
+
+	//------------------------incializando fila de eventos e timer--------------------------
 	fila_de_eventos = al_create_event_queue();
 	if (!fila_de_eventos) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar fila de eventos!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
@@ -377,17 +425,21 @@ int main(void) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar timer!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+	//--------------------------------------------------------------------------------------
 
-	//sprite aviao
+
+	//-----------------------------sprite aviao---------------------------------------------
 	imagemAviao = al_load_bitmap("imgs/aviao.png");
-	imagemW = al_get_bitmap_width(imagemAviao);
 	imagemH = al_get_bitmap_height(imagemAviao);
+	imagemW = al_get_bitmap_width(imagemAviao);
 	if (!imagemAviao) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar aviao!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+	//--------------------------------------------------------------------------------------
 
-	//mapas de fundo
+
+	//-----------------------------mapas de fundo-------------------------------------------
 	americacn = al_load_bitmap("imgs/americacn.jpg");
 	americas = al_load_bitmap("imgs/americas.jpg");
 	africa = al_load_bitmap("imgs/africa.jpg");
@@ -398,31 +450,41 @@ int main(void) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar mapas!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+	//--------------------------------------------------------------------------------------
 
-	//menus
+
+	//-----------------------------menus----------------------------------------------------
 	menug = al_load_bitmap("imgs/menug.jpg");
 	ajuda = al_load_bitmap("imgs/ajuda.jpg");
 	prejogo = al_load_bitmap("imgs/prejogo.jpg");
 	pause = al_load_bitmap("imgs/pause.jpg");
-	configuracoes = al_load_bitmap("imgs/configuracoes.jpg");
+	configuracoes = al_load_bitmap("imgs/config.jpg");
 	gameOver = al_load_bitmap("imgs/gameover.jpg");
 	if (!ajuda || !prejogo || !menug || !pause || !configuracoes || !gameOver) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar telas!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+	//--------------------------------------------------------------------------------------
 
+
+	//---------------------------------sorteio aleatório------------------------------------
 	srand(time(NULL));
+	//--------------------------------------------------------------------------------------
+
 
 	iniciaAviao(&aviao);
 
-	//fonte
+
+	//------------------------------fonte---------------------------------------------------
 	fonte = al_load_font("font/fonte.ttf", 27, 0);
 	if (!fonte) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar fonte!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
+	//--------------------------------------------------------------------------------------
+	
 
-	//audio
+	//--------------------------------audio-------------------------------------------------
 	al_reserve_samples(10);
 	motor = al_load_sample("audio/motor.ogg");
 	musica = al_load_sample("audio/musica.ogg");
@@ -438,24 +500,37 @@ int main(void) {
 
 	al_set_sample_instance_playmode(instance2, ALLEGRO_PLAYMODE_LOOP);
 	al_set_sample_instance_gain(instance1, 2);
+	//--------------------------------------------------------------------------------------
+	
 
-	//Registrando na fila de eventos
+	//--------------------------registrando na fila de eventos------------------------------
 	al_register_event_source(fila_de_eventos, al_get_keyboard_event_source());
 	al_register_event_source(fila_de_eventos, al_get_mouse_event_source());
 	al_register_event_source(fila_de_eventos, al_get_timer_event_source(timer));
 	al_register_event_source(fila_de_eventos, al_get_display_event_source(janela));
+	//--------------------------------------------------------------------------------------
+
 
 	al_start_timer(timer);
 
-	//Loop principal
+
+	//--------------------------------------loop principal----------------------------------
 	while (!done) {
+
+		//---------------------------------fila de eventos----------------------------------
 		ALLEGRO_EVENT evento;
 		al_wait_for_event(fila_de_eventos, &evento);
+		//----------------------------------------------------------------------------------
 
+
+		//----------------------------------fechar janela-----------------------------------
 		if (evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-			system("cls");
 			done = true;
 		}
+		//----------------------------------------------------------------------------------
+
+
+		//----------------------------------atualizações------------------------------------
 		else if (evento.type == ALLEGRO_EVENT_TIMER) {
 			redraw = true;
 			switch (estado) {
@@ -735,8 +810,10 @@ int main(void) {
 							denovo:
 							restauraCombustivel(&aviao, pontos);
 							destino = -1;
-							destino = sorteiaDestino(destinos);
+							destino = sorteiaDestino(destinos, rodada, count);
 							iniciaPais(&pais, destino);
+							count++;
+							rodada++;
 							pronto = false;
 						}
 					}
@@ -827,6 +904,10 @@ int main(void) {
 				break;
 			}
 		}
+		//----------------------------------------------------------------------------------
+
+
+		//---------------------------------apertou tecla------------------------------------
 		else if (evento.type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch (evento.keyboard.keycode) {  
 			case ALLEGRO_KEY_ESCAPE:
@@ -868,6 +949,10 @@ int main(void) {
 				break;
 			}
 		}
+		//----------------------------------------------------------------------------------
+
+
+		//----------------------------------soltou tecla------------------------------------
 		else if (evento.type == ALLEGRO_EVENT_KEY_UP) {
 			if (evento.keyboard.keycode) {
 				switch (evento.keyboard.keycode) {
@@ -911,6 +996,10 @@ int main(void) {
 				}
 			}
 		}
+		//----------------------------------------------------------------------------------
+
+
+		//----------------------------------clicou------------------------------------------
 		else if (evento.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
 			switch (estado) {
 			case MENUG:
@@ -928,7 +1017,9 @@ int main(void) {
 			case AJUDA:
 				//clicar em jogar
 				if ((evento.mouse.x >= 498 && evento.mouse.x <= 609) && (evento.mouse.y >= 574 && evento.mouse.y <= 644)) {
-					destino = sorteiaDestino(destinos);
+					destino = sorteiaDestino(destinos, rodada, count);
+					count++;
+					rodada++;
 					iniciaPais(&pais, destino);
 					continente = rand() % 5;
 					estado = PREJOGO;
@@ -999,8 +1090,8 @@ int main(void) {
 				else if ((evento.mouse.x >= 288 && evento.mouse.x <= 551) && (evento.mouse.y >= 533 && evento.mouse.y <= 604)) {
 					restauraCombustivel(&aviao, 300.0);
 					restauraPosicao(&aviao);
+					rodada = 0;
 					estado = MENUG;
-					system("cls");
 				}
 				break;
 			case CONFIGURACOES:
@@ -1033,8 +1124,8 @@ int main(void) {
 				if((evento.mouse.x >= 486 && evento.mouse.x <= 747) && (evento.mouse.y >= 342 && evento.mouse.y <= 414)) {
 					restauraCombustivel(&aviao, 300.0);
 					restauraPosicao(&aviao);
+					rodada = 0;
 					estado = AJUDA;
-					system("cls");
 				}
 				//clicar em sair
 				else if((evento.mouse.x >= 76 && evento.mouse.x <= 337) && (evento.mouse.y >= 342 && evento.mouse.y <= 414)) {
@@ -1044,7 +1135,10 @@ int main(void) {
 				break;
 			}
 		}
+		//----------------------------------------------------------------------------------
 
+
+		//-----------------------------------renderização-----------------------------------
 		if (redraw && al_is_event_queue_empty(fila_de_eventos)) {
 			redraw = false;
 
@@ -1128,7 +1222,7 @@ int main(void) {
 
 				//feedback localização
 				if (tentou && !foi) {
-					al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 255, 255));
+					al_draw_filled_circle(pais.localizacao_x, pais.localizacao_y, 3, al_map_rgb(255, 0, 0));
 					al_flip_display();
 					tentou = false;
 					pronto = true;
@@ -1220,9 +1314,12 @@ int main(void) {
 			al_flip_display();
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 		}
+		//----------------------------------------------------------------------------------
 	}
+	//--------------------------------------------------------------------------------------
 
-	//destruindo
+
+	//--------------------------------------destruindo--------------------------------------
 	al_destroy_bitmap(americacn);
 	al_destroy_bitmap(americas);
 	al_destroy_bitmap(africa);
@@ -1243,6 +1340,7 @@ int main(void) {
 	al_destroy_font(fonte);
 	al_destroy_event_queue(fila_de_eventos);
 	al_destroy_display(janela);
+	//--------------------------------------------------------------------------------------
 
 	return 0;
 
