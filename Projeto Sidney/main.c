@@ -415,12 +415,14 @@ int main(void) {
 
 	iniciaAviao(&aviao);
 
+	//fonte
 	fonte = al_load_font("font/fonte.ttf", 27, 0);
 	if (!fonte) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar fonte!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
 
+	//audio
 	al_reserve_samples(10);
 	motor = al_load_sample("audio/motor.ogg");
 	musica = al_load_sample("audio/musica.ogg");
