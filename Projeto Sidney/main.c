@@ -379,7 +379,7 @@ int main(void) {
 	}
 
 	//sprite aviao
-	imagemAviao = al_load_bitmap("aviao.png");
+	imagemAviao = al_load_bitmap("imgs/aviao.png");
 	imagemW = al_get_bitmap_width(imagemAviao);
 	imagemH = al_get_bitmap_height(imagemAviao);
 	if (!imagemAviao) {
@@ -388,24 +388,24 @@ int main(void) {
 	}
 
 	//mapas de fundo
-	americacn = al_load_bitmap("americacn.jpg");
-	americas = al_load_bitmap("americas.jpg");
-	africa = al_load_bitmap("africa.jpg");
-	europa = al_load_bitmap("europa.jpg");
-	asia = al_load_bitmap("asia.jpg");
-	oceania = al_load_bitmap("oceania.jpg");
+	americacn = al_load_bitmap("imgs/americacn.jpg");
+	americas = al_load_bitmap("imgs/americas.jpg");
+	africa = al_load_bitmap("imgs/africa.jpg");
+	europa = al_load_bitmap("imgs/europa.jpg");
+	asia = al_load_bitmap("imgs/asia.jpg");
+	oceania = al_load_bitmap("imgs/oceania.jpg");
 	if (!americacn || !americas || !africa || !europa || !asia || !oceania) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar mapas!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
 
 	//menus
-	menug = al_load_bitmap("menug.jpg");
-	ajuda = al_load_bitmap("ajuda.jpg");
-	prejogo = al_load_bitmap("prejogo.jpg");
-	pause = al_load_bitmap("pause.jpg");
-	configuracoes = al_load_bitmap("configuracoes.jpg");
-	gameOver = al_load_bitmap("gameover.jpg");
+	menug = al_load_bitmap("imgs/menug.jpg");
+	ajuda = al_load_bitmap("imgs/ajuda.jpg");
+	prejogo = al_load_bitmap("imgs/prejogo.jpg");
+	pause = al_load_bitmap("imgs/pause.jpg");
+	configuracoes = al_load_bitmap("imgs/configuracoes.jpg");
+	gameOver = al_load_bitmap("imgs/gameover.jpg");
 	if (!ajuda || !prejogo || !menug || !pause || !configuracoes || !gameOver) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao iniciar telas!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
@@ -415,15 +415,15 @@ int main(void) {
 
 	iniciaAviao(&aviao);
 
-	fonte = al_load_font("fonte.ttf", 27, 0);
+	fonte = al_load_font("font/fonte.ttf", 27, 0);
 	if (!fonte) {
 		al_show_native_message_box(janela, "ERRO", "Erro ao criar fonte!", NULL, NULL, ALLEGRO_MESSAGEBOX_ERROR);
 		return -1;
 	}
 
 	al_reserve_samples(10);
-	motor = al_load_sample("motor.ogg");
-	musica = al_load_sample("musica.ogg");
+	motor = al_load_sample("audio/motor.ogg");
+	musica = al_load_sample("audio/musica.ogg");
 	instance1 = al_create_sample_instance(motor);
 	instance2 = al_create_sample_instance(musica);
 	if (!motor || !instance1 || !musica || !instance2) {
