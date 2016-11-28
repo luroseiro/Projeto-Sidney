@@ -258,6 +258,8 @@ int sorteiaDestino(int destinos[], int rodada, int count) {
 
 	destinos[count] = local;
 
+	local = 22;
+
 	return local;
 }
 double calculaDistancia(AVIOES aviao, DESTINOS *pais, int continente) {

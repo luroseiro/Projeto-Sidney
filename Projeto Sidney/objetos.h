@@ -168,7 +168,7 @@ DESTINOS *iniciaPais(DESTINOS *pais, int destino) {
 	case 22:
 		pais->nome = "Holanda";
 		pais->localizacao_x = 256;
-		pais->localizacao_x = 368;
+		pais->localizacao_y = 368;
 		pais->continente = EUROPA;
 		pais->dificuldade = 1;
 		break;
